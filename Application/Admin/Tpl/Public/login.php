@@ -34,31 +34,30 @@
             </div>
 
             <div class="login_form">
-                <form action="index.html" id="login_form" method="post">
+                <form id="login_form" method="post" onsubmit="return false;"autocomplete="off">
                     <div class="form-group">
-                        <label for="j_username" class="t">邮　箱：</label>
-                        <input id="email" value="" name="email" type="text" class="form-control x319 in"
-                               autocomplete="off">
+                        <label for="account" class="t">账　号：</label>
+                        <input id="account" value="" name="account" type="text" class="form-control x319 in">
                     </div>
                     <div class="form-group">
-                        <label for="j_password" class="t">密　码：</label>
+                        <label for="password" class="t">密　码：</label>
                         <input id="password" value="" name="password" type="password"
                                class="password form-control x319 in">
                     </div>
                     <div class="form-group">
-                        <label for="j_captcha" class="t">验证码：</label>
-                        <input id="j_captcha" name="j_captcha" type="text" class="form-control x212 in">
-                        <img id="verify_code" alt="点击更换" title="点击更换" src="/verify_code" class="m">
+                        <label for="captcha" class="t">验证码：</label>
+                        <input id="captcha" name="captcha" type="text" class="form-control x212 in">
+                        <img id="verify" alt="点击更换" title="点击更换" src="/captcha" class="m">
                     </div>
                     <div class="form-group">
                         <label class="t"></label>
-                        <label for="j_remember" class="m">
-                            <input id="j_remember" type="checkbox" value="true">&nbsp;记住登陆账号!</label>
+                        <label for="remember" class="m">
+                            <input id="remember" type="checkbox" name="remember" value="true">&nbsp;一周内免登陆!</label>
                     </div>
                     <div class="form-group space">
                         <label class="t"></label>　　　
                         <button type="button"  id="submit_btn"
-                                class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp </button>
+                                class="btn btn-primary btn-lg">&nbsp;登&nbsp;录&nbsp; </button>
                         <input type="reset" value="&nbsp;重&nbsp;置&nbsp;" class="btn btn-default btn-lg">
                     </div>
                 </form>
@@ -81,13 +80,12 @@
     loading = '__IMG__/login/loading.gif';
     error_icon = '__IMG__/login/error.png';
     $(function(){
-        $('#verify_code').click(function(){
-            $(this).attr('src','/verify_code?rand=' + Math.random());
+        $('#verify').click(function(){
+            $(this).attr('src','/captcha?rand=' + Math.random());
         });
     });
 </script>
 <script src="__JS__/supersized.3.2.7.min.js"></script>
 <script src="__JS__/supersized-init.js"></script>
-<script src="__JS__/scripts.js"></script>
 </body>
 </html>

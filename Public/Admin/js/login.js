@@ -15,19 +15,24 @@
 			//提交表单
 			$('#submit_btn').click(function(){
 				show_loading();
-				var myReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
-				if($('#email').val() == ''){
-					show_err_msg('邮箱还没填呢！');	
-					$('#email').focus();
-				}else if(!myReg.test($('#email').val())){
-					show_err_msg('您的邮箱格式错咯！');
-					$('#email').focus();
+				if($('#account').val() == ''){
+					show_err_msg('账号还没填呢！');
+					$('#account').focus();
 				}else if($('#password').val() == ''){
 					show_err_msg('密码还没填呢！');
 					$('#password').focus();
-				}else{
+				}else if($('#captcha').val() == ''){
+                    show_err_msg('验证码还没填呢！');
+                    $('#captcha').focus();
+                }else{
 					//ajax提交表单，#login_form为表单的ID。 如：$('#login_form').ajaxSubmit(function(data) { ... });
-					show_msg('登录成功咯！  正在为您跳转...','/');	
+                    var params = $(this).parents('form').serialize();
+                    console.log(params);
+                    show_msg('登录成功咯！','');
+                    $.get(location.href + '?' + params,function(result){
+                        console.log(result);
+                    });
+					//show_msg('登录成功咯！  正在为您跳转...','/');
 				}
 			});
 		});

@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="74d41d23-4a70-4997-91b4-f4522817c6a9" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Application/Common/Library/Org/Util/Captcha.class.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/fruiter.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/qinzhi.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Admin/Controller/PublicController.class.php" afterPath="$PROJECT_DIR$/Application/Admin/Controller/PublicController.class.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Admin/Conf/config.php" afterPath="$PROJECT_DIR$/Application/Admin/Conf/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Common/Conf/config.php" afterPath="$PROJECT_DIR$/Application/Common/Conf/config.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Admin/js/jquery.form.js" afterPath="$PROJECT_DIR$/Public/Admin/js/jquery.form.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Public/Admin/js/login.js" afterPath="$PROJECT_DIR$/Public/Admin/js/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Application/Admin/Tpl/Public/login.php" afterPath="$PROJECT_DIR$/Application/Admin/Tpl/Public/login.php" />
+    </list>
+    <ignored path="fruiter.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="fruiter" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="PublicController.class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/PublicController.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="19" selection-start="633" selection-end="633" vertical-scroll-proportion="-7.9142857" vertical-offset="321" max-vertical-offset="962">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/Tpl/Public/login.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="49" column="70" selection-start="2028" selection-end="2036" vertical-scroll-proportion="-3.8285713" vertical-offset="1140" max-vertical-offset="2496">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Captcha.class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Common/Library/Org/Util/Captcha.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="306" column="30" selection-start="8543" selection-end="8554" vertical-scroll-proportion="-2.3428571" vertical-offset="7874" max-vertical-offset="8658">
+              <folding>
+                <element signature="e#6#88#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Client.class.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Common/Library/Org/Util/Client.class.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="0" selection-start="96" selection-end="130" vertical-scroll-proportion="-1.4857143" vertical-offset="0" max-vertical-offset="3146">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="config.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/Conf/config.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="33" selection-start="54" selection-end="54" vertical-scroll-proportion="0.121684864" vertical-offset="0" max-vertical-offset="754">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/Public/Admin/js/supersized-init.js" />
+        <option value="$PROJECT_DIR$/Public/Admin/js/tooltips.js" />
+        <option value="$PROJECT_DIR$/Public/Admin/css/login.css" />
+        <option value="$PROJECT_DIR$/ThinkPHP/Library/Think/Verify.class.php" />
+        <option value="$PROJECT_DIR$/Public/Admin/js/jquery.form.js" />
+        <option value="$PROJECT_DIR$/Public/Admin/js/scripts.js" />
+        <option value="$PROJECT_DIR$/Public/Admin/js/login.js" />
+        <option value="$PROJECT_DIR$/Application/Common/Conf/config.php" />
+        <option value="$PROJECT_DIR$/Application/Common/Library/Org/Util/Captcha.class.php" />
+        <option value="$PROJECT_DIR$/Application/Admin/Tpl/Public/login.php" />
+        <option value="$PROJECT_DIR$/Application/Admin/Controller/PublicController.class.php" />
+        <option value="$PROJECT_DIR$/Application/Admin/Conf/config.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1552" />
+    <option name="height" value="840" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Tpl" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fruiter" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Conf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="options.lastSelected" value="web-ide.project.structure" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../iwebshop" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="Q:\www\fruiter\Public" />
+      <recent name="Q:\www\fruiter\Public\Admin\images\login" />
+      <recent name="Q:\www\fruiter\Public\Admin\css\login" />
+      <recent name="Q:\www\fruiter\Public\Admin\css" />
+      <recent name="Q:\www\fruiter\Public\Static\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="Q:\www\fruiter" />
+      <recent name="Q:\www\fruiter\Public\Admin\images\login\slide" />
+      <recent name="Q:\www\fruiter\Public\Admin\images" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
+    <list size="0" />
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="74d41d23-4a70-4997-91b4-f4522817c6a9" name="Default" comment="" />
+      <created>1451118011874</created>
+      <updated>1451118011874</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1552" height="840" extended-state="1" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67140824" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32859176" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Public/Static/css/bootstrap.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Admin/js/supersized-init.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="1270" selection-end="1270" vertical-scroll-proportion="0.8627451" vertical-offset="0" max-vertical-offset="832" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Admin/js/jquery.form.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="51" column="0" selection-start="0" selection-end="25409" vertical-scroll-proportion="0.627451" vertical-offset="910" max-vertical-offset="22490" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Admin/js/scripts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="48" selection-start="86" selection-end="86" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="962" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Controller.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="209" column="33" selection-start="5722" selection-end="5732" vertical-scroll-proportion="0.77227724" vertical-offset="4758" max-vertical-offset="7930">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Common/Conf/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="37" selection-start="743" selection-end="743" vertical-scroll-proportion="0.63004845" vertical-offset="234" max-vertical-offset="1326">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Admin/css/login.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="29" selection-start="796" selection-end="796" vertical-scroll-proportion="0.43213728" vertical-offset="139" max-vertical-offset="780">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Admin/js/tooltips.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="17" selection-start="1034" selection-end="1042" vertical-scroll-proportion="0.23076923" vertical-offset="468" max-vertical-offset="1690">
+          <folding>
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1451120510816" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Public/Admin/js/login.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="20" selection-start="1093" selection-end="1129" vertical-scroll-proportion="0.65384614" vertical-offset="416" max-vertical-offset="1092">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Common/Library/Org/Util/Client.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="96" selection-end="130" vertical-scroll-proportion="-1.4857143" vertical-offset="0" max-vertical-offset="3146">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ThinkPHP/Library/Think/Verify.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="125" column="40" selection-start="5672" selection-end="5672" vertical-scroll-proportion="0.41401273" vertical-offset="2782" max-vertical-offset="7540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Common/Library/Org/Util/Captcha.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="306" column="30" selection-start="8543" selection-end="8554" vertical-scroll-proportion="-2.3428571" vertical-offset="7874" max-vertical-offset="8658">
+          <folding>
+            <element signature="e#6#88#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Tpl/Public/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="70" selection-start="2028" selection-end="2036" vertical-scroll-proportion="-3.8285713" vertical-offset="1140" max-vertical-offset="2496">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/PublicController.class.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="19" selection-start="633" selection-end="633" vertical-scroll-proportion="-7.9142857" vertical-offset="321" max-vertical-offset="962">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/Conf/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="33" selection-start="54" selection-end="54" vertical-scroll-proportion="0.121684864" vertical-offset="0" max-vertical-offset="754">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

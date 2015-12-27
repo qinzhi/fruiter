@@ -1,5 +1,8 @@
 <?php
 return array(
+
+    'SESSION_PREFIX' => 'admin_',
+
     /* 模板相关配置 */
     'TMPL_PARSE_STRING' => array(
         '__STATIC__' => __ROOT__ . '/Public/Static',
@@ -12,7 +15,10 @@ return array(
 
     'URL_ROUTER_ON'   => true,
     'URL_ROUTE_RULES'=>array(
-        'login' => 'public/login',
-        'verify_code' => 'public/verify_code',
+
     ),
+    'URL_MAP_RULES'=>array(
+        'login' => 'public/login',
+        'captcha' => 'public/captcha',
+    )
 );
