@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label for="captcha" class="t">验证码：</label>
                         <input id="captcha" name="captcha" type="text" class="form-control x212 in">
-                        <img id="verify" alt="点击更换" title="点击更换" src="http://www.iwebshop.com/index.php?controller=simple&action=getCaptcha&h=30&s=15&w=90&random0.24643112160265446" class="m">
+                        <img id="verify" alt="点击更换" title="点击更换" src="/captcha" class="m">
                     </div>
                     <div class="form-group">
                         <label class="t"></label>

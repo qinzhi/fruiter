@@ -575,7 +575,7 @@ class Model {
             if(false !== $data){
                 return $data;
             }
-        }
+        }        
         $resultSet  = $this->db->select($options);
         if(false === $resultSet) {
             return false;

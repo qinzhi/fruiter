@@ -20,5 +20,5 @@
 .login_box .form-group.space {padding-top: 15px; border-top: 1px #FFF dotted;}
 .login_box .form-group img { height: 32px; vertical-align: top;}
 .login_box .m {cursor: pointer;}
-.login_box #verify_code{border-radius: 4px;border: 1px solid #ccc;height: 34px;}
+.login_box #verify{border-radius: 4px;border: 1px solid #ccc;height: 34px;}
 .bottom {text-align: center; font-size: 12px;}

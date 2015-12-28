@@ -42,7 +42,7 @@ return array(
         //CORE_PATH . 'Log'.EXT,
         CORE_PATH . 'Route'.EXT,
         CORE_PATH . 'Controller'.EXT,
-        CORE_PATH . 'View'.EXT,
+        CORE_PATH . 'Tpl'.EXT,
         BEHAVIOR_PATH . 'BuildLiteBehavior'.EXT,
         BEHAVIOR_PATH . 'ParseTemplateBehavior'.EXT,
         BEHAVIOR_PATH . 'ContentReplaceBehavior'.EXT,

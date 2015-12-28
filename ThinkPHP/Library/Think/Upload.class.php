@@ -49,13 +49,10 @@ class Upload {
      * @param string $driver 要使用的上传驱动 LOCAL-本地上传驱动，FTP-FTP上传驱动
      */
     public function __construct($config = array(), $driver = '', $driverConfig = null){
-
-
         /* 获取配置 */
         $this->config   =   array_merge($this->config, $config);
 
         /* 设置上传驱动 */
-
         $this->setDriver($driver, $driverConfig);
 
         /* 调整配置，把字符串配置参数转换为数组 */

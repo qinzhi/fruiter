@@ -54,7 +54,7 @@ class [MODEL]Model extends Model {
                 APP_PATH.$module.'/Controller/',
                 APP_PATH.$module.'/Model/',
                 APP_PATH.$module.'/Conf/',
-                APP_PATH.$module.'/View/',
+                APP_PATH.$module.'/Tpl/',
                 RUNTIME_PATH,
                 CACHE_PATH,
                 CACHE_PATH.$module.'/',

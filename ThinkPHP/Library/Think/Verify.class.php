@@ -123,7 +123,7 @@ class Verify {
         // 验证码字体随机颜色
         $this->_color = imagecolorallocate($this->_image, mt_rand(1,150), mt_rand(1,150), mt_rand(1,150));
         // 验证码使用随机字体
-        $ttfPath = str_replace('\\','/',dirname(__FILE__)) . '/Verify/' . ($this->useZh ? 'zhttfs' : 'ttfs') . '/';
+        $ttfPath = dirname(__FILE__) . '/Verify/' . ($this->useZh ? 'zhttfs' : 'ttfs') . '/';
 
         if(empty($this->fontttf)){
             $dir = dir($ttfPath);
@@ -135,9 +135,9 @@ class Verify {
             }
             $dir->close();
             $this->fontttf = $ttfs[array_rand($ttfs)];
-        }
+        } 
         $this->fontttf = $ttfPath . $this->fontttf;
-
+        
         if($this->useImgBg) {
             $this->_background();
         }
@@ -166,6 +166,7 @@ class Verify {
                 imagettftext($this->_image, $this->fontSize, mt_rand(-40, 40), $codeNX, $this->fontSize*1.6, $this->_color, $this->fontttf, $code[$i]);
             }
         }
+       
         // 保存验证码
         $key        =   $this->authcode($this->seKey);
         $code       =   $this->authcode(strtoupper(implode('', $code)));

@@ -6,7 +6,7 @@
  * Time: 下午4:20
  */
 namespace Admin\Controller;
-use Think\Controller,Think\Verify;
+use Think\Controller;
 class PublicController extends Controller{
 
     public $config = array();

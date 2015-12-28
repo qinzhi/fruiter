@@ -42,7 +42,7 @@ class BuildLiteBehavior {
                 CORE_PATH . 'Log/Driver/File'.EXT,
                 CORE_PATH . 'Route'.EXT,
                 CORE_PATH . 'Controller'.EXT,
-                CORE_PATH . 'View'.EXT,
+                CORE_PATH . 'Tpl'.EXT,
                 CORE_PATH . 'Storage'.EXT,
                 CORE_PATH . 'Storage/Driver/File'.EXT,
                 CORE_PATH . 'Exception'.EXT,

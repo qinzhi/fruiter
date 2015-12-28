@@ -55,7 +55,7 @@ class Sae extends Storage{
      */
     public function read($filename,$type=''){
         switch(strtolower($type)){
-            case 'f':
+            case 'f':       
                 $kv     =   $this->getKv();
                 if(!isset($this->kvs[$filename])){
                     $this->kvs[$filename]=$kv->get($filename);
