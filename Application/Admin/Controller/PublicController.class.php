@@ -30,8 +30,10 @@ class PublicController extends Controller{
             'minWordLength' => 4, //验证码背景颜色 rgb数组设置，例如 array(243, 251, 254)
         );
         $captcha = new \Common\Library\Org\Util\Captcha($config);
-        $captcha->CreateImage($text);
-        fb($text);
+        //$captcha->CreateImage($text);
+        //fb($text);
         //session('captcha',$text);
+		$verify = new \Think\Verify();
+        $verify->entry();
     }
 }
