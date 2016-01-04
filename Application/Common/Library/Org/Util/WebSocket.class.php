@@ -54,7 +54,6 @@ class WebSocket{
         if($port){
             $this->port = $port;
         }
-        include_once 'Application/Admin/Conf/socket.php';
     }
 
     function run(){

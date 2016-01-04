@@ -8,6 +8,12 @@
 namespace Admin\Controller;
 use Think\Controller,Common\Library\Org\Util\WebSocket;
 class SocketController extends Controller{
+
+    public function __construct(){
+        parent::__construct();
+        include_once 'Application/Admin/Conf/socket.php';
+    }
+
     public function index(){
         /*if ( !add_lock( 'lock' ) ) {
             die('Running');
@@ -21,7 +27,7 @@ class SocketController extends Controller{
         ignore_user_abort( true );
         set_time_limit( 0 );
 
-        $websocket = new WebSocket();
+        $websocket = new WebSocket(WEBSOCKET_HOST,WEBSOCKET_PORT);
 
         /*$class_websocket = new class_websocket( WEBSOCKET_HOST, WEBSOCKET_PORT );
         $class_websocket->key = WEBSOCKET_KEY;
@@ -30,8 +36,8 @@ class SocketController extends Controller{
         $websocket->function['add'] = array(__CLASS__,'add_socket_call');
         $websocket->function['get'] = array(__CLASS__,'get_socket_call');
         $websocket->function['close'] = array(__CLASS__,'close_socket_call');
-
-        $websocket->run();
+fb($websocket->function);
+        //$websocket->run();
         /*echo socket_strerror( $class_websocket->error() );*/
     }
 
