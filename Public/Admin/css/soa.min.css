@@ -5,6 +5,7 @@
 .widget-fruiter{padding: 15px 11px}
 .Lwidth300{width: 300px;}
 .Lwidth400{width: 400px;}
+.table-middle td,.table-middle th{vertical-align: middle !important;}
 ul.tree_menu {
     list-style: outside none none;
     margin-left: 0;

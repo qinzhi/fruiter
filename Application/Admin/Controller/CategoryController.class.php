@@ -1,6 +1,6 @@
 <?php
 namespace Admin\Controller;
-class GoodsController extends AdminController {
+class CategoryController extends AdminController {
 
     public function index(){
         $this->display();
@@ -14,4 +14,5 @@ class GoodsController extends AdminController {
         $this->assign('categories',array());
         $this->display();
     }
+
 }
