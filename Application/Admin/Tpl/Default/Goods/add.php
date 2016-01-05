@@ -122,7 +122,7 @@
             $("#menuContent").css({
                 left:$(this).offset().left + "px",
                 top:$(this).offset().top + $(this).outerHeight() - $('.navbar-inner').height() + "px",
-                width: $(this).width() + 22 + "px"
+                width: $(this).outerWidth() + "px"
             }).slideDown("fast");
 
             $("body").bind("mousedown", onBodyDown);
