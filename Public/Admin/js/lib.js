@@ -30,5 +30,14 @@ $.extend({
         overlay : function(){
 
         }
+    },
+    fruiter : {
+        post : function(url,data,func){
+            set_loading('show');
+            $.post(url,data,function(result){
+                set_loading('hide');
+                func(result);
+            });
+        }
     }
 });

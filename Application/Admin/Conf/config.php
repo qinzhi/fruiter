@@ -19,6 +19,9 @@ return array(
         '__OWNJS__'     => __ROOT__ . '/Public/' . MODULE_NAME . '/own/js',
     ),
 
+    'URL_HTML_SUFFIX' => '',    //URL伪静态后缀设置
+    'URL_CASE_INSENSITIVE' =>true,  //URL是否不区分大小写
+    'URL_MODEL' => '2', //2 (REWRITE  模式);
     'URL_ROUTER_ON'   => true,
     'URL_ROUTE_RULES'=>array(
 

@@ -39,6 +39,10 @@ Purchase: http://wrapbootstrap.com
         <link href="__CSS__/soa.min.css" rel="stylesheet" />
     </block>
 
+    <block name="css">
+
+    </block>
+
     <link id="skin-link" href="" rel="stylesheet" type="text/css" />
     <script src="__STATIC__/js/jquery.min.js"></script>
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->
