@@ -99,7 +99,6 @@
                                             今天, <?php echo date('m月d号');?>
                                         </span>
                                         <span class="pull-right">
-                                            {$weather->data->temp}
                                             <i class="wi wi-day-sunny-overcast"></i>
                                         </span>
                                 </li>

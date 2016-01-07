@@ -29,25 +29,32 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <volist name="auth" id="vo">
-                                            <tr data-id="{$vo.id}">
-                                                <td>
-                                                    <input class="form-control input-sm" type="text" name="sort[]" value="{$vo.sort}">
-                                                </td>
-                                                <td>
-                                                    <i class="fa row-details fa-minus-square-o"></i>
-                                                    {$vo.name}
-                                                </td>
-                                                <td>
-                                                    {$vo.site}
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-success">
-                                                        <i class="fa fa-check"></i>
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        </volist>
+                                        <?php $show_auth = function($auth,$level) use (&$show_auth){
+                                            if(!empty($auth) && is_array($auth)):
+                                                $class = '';
+                                                if($level){
+                                                    $class = '<span class="margin-left-' . 20 * $level . '"></span>';
+                                                }
+                                                if($level < 2){
+                                                    $icon = '<i class="fa row-details fa-minus-square-o"></i>';
+                                                }
+                                                foreach($auth as $value):
+                                                    $html = '<tr data-id="'.$value['id'].'">
+                                                        <td><input class="form-control input-sm" type="text" name="sort[]" value="' . $value['sort'] . '"></td>';
+                                                    if(empty($value['child'])){
+                                                        $icon = '<i class="fa row-details"></i>';
+                                                    }
+                                                    $html .= '<td>' . $class . $icon . '&nbsp;' .$value['name'] . '</td>
+                                                        <td>' . $value['site'] . '</td>
+                                                        <td><a class="btn btn-default btn-xs shiny icon-only success" href="javascript:void(0);"><i class="fa fa-edit"></i></a></td>
+                                                    </tr>';
+                                                    echo $html;
+                                                    if(!empty($value['child'])):
+                                                        $show_auth($value['child'],++$level);
+                                                    endif;
+                                                endforeach;
+                                            endif;
+                                        };$show_auth($auth,0);?>
                                     </tbody>
                                 </table>
                             </div>
@@ -69,8 +76,9 @@
                                             <span class="red">*</span>：
                                         </label>
                                         <div class="col-lg-8">
-                                            <input name="p_name" id="p_name" class="form-control p_name" type="text">
-                                            <input name="p_id" type="hidden"/>
+                                            <input name="p_name" id="p_name" class="form-control" type="text">
+                                            <input name="p_id" id="p_id" type="hidden"/>
+                                            <input name="level" id="level" type="hidden"/>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
@@ -93,15 +101,6 @@
                                             <select name="type" class="form-control">
                                                 <option value="1">URL</option>
                                                 <option value="2">菜单</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group has-feedback">
-                                        <label class="col-lg-4 control-label">状态：</label>
-                                        <div class="col-lg-8">
-                                            <select name="status" class="form-control">
-                                                <option value="1">启用</option>
-                                                <option value="0">禁用</option>
                                             </select>
                                         </div>
                                     </div>
@@ -156,13 +155,24 @@
                    }
                });
            });
+            $('#save').click(function(){
+                if(auth_id > 0){
+                    var query = $('.plugins_auth- form').serialize();
+                    query += '&id=' + auth_id;
+                    $.fruiter.post('{:U("Auth/edit")}',{params:encodeURIComponent(query)},function(data){
+                        if(data.code == 1){
+                            Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
+                        }else{
+                            Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                        }
+                    });
+                }else{
+                    Notify('请先选择权限', 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                }
+            });
         });
     </script>
     <script src="__JS__/jquery.ztree.all-3.5.min.js"></script>
-    <?php
-        array_unshift($auth,array('id'=>0,'pid'=>0,'name'=>'跟节点'));
-        $auth = json_encode($auth);
-    ?>
     <script>
         //商品分类操作事件
         var setting = {
@@ -185,7 +195,9 @@
             }
         };
 
-        var zNodes = {$auth},zTree = null;
+        var zNodes = {$tree},
+            zTree = null,
+            auth_id = 0;
 
         function beforeClick(treeId, treeNode) {
             zTree.checkNode(treeNode, !treeNode.checked, null, true);
@@ -203,7 +215,9 @@
             if (name.length > 0 ) name = name.join();
             if (id.length > 0 ) id = id.join();
 
-            zTree.formOjb.find('.p_name').val(name);
+            zTree.formOjb.find('input[name=p_name]').val(name);
+            zTree.formOjb.find('input[name=p_id]').val(id);
+            zTree.formOjb.find('input[name=level]').val(treeNode.level);
         }
 
         function hideMenu() {
@@ -221,10 +235,23 @@
 
             zTree = $.fn.zTree.init($("#tree_auth"), setting, zNodes);
 
-            $(this).on('click','.p_name',function(){
+            $(this).on('click','input[name=p_name]',function(){
                 var form = $(this).parents('form');
                 var type = form.data('action');
                 zTree.formOjb = form;
+                var p_id = form.find('input[name=p_id]').val();
+                if(p_id != ''){
+                    p_id = Number(p_id);
+                    var nodes = zTree.getNodes();
+                    for(var i in nodes){
+                        if(nodes[i].id == p_id){
+                            nodes[i].checked = 'checked';
+                            zTree.updateNode(nodes[i],false);
+                            break;
+                        }
+                    }
+                }
+
                 $("#menuContent").css({
                     left:$(this).offset().left + "px",
                     top:$(this).offset().top + $(this).outerHeight() - $('.navbar-inner').height() + "px",
@@ -242,18 +269,19 @@
                 var form = document.getElementById('form-edit');
                 $.fruiter.post("{:U('Auth/getAuth')}",{id:$(this).data('id')},function(data){
                     if(data){
+                        auth_id = data.id;
                         form.name.value = data.name;
                         form.site.value = data.site;
                         form.sort.value = data.sort;
-                        for(var i in form.type.options){
-                            if(form.type.options[i].value == data.type){
-                                form.type.options[i].selected = true;
-                                break;
-                            }
-                        }
-                        for(var i in form.status.options){
-                            if(form.type.options[i].value == data.status){
-                                form.type.options[i].selected = true;
+                        $(form.type).find('option[value='+data.type+']').attr('selected',true);
+                        form.p_id.value = data.pid;
+                        form.level.value = data.level;
+                        var nodes = zTree.getNodes();
+                        for(var i in nodes){
+                            if(data.pid == 0 || nodes[i].id == data.pid){
+                                nodes[i].checked = 'checked';
+                                zTree.updateNode(nodes[i],false);
+                                form.p_name.value = nodes[i].name;
                                 break;
                             }
                         }

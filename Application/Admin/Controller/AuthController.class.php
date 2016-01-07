@@ -14,10 +14,11 @@ class AuthController extends AdminController {
     }
 
     public function index(){
-        $auth = $this->AuthRole->select();
-        $tree = new Tree($auth);
-        $auth = $tree->leaf();
+        $authLists = $this->AuthRole->select();
+        $tree = new Tree($authLists);
+        $auth = $tree->leaf();fb($auth);
         $this->assign('auth',$auth);
+        $this->assign('tree',$this->AuthRole->format_tree($authLists));
         $this->display();
     }
 
@@ -34,13 +35,13 @@ class AuthController extends AdminController {
     public function add(){
         if(IS_POST){
             $data = array(
-                'pid' => I('request.p_name/d',0),
+                'pid' => I('request.p_id/d',0),
+                'level' => I('request.level/d',0),
                 'module' => MODULE_NAME,
                 'type' => I('request.type'),
-                'name' => I('request.name'),
-                'site' => I('request.site'),
-                'sort' => I('request.sort/d'),
-                'status' => I('request.status')
+                'name' => trim(I('request.name')),
+                'site' => trim(I('request.site')),
+                'sort' => I('request.sort/d')?:''
             );
             $insert_id = $this->AuthRole->add($data);
             if($insert_id === false){
@@ -49,6 +50,32 @@ class AuthController extends AdminController {
             }
         }
         $this->redirect('/Auth');
+    }
+
+    public function edit(){
+        if(IS_AJAX){
+            parse_str(urldecode(I('request.params')),$params);
+            $data = array(
+                'id' => $params['id'],
+                'pid' => $params['p_id'],
+                'level' => (int)$params['level'],
+                'module' => MODULE_NAME,
+                'type' => $params['type'],
+                'name' => trim($params['name']),
+                'site' => trim($params['site']),
+                'sort' => (int)$params['sort']?:''
+            );
+            $result = $this->AuthRole->save($data);
+            if($result){
+                $result = array('code'=>1,'msg'=>'保存成功');
+            }else{
+                $result = array('code'=>0,'msg'=>'保存失败');
+            }
+        }else{
+            $result = array('code'=>0,'msg'=>'异常提交');
+        }
+
+        $this->ajaxReturn($result);
     }
 
 }
