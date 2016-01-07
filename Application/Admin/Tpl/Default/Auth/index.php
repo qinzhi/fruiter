@@ -25,7 +25,7 @@
                                         <th width="10%">排序</th>
                                         <th width="40%">模块名称</th>
                                         <th width="36%">地址</th>
-                                        <th width="14%">状态</th>
+                                        <th width="14%">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,7 +46,7 @@
                                                     }
                                                     $html .= '<td>' . $class . $icon . '&nbsp;' .$value['name'] . '</td>
                                                         <td>' . $value['site'] . '</td>
-                                                        <td><a class="btn btn-default btn-xs shiny icon-only success" href="javascript:void(0);"><i class="fa fa-edit"></i></a></td>
+                                                        <td><a class="btn btn-default btn-xs shiny icon-only success btn-get" href="javascript:void(0);"><i class="fa fa-edit"></i></a></td>
                                                     </tr>';
                                                     echo $html;
                                                     if(!empty($value['child'])):
@@ -76,7 +76,7 @@
                                             <span class="red">*</span>：
                                         </label>
                                         <div class="col-lg-8">
-                                            <input name="p_name" id="p_name" class="form-control" type="text">
+                                            <input name="p_name" id="p_name" class="form-control" type="text" readonly>
                                             <input name="p_id" id="p_id" type="hidden"/>
                                             <input name="level" id="level" type="hidden"/>
                                         </div>
@@ -160,6 +160,19 @@
                     var query = $('.plugins_auth- form').serialize();
                     query += '&id=' + auth_id;
                     $.fruiter.post('{:U("Auth/edit")}',{params:encodeURIComponent(query)},function(data){
+                        if(data.code == 1){
+                            Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
+                        }else{
+                            Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                        }
+                    });
+                }else{
+                    Notify('请先选择权限', 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                }
+            });
+            $('#delete').click(function(){
+                if(auth_id > 0){
+                    $.fruiter.post('{:U("Auth/del")}',{id:auth_id},function(data){
                         if(data.code == 1){
                             Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
                         }else{
@@ -261,13 +274,14 @@
                 $("body").bind("mousedown", onBodyDown);
             });
 
-            $('.plugins_auth- table').find('tbody tr').click(function(){
-                if(!$(this).hasClass('tr-focus')){
-                    $(this).parent().find('tr-focus').removeClass('tr-focus');
-                    $(this).addClass('tr-focus');
+            $('.plugins_auth- table').find('.btn-get').click(function(){
+                var tr = $(this).parents('tr');
+                if(!$(tr).hasClass('tr-focus')){
+                    $(tr).parent().find('.tr-focus').removeClass('tr-focus');
+                    $(tr).addClass('tr-focus');
                 }
                 var form = document.getElementById('form-edit');
-                $.fruiter.post("{:U('Auth/getAuth')}",{id:$(this).data('id')},function(data){
+                $.fruiter.post("{:U('Auth/getAuth')}",{id:$(tr).data('id')},function(data){
                     if(data){
                         auth_id = data.id;
                         form.name.value = data.name;

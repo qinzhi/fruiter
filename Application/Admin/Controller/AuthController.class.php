@@ -78,4 +78,23 @@ class AuthController extends AdminController {
         $this->ajaxReturn($result);
     }
 
+    public function del(){
+        if(IS_AJAX){
+            $id = I('request.id/d');
+            $auth = $this->AuthRole->where(array('pid'=>$id))->find();
+            if(!empty($auth)){
+                $result = array('code'=>0,'msg'=>'不能直接删除上级模块');
+            }else{
+                if($this->AuthRole->delete($id)){
+                    $result = array('code'=>1,'msg'=>'删除成功');
+                }else{
+                    $result = array('code'=>0,'msg'=>'删除失败');
+                }
+            }
+        }else{
+            $result = array('code'=>0,'msg'=>'异常提交');
+        }
+        $this->ajaxReturn($result);
+    }
+
 }
