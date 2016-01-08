@@ -285,7 +285,6 @@
                         auth_id = data.id;
                         form.name.value = data.name;
                         form.site.value = data.site;
-                        form.sort.value = data.sort;
                         $(form.type).find('option[value='+data.type+']').attr('selected',true);
                         form.p_id.value = data.pid;
                         form.level.value = data.level;
