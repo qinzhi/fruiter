@@ -34,14 +34,16 @@ class AuthController extends AdminController {
 
     public function add(){
         if(IS_POST){
+            $pid = I('request.p_id/d',0);
+            $auth = $this->AuthRole->where(array('pid'=>$pid))->order('sort desc')->find();
             $data = array(
-                'pid' => I('request.p_id/d',0),
+                'pid' => $pid,
                 'level' => I('request.level/d',0),
                 'module' => MODULE_NAME,
                 'type' => I('request.type'),
                 'name' => trim(I('request.name')),
                 'site' => trim(I('request.site')),
-                'sort' => I('request.sort/d')?:''
+                'sort' => $auth['sort'] + 1,
             );
             $insert_id = $this->AuthRole->add($data);
             if($insert_id === false){
@@ -62,8 +64,7 @@ class AuthController extends AdminController {
                 'module' => MODULE_NAME,
                 'type' => $params['type'],
                 'name' => trim($params['name']),
-                'site' => trim($params['site']),
-                'sort' => (int)$params['sort']?:''
+                'site' => trim($params['site'])
             );
             $result = $this->AuthRole->save($data);
             if($result){
@@ -75,6 +76,18 @@ class AuthController extends AdminController {
             $result = array('code'=>0,'msg'=>'异常提交');
         }
 
+        $this->ajaxReturn($result);
+    }
+
+    public function move(){
+        if(IS_AJAX){
+            $id = I('request.id/d');
+            $action = I('request.action');
+            $this->AuthRole->move($id,$action);
+            $result = array('code'=>1,'msg'=>'移动成功');
+        }else{
+            $result = array('code'=>0,'msg'=>'异常提交');
+        }
         $this->ajaxReturn($result);
     }
 

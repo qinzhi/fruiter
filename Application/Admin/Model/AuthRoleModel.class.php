@@ -11,6 +11,10 @@ use Think\Model;
 
 class AuthRoleModel extends CommonModel{
 
+    public function move($id,$action){
+
+    }
+
     public function format_tree($AuthLists,$is_json = true){
         $tree[] = array('id'=>'','pid'=>0,'level'=>0,'name'=>'根节点');
         foreach($AuthLists as $auth){

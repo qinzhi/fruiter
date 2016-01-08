@@ -23,38 +23,43 @@
                                     <thead class="flip-content bordered-palegreen">
                                     <tr>
                                         <th width="10%">排序</th>
-                                        <th width="40%">模块名称</th>
-                                        <th width="36%">地址</th>
-                                        <th width="14%">操作</th>
+                                        <th width="38%">模块名称</th>
+                                        <th width="34%">地址</th>
+                                        <th width="18%">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $show_auth = function($auth,$level) use (&$show_auth){
+                                        <?php $show_auth = function($auth,$level,$path) use (&$show_auth){
                                             if(!empty($auth) && is_array($auth)):
                                                 $class = '';
                                                 if($level){
                                                     $class = '<span class="margin-left-' . 20 * $level . '"></span>';
                                                 }
                                                 if($level < 2){
-                                                    $icon = '<i class="fa row-details fa-minus-square-o"></i>';
+                                                    $icon = '<i class="fa row-details fa-minus-square-o ifold"></i>';
                                                 }
                                                 foreach($auth as $value):
-                                                    $html = '<tr data-id="'.$value['id'].'">
+                                                    $tmp_path = $path . $value['id'] . '_';
+                                                    $html = '<tr data-id="' . $value['id'] . '" data-path="' . $tmp_path . '" data-pid="' . $value['pid'] . '">
                                                         <td><input class="form-control input-sm" type="text" name="sort[]" value="' . $value['sort'] . '"></td>';
                                                     if(empty($value['child'])){
                                                         $icon = '<i class="fa row-details"></i>';
                                                     }
                                                     $html .= '<td>' . $class . $icon . '&nbsp;' .$value['name'] . '</td>
                                                         <td>' . $value['site'] . '</td>
-                                                        <td><a class="btn btn-default btn-xs shiny icon-only success btn-get" href="javascript:void(0);"><i class="fa fa-edit"></i></a></td>
+                                                        <td>
+                                                            <a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="up"><i class="fa fa-arrow-up"></i></a>
+                                                            <a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="down"><i class="fa fa-arrow-down"></i></a>
+                                                            <a class="btn btn-success btn-xs shiny icon-only white btn-get" href="javascript:void(0);"><i class="fa fa-edit"></i></a>
+                                                        </td>
                                                     </tr>';
                                                     echo $html;
                                                     if(!empty($value['child'])):
-                                                        $show_auth($value['child'],++$level);
+                                                        $show_auth($value['child'],++$level,$tmp_path);
                                                     endif;
                                                 endforeach;
                                             endif;
-                                        };$show_auth($auth,0);?>
+                                        };$show_auth($auth,0,'path_');?>
                                     </tbody>
                                 </table>
                             </div>
@@ -87,12 +92,6 @@
                                         </label>
                                         <div class="col-lg-8">
                                             <input name="site" class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group has-feedback">
-                                        <label class="col-lg-4 control-label">排序：</label>
-                                        <div class="col-lg-8">
-                                            <input name="sort" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
@@ -301,6 +300,49 @@
                         }
                     }
                 });
+            });
+
+            $('.plugins_auth- table').find('.btn-move').click(function(){
+                var action = $(this).data('action');
+                var tr = $(this).parents('tr');
+                if(!$(tr).hasClass('tr-focus')){
+                    $(tr).parent().find('.tr-focus').removeClass('tr-focus');
+                    $(tr).addClass('tr-focus');
+                }
+                var pid = $(tr).data('pid');
+                var trs = $(tr).parents('tbody').find('tr[data-pid='+pid+']');
+                if(tr.data('id') == $(trs[0]).data('id') || tr.data('id') == $(trs[trs.length]).data('id')){
+                    Notify('无法移动', 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                }else
+                    $.fruiter.post("{:U('Auth/move')}",{id:$(tr).data('id'),action:action},function(data){
+                        if(data.code == 1){
+                            for(var i in trs){
+                                if($(trs[i]).data('id') == tr.data('id')){
+                                    if(action == 'up'){
+                                        $('tr[data-path^=' + tr.data('path') + ']').insertBefore($(trs[i-1]));
+                                    }else{
+                                        $('tr[data-path^=' + tr.data('path') + ']').insertAfter($(trs[i+1]));
+                                    }
+                                    break;
+                                }
+                            }
+                            Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
+                        }else{
+                            Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
+                        }
+                    });
+            });
+
+            $('.ifold').click(function(){
+                var tr = $(this).parents('tr');
+                var path = tr.data('path');
+                if($(this).hasClass('fa-minus-square-o')){
+                    $('.plugins_auth- .dataTable').find('tr[data-path^='+path+'_]').hide();
+                    $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+                }else if($(this).hasClass('fa-plus-square-o')){
+                    $('.plugins_auth- .dataTable').find('tr[data-path^='+path+'_]').show();
+                    $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+                }
             });
         });
     </script>
