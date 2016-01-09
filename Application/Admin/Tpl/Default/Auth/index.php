@@ -22,10 +22,9 @@
                                 <table class="table table-bordered table-condensed table-middle flip-content dataTable">
                                     <thead class="flip-content bordered-palegreen">
                                     <tr>
-                                        <th width="10%">排序</th>
-                                        <th width="38%">模块名称</th>
-                                        <th width="34%">地址</th>
-                                        <th width="18%">操作</th>
+                                        <th width="40%">模块名称</th>
+                                        <th width="40%">地址</th>
+                                        <th width="20%">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -40,8 +39,7 @@
                                                 }
                                                 foreach($auth as $value):
                                                     $tmp_path = $path . $value['id'] . '_';
-                                                    $html = '<tr data-id="' . $value['id'] . '" data-path="' . $tmp_path . '" data-pid="' . $value['pid'] . '">
-                                                        <td><input class="form-control input-sm" type="text" name="sort[]" value="' . $value['sort'] . '"></td>';
+                                                    $html = '<tr data-id="' . $value['id'] . '" data-path="' . $tmp_path . '" data-pid="' . $value['pid'] . '">';
                                                     if(empty($value['child'])){
                                                         $icon = '<i class="fa row-details"></i>';
                                                     }
@@ -173,6 +171,8 @@
                 if(auth_id > 0){
                     $.fruiter.post('{:U("Auth/del")}',{id:auth_id},function(data){
                         if(data.code == 1){
+                            $('.plugins_auth- table').find('tr[data-id='+auth_id+']').remove();
+                            auth_id = null;
                             Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
                         }else{
                             Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
@@ -310,17 +310,19 @@
                 }
                 var pid = $(tr).data('pid');
                 var trs = $(tr).parents('tbody').find('tr[data-pid='+pid+']');
-                if(tr.data('id') == $(trs[0]).data('id') || tr.data('id') == $(trs[trs.length]).data('id')){
-                    Notify('无法移动', 'bottom-right', '5000', 'warning', 'fa-warning', true);
-                }else
+                if(tr.data('id') == $(trs[0]).data('id') && action == 'up' ){
+                    Notify('无法上移', 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                }else if(tr.data('id') == $(trs[trs.length]-1).data('id') && action == 'down' ){
+                    Notify('无法下移', 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                }else{
                     $.fruiter.post("{:U('Auth/move')}",{id:$(tr).data('id'),action:action},function(data){
                         if(data.code == 1){
                             for(var i in trs){
                                 if($(trs[i]).data('id') == tr.data('id')){
                                     if(action == 'up'){
-                                        $('tr[data-path^=' + tr.data('path') + ']').insertBefore($(trs[i-1]));
-                                    }else{
-                                        $('tr[data-path^=' + tr.data('path') + ']').insertAfter($(trs[i+1]));
+                                        $('tr[data-path^=' + tr.data('path') + ']').insertBefore($(trs[parseInt(i)-1]));
+                                    }else if(action == 'down'){
+                                        $('tr[data-path^=' + tr.data('path') + ']').insertAfter($(trs[parseInt(i)+1]));
                                     }
                                     break;
                                 }
@@ -330,16 +332,21 @@
                             Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
                         }
                     });
+                }
             });
 
             $('.ifold').click(function(){
                 var tr = $(this).parents('tr');
                 var path = tr.data('path');
                 if($(this).hasClass('fa-minus-square-o')){
-                    $('.plugins_auth- .dataTable').find('tr[data-path^='+path+'_]').hide();
+                    $('.plugins_auth- .dataTable').find('tr[data-path^='+path+']').each(function(index){
+                        if(index) $(this).hide();
+                    });
                     $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
                 }else if($(this).hasClass('fa-plus-square-o')){
-                    $('.plugins_auth- .dataTable').find('tr[data-path^='+path+'_]').show();
+                    $('.plugins_auth- .dataTable').find('tr[data-path^='+path+']').each(function(index){
+                        if(index) $(this).show();
+                    });
                     $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
                 }
             });

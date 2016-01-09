@@ -1,12 +1,8 @@
 <?php
 namespace Admin\Controller;
-class CategoryController extends AdminController {
+class GoodsCategoryController extends AdminController {
 
     public function index(){
-        $this->display();
-    }
-
-    public function lists(){
         $this->display();
     }
 

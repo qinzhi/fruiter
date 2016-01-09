@@ -14,9 +14,9 @@ class AuthController extends AdminController {
     }
 
     public function index(){
-        $authLists = $this->AuthRole->select();
+        $authLists = $this->AuthRole->get_auths();
         $tree = new Tree($authLists);
-        $auth = $tree->leaf();fb($auth);
+        $auth = $tree->leaf();
         $this->assign('auth',$auth);
         $this->assign('tree',$this->AuthRole->format_tree($authLists));
         $this->display();
@@ -35,15 +35,21 @@ class AuthController extends AdminController {
     public function add(){
         if(IS_POST){
             $pid = I('request.p_id/d',0);
-            $auth = $this->AuthRole->where(array('pid'=>$pid))->order('sort desc')->find();
+            $pauth = $this->AuthRole->get_auth_by_pid($pid);
+            if($pid == 0) $level = 0;
+            else{
+                $auth = $this->AuthRole->get_auth_by_id($pid);
+                $level = $auth['level'] + 1;
+            }
+            $sort = !empty($pauth) ? ($pauth['sort'] + 1) : 0;
             $data = array(
                 'pid' => $pid,
-                'level' => I('request.level/d',0),
+                'level' => $level,
                 'module' => MODULE_NAME,
                 'type' => I('request.type'),
                 'name' => trim(I('request.name')),
                 'site' => trim(I('request.site')),
-                'sort' => $auth['sort'] + 1,
+                'sort' => $sort,
             );
             $insert_id = $this->AuthRole->add($data);
             if($insert_id === false){
@@ -57,10 +63,14 @@ class AuthController extends AdminController {
     public function edit(){
         if(IS_AJAX){
             parse_str(urldecode(I('request.params')),$params);
+            $pid = $params['p_id'];
+            $auth = $this->AuthRole->get_auth_by_id($pid);
+            if($pid == 0) $level = 0;
+            else $level = $auth['level'] + 1;
             $data = array(
                 'id' => $params['id'],
                 'pid' => $params['p_id'],
-                'level' => (int)$params['level'],
+                'level' => $level,
                 'module' => MODULE_NAME,
                 'type' => $params['type'],
                 'name' => trim($params['name']),
@@ -83,8 +93,13 @@ class AuthController extends AdminController {
         if(IS_AJAX){
             $id = I('request.id/d');
             $action = I('request.action');
-            $this->AuthRole->move($id,$action);
-            $result = array('code'=>1,'msg'=>'移动成功');
+            $result = $this->AuthRole->move($id,$action);
+            if($result){
+                $result = array('code'=>1,'msg'=>'移动成功');
+            }else{
+                $result = array('code'=>0,'msg'=>'移动失败');
+            }
+
         }else{
             $result = array('code'=>0,'msg'=>'异常提交');
         }
@@ -94,7 +109,7 @@ class AuthController extends AdminController {
     public function del(){
         if(IS_AJAX){
             $id = I('request.id/d');
-            $auth = $this->AuthRole->where(array('pid'=>$id))->find();
+            $auth = $this->AuthRole->get_auth_by_pid($id);
             if(!empty($auth)){
                 $result = array('code'=>0,'msg'=>'不能直接删除上级模块');
             }else{
