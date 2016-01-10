@@ -2,12 +2,15 @@
 <block name="header-title">
     <h1>添加商品</h1>
 </block>
+<block name="css">
+    <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
+</block>
 <block name="content">
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-xs-12">
             <div class="widget">
                 <div class="widget-header widget-fruiter">
-                    <a class="btn btn-success" id="goods_save" href="javascript:void(0);">保存</a>
+                    <a class="btn btn-success" id="goods_save" href="javascript:void(0);">发布商品</a>
                 </div><!--Widget Header-->
                 <div class="widget-body plugins_goods-">
                     <div class="row">
@@ -47,6 +50,51 @@
                                         <div class="filed-box">
                                             <label class="form-label" for="name">所属分类：</label>
                                             <input id="product_category" name="product_category" class="input-sm Lwidth400" type="text">
+                                            <input id="product_category_id" name="product_category_id" class="hidden" type="text">
+                                        </div>
+                                        <div class="filed-box">
+                                            <label class="form-label" for="name">是否上架：</label>
+                                            <span class="control-group">
+                                                <div class="radio line-radio">
+                                                    <label style="padding: 0">
+                                                        <input name="form-field-radio" type="radio" checked="checked">
+                                                        <span class="text">下架 </span>
+                                                    </label>
+                                                </div>
+                                                <div class="radio line-radio">
+                                                    <label>
+                                                        <input name="form-field-radio" type="radio">
+                                                        <span class="text">上架</span>
+                                                    </label>
+                                                </div>
+                                            </span>
+                                        </div>
+                                        <div class="filed-box">
+                                            <label class="form-label" for="name">商品类型：</label>
+                                            <div class="checkbox checkbox-inline no-margin no-padding">
+                                                <label style="padding: 0">
+                                                    <input type="checkbox" checked="checked">
+                                                    <span class="text">最新商品</span>
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox" checked="checked">
+                                                    <span class="text">特价商品</span>
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox" checked="checked">
+                                                    <span class="text">热卖商品</span>
+                                                </label>
+                                            </div>
+                                            <div class="checkbox checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox" checked="checked">
+                                                    <span class="text">推荐商品</span>
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -69,7 +117,7 @@
         </div>
     </div>
     <div id="menuContent" class="menuContent" style="display: none;position: absolute;">
-        <ul id="tree_category" class="ztree" style="padding-top:10px;min-height: 200px;background-color: #fff;"></ul>
+        <ul id="tree_category" class="ztree" style="padding-top:10px;min-height: 200px;background-color: #eee;"></ul>
     </div>
 </block>
 <block name="js">
@@ -96,25 +144,26 @@
             }
         };
 
-        var zNodes = {$categories|json_encode};
+        var zNodes = {$categories},
+            zTree = null;
 
         function beforeClick(treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo");
             zTree.checkNode(treeNode, !treeNode.checked, null, true);
             return false;
         }
 
         function onCheck(e, treeId, treeNode) {
-            var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-                nodes = zTree.getCheckedNodes(true),
-                v = "",id="";
-            for (var i=0, l=nodes.length; i<l; i++) {
-                v += nodes[i].name + ",";
-                id += nodes[i].id + ",";
+            var nodes = zTree.getCheckedNodes(true),
+                name = [],id=[];
+            for (var i in nodes) {
+                name.push(nodes[i].name);
+                id.push(nodes[i].id);
             }
-            if (v.length > 0 ) v = v.substring(0, v.length-1);
-            if (id.length > 0 ) id = id.substring(0, id.length-1);
-            $("#product_category").attr("value", v);
+
+            if (name.length > 0 ) name = name.join();
+            if (id.length > 0 ) id = id.join();
+
+            $("#product_category").attr("value", name);
             $("#product_category_id").attr("value", id);
 
         }
@@ -140,7 +189,7 @@
         }
 
         $(document).ready(function(){
-            $.fn.zTree.init($("#tree_category"), setting, zNodes);
+            zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
         });
     </script>
 </block>

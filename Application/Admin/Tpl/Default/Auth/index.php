@@ -71,7 +71,7 @@
                                             <span class="red">*</span>：
                                         </label>
                                         <div class="col-lg-8">
-                                            <input name="name" value="" class="form-control" type="text">
+                                            <input name="name" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
@@ -81,7 +81,6 @@
                                         <div class="col-lg-8">
                                             <input name="p_name" id="p_name" class="form-control" type="text" readonly>
                                             <input name="p_id" id="p_id" type="hidden"/>
-                                            <input name="level" id="level" type="hidden"/>
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
@@ -173,6 +172,7 @@
                         if(data.code == 1){
                             $('.plugins_auth- table').find('tr[data-id='+auth_id+']').remove();
                             auth_id = null;
+                            document.getElementById('form-edit').reset();
                             Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
                         }else{
                             Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
@@ -287,7 +287,6 @@
                         form.site.value = data.site;
                         $(form.type).find('option[value='+data.type+']').attr('selected',true);
                         form.p_id.value = data.pid;
-                        form.level.value = data.level;
                         var nodes = zTree.getNodes();
                         for(var i in nodes){
                             if(data.pid == 0 || nodes[i].id == data.pid){
@@ -312,7 +311,7 @@
                 var trs = $(tr).parents('tbody').find('tr[data-pid='+pid+']');
                 if(tr.data('id') == $(trs[0]).data('id') && action == 'up' ){
                     Notify('无法上移', 'bottom-right', '5000', 'warning', 'fa-warning', true);
-                }else if(tr.data('id') == $(trs[trs.length]-1).data('id') && action == 'down' ){
+                }else if(tr.data('id') == $(trs[trs.length-1]).data('id') && action == 'down' ){
                     Notify('无法下移', 'bottom-right', '5000', 'warning', 'fa-warning', true);
                 }else{
                     $.fruiter.post("{:U('Auth/move')}",{id:$(tr).data('id'),action:action},function(data){
