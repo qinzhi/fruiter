@@ -42,6 +42,42 @@
             </td>
         </tr>
         <tr>
+            <th>基本数据：</th>
+            <td>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>商品货号</th>
+                            <th>库存</th>
+                            <th>市场价格</th>
+                            <th>平台价格</th>
+                            <th>成本价格</th>
+                            <th>重量(克)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                active
+                            </td>
+                            <td>
+                                success
+                            </td>
+                            <td>
+                                warning
+                            </td>
+                            <td class="danger">
+                                danger
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
             <th>商品类型：</th>
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
