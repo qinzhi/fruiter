@@ -3,15 +3,24 @@
 .tr-focus{background-color: #f9f9f9;}
 .clear{clear: both;}
 .widget-fruiter{padding: 15px 11px}
+.Lwidth50{width: 50px}
+.Lwidth80{width: 80px}
+.Lwidth100{width: 100px}
+.Lwidth150{width: 150px}
+.Lwidth200{width: 200px}
 .Lwidth300{width: 300px;}
 .Lwidth400{width: 400px;}
+.margin-top-4{margin-top: 4px;}
 .table-middle td,.table-middle th{vertical-align: middle !important;}
 .line-radio{display: inline-block;margin: 0;}
 .margin-top-0{margin-top: 0;}
 .table-form th{background-color: #EEEEEE;padding: 5px 8px 5px 0;text-align: right;border-bottom: 1px solid #fbfbfb;}
 .table-form th:last-child{border-bottom: none;}
-.table-form td{text-align: left;padding: 6px 0 5px 10px;}
+.table-form td{text-align: left;padding: 8px 0 8px 10px;}
 .table-form .note{color: #7e7e7e;}
+.table-border th{text-align: center;}
+.tree_panel{display: none;position: absolute;z-index: 1051;}
+.ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;}
 ul.tree_menu {
     list-style: outside none none;
     margin-left: 0;

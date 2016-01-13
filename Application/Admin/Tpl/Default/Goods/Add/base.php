@@ -12,7 +12,7 @@
             <th>关键字：</th>
             <td>
                 <input id="keyword" name="keyword"  type="text" class="input-sm Lwidth300"/>
-                <span class="note margin-10">每个关键词最长为15个字符，必须以","(逗号)分隔符</span>
+                <span class="note margin-left-10">每个关键词最长为15个字符，必须以","(逗号)分隔符</span>
             </td>
         </tr>
         <tr>
@@ -44,7 +44,7 @@
         <tr>
             <th>基本数据：</th>
             <td>
-                <table class="table table-bordered">
+                <table class="table table-bordered table-border">
                     <thead>
                         <tr>
                             <th>商品货号</th>
@@ -58,23 +58,45 @@
                     <tbody>
                         <tr>
                             <td>
-                                1
+                                <input class="input-xs Lwidth150" type="text" name="search_engine">
                             </td>
                             <td>
-                                active
+                                <input class="input-xs Lwidth80" type="text" name="search_engine">
                             </td>
                             <td>
-                                success
+                                <input class="input-xs Lwidth80" type="text" name="search_engine">
                             </td>
                             <td>
-                                warning
+                                <input class="input-xs Lwidth80" type="text" name="search_engine">
                             </td>
-                            <td class="danger">
-                                danger
+                            <td>
+                                <input class="input-xs Lwidth80" type="text" name="search_engine">
+                            </td>
+                            <td>
+                                <input class="input-xs Lwidth80" type="text" name="search_engine">
                             </td>
                         </tr>
                     </tbody>
                 </table>
+            </td>
+        </tr>
+        <tr>
+            <th>商品规格：</th>
+            <td>
+                <a class="btn btn-success btn-sm pull-left" href="javascript:void(0);">
+                    <i class="fa fa-plus"></i>
+                    添加规格
+                </a>
+                <span class="note margin-left-10 pull-left margin-top-4">可以生成不同组合参数的货品，比如：尺码xxl+红色+长袖 衣服</span>
+            </td>
+        </tr>
+        <tr>
+            <th>商品模型：</th>
+            <td>
+                <select class="input-sm radius-bordered">
+                    <option>选择模型...</option>
+                </select>
+                <span class="note margin-left-10">可以加入商品扩展属性，比如：型号，年代，款式...</span>
             </td>
         </tr>
         <tr>

@@ -117,8 +117,8 @@
             </div>
         </div>
     </div>
-    <div id="menuContent" class="menuContent" style="display: none;position: absolute;z-index: 1051;">
-        <ul id="tree_category" class="ztree" style="padding-top:10px;min-height: 200px;max-height: 400px;background-color: #eee;"></ul>
+    <div id="menuContent" class="tree_panel">
+        <ul id="tree_category" class="ztree_entity"></ul>
     </div>
 </block>
 <block name="js">
