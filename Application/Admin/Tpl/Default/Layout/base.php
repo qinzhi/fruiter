@@ -10,7 +10,7 @@ Purchase: http://wrapbootstrap.com
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-
+    <meta name="renderer" content="webkit">
     <block name="title"><title>网站后台</title></block>
 
     <block name="meta">
@@ -110,7 +110,7 @@ Purchase: http://wrapbootstrap.com
                 </div>
                 <!-- /Page Header -->
                 <!-- Page Body -->
-                <div class="page-body">
+                <div class="page-body no-padding">
                     <block name="content"></block>
                 </div>
                 <!-- /Page Body -->
@@ -123,6 +123,17 @@ Purchase: http://wrapbootstrap.com
     </block>
 
     <block name="js"></block>
+
+    <!--<div class="own_dialog">
+        <div class="dialog_title">
+            <h6>设置商品规格</h6>
+            <a class="dialog_close"><i class="fa fa-times"></i></a>
+        </div>
+        <div class="dialog_content"></div>
+        <div class="dialog_footer">
+            <a class="btn btn-success btn-sm shiny">保存</a>
+        </div>
+    </div>-->
 
 </body>
 </html>

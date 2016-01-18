@@ -10,6 +10,7 @@
 .Lwidth200{width: 200px}
 .Lwidth300{width: 300px;}
 .Lwidth400{width: 400px;}
+.no-radius{border-radius: 0 !important;}
 .margin-top-4{margin-top: 4px;}
 .table-middle td,.table-middle th{vertical-align: middle !important;}
 .line-radio{display: inline-block;margin: 0;}
@@ -21,6 +22,16 @@
 .table-border th{text-align: center;}
 .tree_panel{display: none;position: absolute;z-index: 1051;}
 .ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;}
+/*-- dialog --*/
+.own_dialog{background-color: rgba(0, 0, 0, 0.5);top: 0;cursor: move;border-radius: 5px;position: fixed;min-width: 200px;min-height: 100px;box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);z-index: 2016;}
+.dialog_title{background-color: #fbfbfb;position: absolute;top: 0px;right: 0;left: 0;cursor: move;height: 25px;border-top-left-radius: 5px;border-top-right-radius: 5px;background-color: rgba(0, 0, 0, 0);}
+.dialog_title h6{margin: 0;float: left;color: white;height: 100%;padding-left: 8px;padding-top: 4px;}
+.dialog_close{float: right;color: #f3f3f3;margin-top: 1px;margin-right: 8px;cursor: pointer;}
+.dialog_close:hover{color: white;}
+.dialog_content{background-color: #fbfbfb;position: absolute;top: 25px;right: 8px;bottom: 35px;left: 8px;cursor: default;}
+.dialog_footer{background-color: #fbfbfb;position: absolute;bottom: 8px;right: 8px;left: 8px;height: 35px;}
+.dialog_footer .btn{margin: 0 10px 0 0;float: right;}
+
 ul.tree_menu {
     list-style: outside none none;
     margin-left: 0;

@@ -1,7 +1,6 @@
 <table class="table-form">
     <colgroup>
-        <col width="150px">
-        <col>
+        <col width="150px"><col>
     </colgroup>
     <tbody>
         <tr>
@@ -83,7 +82,7 @@
         <tr>
             <th>商品规格：</th>
             <td>
-                <a class="btn btn-success btn-sm pull-left" href="javascript:void(0);">
+                <a class="btn btn-success btn-sm pull-left no-radius" href="javascript:void(0);" id="addAttr">
                     <i class="fa fa-plus"></i>
                     添加规格
                 </a>
@@ -93,7 +92,7 @@
         <tr>
             <th>商品模型：</th>
             <td>
-                <select class="input-sm radius-bordered">
+                <select class="input-sm no-radius">
                     <option>选择模型...</option>
                 </select>
                 <span class="note margin-left-10">可以加入商品扩展属性，比如：型号，年代，款式...</span>
@@ -103,7 +102,7 @@
             <th>商品类型：</th>
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
-                    <label style="padding: 0">
+                    <label class="no-padding">
                         <input type="checkbox" checked="checked">
                         <span class="text">最新商品</span>
                     </label>
@@ -130,3 +129,10 @@
         </tr>
     </tbody>
 </table>
+<script>
+    $(function(){
+        $('#addAttr').click(function(){
+            $.dialog('addAttr');
+        });
+    });
+</script>

@@ -6,12 +6,9 @@
     <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>
 <block name="content">
-    <div style="position: fixed;min-width: 200px;height: 100px;background-color: #fff;box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);z-index: 2016">
-
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-sm-12 col-xs-12">
-            <div class="widget">
+    <div class="row no-margin">
+        <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
+            <div class="widget flat no-margin">
                 <div class="widget-header widget-fruiter">
                     <a class="btn btn-success" id="goods_save" href="javascript:void(0);">发布商品</a>
                 </div><!--Widget Header-->
@@ -55,7 +52,7 @@
         </div>
     </div>
     <div id="menuContent" class="tree_panel">
-        <ul id="tree_category" class="ztree_entity"></ul>
+        <ul id="tree_category" class="ztree ztree_entity"></ul>
     </div>
 </block>
 <block name="js">
@@ -128,6 +125,9 @@
 
         $(document).ready(function(){
             zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
+
+            var isMove = true;
+
         });
     </script>
 </block>

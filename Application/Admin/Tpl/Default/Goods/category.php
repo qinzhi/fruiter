@@ -6,9 +6,9 @@
     <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>
 <block name="content">
-    <div class="row">
-        <div class="col-lg-12 col-sm-12 col-xs-12">
-            <div class="widget">
+    <div class="row no-margin">
+        <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
+            <div class="widget flat no-margin">
                 <div class="widget-header widget-fruiter">
                     <a class="btn btn-success" id="add" href="javascript:void(0);">添加</a>
                     <a id="save" class="btn btn-success" href="javascript:void(0);">保存</a>
