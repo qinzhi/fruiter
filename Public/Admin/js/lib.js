@@ -27,6 +27,7 @@ function SetFileField( fileUrl , data )
 
 $.extend({
     prefix : 'ext_',
+    dialogBox : [],
     panel : {
         overlay : function(){
 
@@ -41,19 +42,36 @@ $.extend({
             });
         }
     },
-    dialog : function(id){
+    dialog : function(config){
 
-        id = this.prefix ? this.prefix + id : id;
-
+        var id = config.id ? this.prefix + config.id : config.id;
         if($('#' + id).length > 0){
             return;
         }
 
-        var dialog = $('<div class="own_dialog" id="' + id + '"></div>');
-        dialog.append('<div class="dialog_title"><h6>设置商品规格</h6><a class="dialog_close"><i class="fa fa-times"></i></a></div>');
-        dialog.append('<div class="dialog_content"></div>');
-        dialog.append('<div class="dialog_footer"><a class="btn btn-success btn-sm shiny">保存</a></div>');
+        var title = config.title || '新窗口';
+        var btnLable = config.btnLable || '保存';
+        var content = '';
+
+        var dialog = $('<div class="own_dialog"></div>');
+        dialog.append('<div class="dialog_title"><h6></h6><a class="dialog_close"><i class="fa fa-times"></i></a></div>');
+        dialog.append('<div class="dialog_content"><img class="dialog_loading" src="/Public/Admin/img/loading.gif"/></div>');
+        dialog.append('<div class="dialog_footer"><a class="btn btn-success btn-sm shiny"></a></div>');
         $('body').append(dialog);
+
+        dialog.attr('id',id);
+        dialog.find('.dialog_title h6').text(title);
+        dialog.find('.dialog_footer .btn').text(btnLable);
+
+        if($.isFunction(config.content)){
+            content = config.content();
+        }else{
+            content = config.content;
+        }
+
+        dialog.find('.dialog_content').html(content);
+
+        this.dialogBox.push(dialog);
 
         $(dialog).bind({
             mousedown: function(event){
@@ -88,14 +106,21 @@ $.extend({
                         obj.css({'left':event.pageX - abs_x, 'top':event.pageY - abs_y});
                     }
                 });
-
             },
             mouseup: function(event){
                 window.isMove = false;
                 $('body').removeAttr('style').removeAttr('unselectable').removeAttr('onselectstart');
             }
         }).find('.dialog_close').click(function(){
-            $(dialog).remove();
+            var dialog_id = $(this).parents('.own_dialog').attr('id'),id='';
+            for(var i= ($.dialogBox.length-1);i>=0;i--){
+                id = $.dialogBox[i].attr('id');
+                $.dialogBox[i].remove();
+                $.dialogBox.pop();
+                if(id == dialog_id){
+                    break;
+                }
+            }
         });
     }
 });

@@ -132,7 +132,13 @@
 <script>
     $(function(){
         $('#addAttr').click(function(){
-            $.dialog('addAttr');
+            $.dialog({
+                id : 'addAttr',
+                title : '设置商品规格',
+                content : function(){
+                    return 1;
+                }
+            });
         });
     });
 </script>
