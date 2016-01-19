@@ -23,4 +23,8 @@ class GoodsController extends AdminController {
         $this->assign('categories',$this->category->format_tree($categories,true,false));
         $this->display();
     }
+
+    public function setSpec(){
+        $this->display();
+    }
 }

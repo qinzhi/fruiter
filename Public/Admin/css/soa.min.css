@@ -24,20 +24,20 @@
 .ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;}
 /*-- dialog --*/
 .own_dialog{background-color: rgba(0, 0, 0, 0.5);
-    top: calc(50% - 115px);top: -moz-calc(50% - 115px);top: -webkit-calc(50% - 115px);
+    top: calc(50% - 150px);top: -moz-calc(50% - 150px);top: -webkit-calc(50% - 150px);
     left: calc(50% - 75px);left: -moz-calc(50% - 75px);left: -webkit-calc(50% - 75px);
     cursor: move;border-radius: 5px;position: fixed;min-width: 230px;min-height: 150px;box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);z-index: 2016;}
 .dialog_title{background-color: #fbfbfb;position: absolute;top: 0px;right: 0;left: 0;cursor: move;height: 25px;border-top-left-radius: 5px;border-top-right-radius: 5px;background-color: rgba(0, 0, 0, 0);}
 .dialog_title h6{margin: 0;float: left;color: white;height: 100%;padding-left: 8px;padding-top: 4px;}
 .dialog_close{float: right;color: #f3f3f3;margin-top: 1px;margin-right: 8px;cursor: pointer;}
 .dialog_close:hover{color: white;}
-.dialog_content{background-color: #fbfbfb;position: absolute;top: 25px;right: 8px;bottom: 42px;left: 8px;cursor: default;}
+.dialog_content{background-color: #fbfbfb;margin: 25px 8px 42px 8px;height: 100%;min-height: 85px;cursor: default;}
 .dialog_loading{width: 20px;height: 20px;
     margin: 30px 0 0 calc(50% - 10px) ;
     margin: 30px 0 0 -moz-calc(50% - 10px) ;
     margin: 30px 0 0 -webkit-calc(50% - 10px) ;
 }
-.dialog_footer{background-color: #fbfbfb;position: absolute;bottom: 8px;right: 8px;left: 8px;height: 35px;}
+.dialog_footer{background-color: #fbfbfb;position: absolute;bottom: 8px;right: 8px;left: 8px;height: 35px;cursor: default;}
 .dialog_footer .btn{margin: 0 10px 0 0;float: right;}
 
 ul.tree_menu {

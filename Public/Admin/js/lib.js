@@ -49,6 +49,7 @@ $.extend({
             return;
         }
 
+        var async = config.async === false ? false : true;
         var title = config.title || '新窗口';
         var btnLable = config.btnLable || '保存';
         var content = '';
@@ -56,7 +57,7 @@ $.extend({
         var dialog = $('<div class="own_dialog"></div>');
         dialog.append('<div class="dialog_title"><h6></h6><a class="dialog_close"><i class="fa fa-times"></i></a></div>');
         dialog.append('<div class="dialog_content"><img class="dialog_loading" src="/Public/Admin/img/loading.gif"/></div>');
-        dialog.append('<div class="dialog_footer"><a class="btn btn-success btn-sm shiny"></a></div>');
+        dialog.append('<div class="dialog_footer"><a class="btn btn-success btn-sm shiny margin-top-5"></a></div>');
         $('body').append(dialog);
 
         dialog.attr('id',id);
@@ -64,18 +65,40 @@ $.extend({
         dialog.find('.dialog_footer .btn').text(btnLable);
 
         if($.isFunction(config.content)){
+            if(async === false){
+                $.ajaxSetup({
+                    async : false
+                });
+            }
             content = config.content();
+            if(async === false){
+                $.ajaxSetup({
+                    async : true
+                });
+            }
         }else{
             content = config.content;
         }
 
         dialog.find('.dialog_content').html(content);
 
+        dialog.set_location = function(obj){
+            var h = $(obj).outerHeight();
+            var w = $(obj).outerWidth();
+            var dH = $(window).height();
+            var dW = $(window).width();
+            $(obj).css({
+                left: (dW-w)/2 + 'px',
+                top: ((dH-h)/2 -100) + 'px'
+            });
+        }(dialog);
+
+
         this.dialogBox.push(dialog);
 
         $(dialog).bind({
             mousedown: function(event){
-                if($(event.target).hasClass('dialog_content') || $(event.target).parents('dialog_content').length){
+                if(!$(event.target).hasClass('own_dialog') && !$(event.target).hasClass('dialog_title')){
                     return;
                 }
 

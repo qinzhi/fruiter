@@ -136,7 +136,7 @@
                     return $("#addModal").html();
                 },
                 title: "添加权限",
-                className: "modal-darkorange",
+                className: "modal-sky",
                 buttons: {
                     "cancel": {
                         label: "取消",
