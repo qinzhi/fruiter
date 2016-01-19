@@ -2,6 +2,7 @@
 .dept-root,.map-root{position: absolute;width: 100%;height: 280px;left: 0;z-index: 999;border-radius: 0;overflow-y: scroll;display: none;}
 .tr-focus{background-color: #f9f9f9;}
 .clear{clear: both;}
+.table-center td,.table-center th{text-align: center}
 .widget-fruiter{padding: 15px 11px}
 .Lwidth50{width: 50px}
 .Lwidth80{width: 80px}
