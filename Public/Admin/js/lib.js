@@ -181,11 +181,14 @@ $.extend({
                         async : false
                     });
                 }
-                config.ok(dialog);
+                var result = config.ok(dialog);
                 if(async === false){
                     $.ajaxSetup({
                         async : true
                     });
+                }
+                if(result === false){
+                    return;
                 }
             }
             $(this).parents('.own_dialog').find('.dialog_close').trigger('click');

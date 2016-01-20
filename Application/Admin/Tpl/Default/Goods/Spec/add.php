@@ -5,13 +5,13 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label no-padding-right" for="inputEmail3">规格名称：</label>
                     <div class="col-sm-10">
-                        <input type="text" id="spec_name" class="form-control">
+                        <input type="text" id="spec_name" class="form-control input-sm">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-sm-2 control-label no-padding-right" for="inputPassword3">显示备注：</label>
                     <div class="col-sm-10">
-                        <input type="text"  id="spec_show" class="form-control">
+                        <input type="text"  id="spec_show" class="form-control input-sm">
                     </div>
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
     $(function(){
         $('#spec_add').click(function(){
             var table = $(this).parents('form').find('table');
-            var tr = $('<tr><td><input class="input-xs" type="text" name="spec_value[]"></td><td>' +
+            var tr = $('<tr><td><input class="input-xs spec_value" type="text" name="spec_value[]"></td><td>' +
             '<a data-action="up" href="javascript:void(0);" class="btn btn-default btn-xs shiny icon-only success btn-move"><i class="fa fa-arrow-up"></i></a>&nbsp;' +
             '<a data-action="down" href="javascript:void(0);" class="btn btn-default btn-xs shiny icon-only success btn-move"><i class="fa fa-arrow-down"></i></a>&nbsp;' +
             '<a href="javascript:void(0);" class="btn btn-danger btn-xs shiny icon-only white btn-del"><i class="fa fa-times"></i></a>' +

@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-7">
             <h7>规格预览区</h7>
-            <div class="well well-sm bg-white well-pvw-spec">
+            <div class="well well-xm bg-white well-pvw-spec">
                 <p class="text-success">请在左侧列表选择规格！</p>
             </div>
         </div>
@@ -46,8 +46,27 @@
                     });
                     return content;
                 },
-                ok : function(){
-                    
+                ok : function(target){
+                    var status = true;
+                    var params = {};
+                    params.name = $.trim($('#spec_name').val());
+                    if(params.name == ''){
+                        Notify('规格名称不能为空', 'bottom-right', '5000', 'warning', 'fa-warning', true);
+                        return false;
+                    }
+                    params.remark = $.trim($('#spec_show').val());
+                    params.value = [];
+                    $(target).find('table .spec_value').each(function(index){
+                        params.value[index] = $(this).val();
+                    });
+                    $.fruiter.post("{:U('GoodsSpec/add')}",params,function(result){
+                        if(result.code == 1){
+
+                        }else{
+                            status = false;
+                        }
+                    });
+                    return status;
                 }
             });
         });
