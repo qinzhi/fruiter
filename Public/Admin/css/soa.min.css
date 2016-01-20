@@ -25,7 +25,7 @@
 .ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;}
 /*-- dialog --*/
 .own_dialog{background-color: rgba(0, 0, 0, 0.5);
-    top: calc(50% - 150px);top: -moz-calc(50% - 150px);top: -webkit-calc(50% - 150px);
+    top: calc(50% - 115px);top: -moz-calc(50% - 115px);top: -webkit-calc(50% - 115px);
     left: calc(50% - 75px);left: -moz-calc(50% - 75px);left: -webkit-calc(50% - 75px);
     cursor: move;border-radius: 5px;position: fixed;min-width: 230px;min-height: 150px;box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);z-index: 2016;}
 .dialog_title{background-color: #fbfbfb;position: absolute;top: 0px;right: 0;left: 0;cursor: move;height: 25px;border-top-left-radius: 5px;border-top-right-radius: 5px;background-color: rgba(0, 0, 0, 0);}
@@ -111,3 +111,11 @@ ul.tree_menu a.active i {
 
 .plugins_goods- .filed-box{margin-left: 30px;margin-bottom: 10px;}
 .plugins_goods- .form-label{margin: 0 5px;min-width: 80px;text-align: right}
+
+.well-select-spec{margin: 10px 0 0;border-radius: none;height: 250px;}
+.well-pvw-spec{margin: 10px 0 0;border-radius: none;}
+.ul-spec-list{color: #262626;list-style: none;padding:0;margin:0 5px 0;}
+.ul-spec-list li{line-height: 25px;padding-left: 10px;}
+.ul-spec-list li.active{background-color: #EEEEEE;}
+.ul-spec-list li .spec-status{float: right;color: #53a93f;margin-top: 7px;margin-right: 10px;font-size: 16px;}
+.ul-spec-list li:hover{background-color: #EEEEEE;}

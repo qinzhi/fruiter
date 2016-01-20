@@ -82,7 +82,7 @@
         <tr>
             <th>商品规格：</th>
             <td>
-                <a class="btn btn-success btn-sm pull-left no-radius" href="javascript:void(0);" id="addAttr">
+                <a class="btn btn-success btn-sm pull-left no-radius" href="javascript:void(0);" id="addSpec">
                     <i class="fa fa-plus"></i>
                     添加规格
                 </a>
@@ -129,23 +129,24 @@
         </tr>
     </tbody>
 </table>
-
-
 <script>
     $(function(){
-        $('#addAttr').click(function(){
+        $('#addSpec').click(function(){
             $.dialog({
-                id : 'addAttr',
+                id : 'setSpec',
                 title : '设置商品规格',
                 async : false,
                 min_width: 600,
                 min_height: 350,
                 content : function(){
                     var content;
-                    $.post("{:U('Goods/setSpec')}",function(data){
+                    $.post("{:U('Goods/spec')}",{tpl:'set'},function(data){
                         content = data;
                     });
                     return content;
+                },
+                ok : function(target){
+                    console.log(target);
                 }
             });
         });

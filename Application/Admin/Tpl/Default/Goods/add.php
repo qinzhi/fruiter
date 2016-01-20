@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-xs-12">
                             <div class="tabbable">
-                                <ul id="myTab" class="nav nav-tabs tabs-flat">
+                                <ul class="nav nav-tabs tabs-flat">
                                     <li class="active">
                                         <a href="#tab-basic" data-toggle="tab">
                                             商品信息
@@ -125,9 +125,6 @@
 
         $(document).ready(function(){
             zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
-
-            var isMove = true;
-
         });
     </script>
 </block>

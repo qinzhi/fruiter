@@ -24,7 +24,17 @@ class GoodsController extends AdminController {
         $this->display();
     }
 
-    public function setSpec(){
-        $this->display();
+    /*public function setSpec(){
+        $this->display('Spec/set');
+    }*/
+
+    public function __call($function,$args){
+        if($function === 'spec'){
+            $this->display(ucfirst($function) . DS . I('request.tpl'));
+        }else{
+            echo"你所调用的函数： ".$function."(参数: ";
+            print_r(I('request.'));
+            echo")不存在！<br>\n";
+        }
     }
 }

@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
 return array(
 
     'DEFAULT_THEME'    =>    'Default',

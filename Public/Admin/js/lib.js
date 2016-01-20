@@ -58,6 +58,16 @@ $.extend({
         dialog.append('<div class="dialog_title"><h6></h6><a class="dialog_close"><i class="fa fa-times"></i></a></div>');
         dialog.append('<div class="dialog_content"><img class="dialog_loading" src="/Public/Admin/img/loading.gif"/></div>');
         dialog.append('<div class="dialog_footer"><a class="btn btn-success btn-sm shiny"></a></div>');
+
+        if($.dialogBox.length > 1){
+            var z_max_index = 0;
+            $.each($.dialogBox,function(){
+                var z_index = parseInt($(this).css('z-index'));
+                if(z_index > z_max_index){z_max_index = z_index}
+            });
+            $(dialog).css('z-index',(z_max_index+1));
+        }
+
         $('body').append(dialog);
 
         dialog.attr('id',id);
@@ -85,6 +95,9 @@ $.extend({
             dialog_content.css('min-width',config.min_width);
         if(config.min_height)
             dialog_content.css('min-height',config.min_height);
+
+
+
         dialog_content.html(content);
 
         dialog.set_location = function(obj){
@@ -94,19 +107,31 @@ $.extend({
             var dW = $(window).width();
             $(obj).css({
                 left: (dW-w)/2 + 'px',
-                top: ((dH-h)/2 -100) + 'px'
+                top: ((dH-h)/2 -50) + 'px'
             });
         }(dialog);
 
         this.dialogBox.push(dialog);
 
+        $(dialog).data('isMove',true);
+
         $(dialog).bind({
             mousedown: function(event){
+
+                if($.dialogBox.length > 1){
+                    var z_max_index = 0;
+                    $.each($.dialogBox,function(){
+                        var z_index = parseInt($(this).css('z-index'));
+                        if(z_index > z_max_index){z_max_index = z_index}
+                    });
+                    $(this).css('z-index',(z_max_index+1));
+                }
+
                 if(!$(event.target).hasClass('own_dialog') && !$(event.target).hasClass('dialog_title')){
                     return;
                 }
 
-                window.isMove = true;
+                $(dialog).data('isMove',true);
 
                 var abs_x = event.pageX - $(this).offset().left;
                 var abs_y = event.pageY - $(this).offset().top;
@@ -129,13 +154,13 @@ $.extend({
                     var mX = event.pageX - abs_x;
                     var mY = event.pageY - abs_y;
 
-                    if(window.isMove === true /* && mX > 0 && mY > 0 && mX < (pw-w) && mY < (ph-h)*/){
+                    if($(obj).data('isMove') == true /* && mX > 0 && mY > 0 && mX < (pw-w) && mY < (ph-h)*/){
                         obj.css({'left':event.pageX - abs_x, 'top':event.pageY - abs_y});
                     }
                 });
             },
             mouseup: function(event){
-                window.isMove = false;
+                $(dialog).data('isMove',false);
                 $('body').removeAttr('style').removeAttr('unselectable').removeAttr('onselectstart');
             }
         }).find('.dialog_close').click(function(){
@@ -149,5 +174,24 @@ $.extend({
                 }
             }
         });
+        $(dialog).find('.dialog_footer a').click(function(){
+            if($.isFunction(config.ok)){
+                if(async === false){
+                    $.ajaxSetup({
+                        async : false
+                    });
+                }
+                config.ok(dialog);
+                if(async === false){
+                    $.ajaxSetup({
+                        async : true
+                    });
+                }
+            }
+            $(this).parents('.own_dialog').find('.dialog_close').trigger('click');
+        });
+    },
+    get_dialog_max_index: function(){
+
     }
 });
