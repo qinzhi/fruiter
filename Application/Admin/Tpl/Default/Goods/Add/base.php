@@ -146,7 +146,24 @@
                     return content;
                 },
                 ok : function(target){
-                    console.log(target);
+                    var spec = [];
+                    var tabs_spec = $(target).find('.tabs-spec-name li');
+                    var tabs_spec_value = $(target).find('.tabs-spec-list > div');
+                    if(tabs_spec.length){
+                        tabs_spec.each(function(){
+                            var id = $(this).data('id');
+                            spec[id] = [];
+                            var tr = $(target).find('div[data-id='+id+']').find('table > tbody > tr');
+                            if(tr.length > 0)
+                                tr.each(function(index){
+                                    spec[id][index] = $(this).data('value');
+                                });
+                            else
+                                delete spec[id];
+                        });
+                        console.log(spec);
+                    }
+                    return false;
                 }
             });
         });
