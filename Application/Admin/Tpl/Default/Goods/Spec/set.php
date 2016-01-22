@@ -6,8 +6,14 @@
     <div class="widget-body">
         <div class="widget-main">
             <div class="tabbable clear">
-                <ul class="nav nav-tabs tabs-flat tabs-spec-name"></ul>
-                <div class="tab-content tabs-flat tabs-spec-list"></div>
+                <ul class="nav nav-tabs tabs-flat tabs-spec-name">
+                    <li data-id="1" data-name="内存" class="active"><a data-toggle="tab" class="no-padding-right" href="#spec1">内存<button class="close pull-right tabs-del"> × </button> </a></li>
+                    <li data-id="2" data-name="颜色"><a data-toggle="tab" class="no-padding-right" href="#spec2">颜色<button class="close pull-right tabs-del"> × </button> </a></li>
+                </ul>
+                <div class="tab-content tabs-flat tabs-spec-list">
+                    <div data-id="1" id="spec1" class="tab-pane active"><p class="text-success"><span class="text-danger">点击选择</span>下列《内存》：如果没有您需要的《内存》？请到规格列表中编辑内存</p><a href="javascript:void(0);" data-value="16G" class="btn btn-default btn-spec_value" disabled="disabled">16G</a>&nbsp;<a href="javascript:void(0);" data-value="32G" class="btn btn-default btn-spec_value" disabled="disabled">32G</a>&nbsp;<table class="table table-bordered table-center margin-top-10"><thead><tr><th>规格值</th><th>操作</th></tr></thead><tbody><tr data-value="16G"><td>16G</td><td><a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="up"><i class="fa fa-arrow-up"></i></a>&nbsp;<a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="down"><i class="fa fa-arrow-down"></i></a>&nbsp;<a class="btn btn-danger btn-xs shiny icon-only white btn-del" href="javascript:void(0);"><i class="fa fa-times"></i></a></td></tr><tr data-value="32G"><td>32G</td><td><a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="up"><i class="fa fa-arrow-up"></i></a>&nbsp;<a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="down"><i class="fa fa-arrow-down"></i></a>&nbsp;<a class="btn btn-danger btn-xs shiny icon-only white btn-del" href="javascript:void(0);"><i class="fa fa-times"></i></a></td></tr></tbody></table></div>
+                    <div data-id="2" id="spec2" class="tab-pane"><p class="text-success"><span class="text-danger">点击选择</span>下列《颜色》：如果没有您需要的《颜色》？请到规格列表中编辑颜色</p><a href="javascript:void(0);" data-value="红色" class="btn btn-default btn-spec_value" disabled="disabled">红色</a>&nbsp;<a href="javascript:void(0);" data-value="白色" class="btn btn-default btn-spec_value" disabled="disabled">白色</a>&nbsp;<table class="table table-bordered table-center margin-top-10"><thead><tr><th>规格值</th><th>操作</th></tr></thead><tbody><tr data-value="红色"><td>红色</td><td><a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="up"><i class="fa fa-arrow-up"></i></a>&nbsp;<a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="down"><i class="fa fa-arrow-down"></i></a>&nbsp;<a class="btn btn-danger btn-xs shiny icon-only white btn-del" href="javascript:void(0);"><i class="fa fa-times"></i></a></td></tr><tr data-value="白色"><td>白色</td><td><a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="up"><i class="fa fa-arrow-up"></i></a>&nbsp;<a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="down"><i class="fa fa-arrow-down"></i></a>&nbsp;<a class="btn btn-danger btn-xs shiny icon-only white btn-del" href="javascript:void(0);"><i class="fa fa-times"></i></a></td></tr></tbody></table></div>
+                </div>
             </div>
         </div>
     </div>
@@ -48,7 +54,7 @@
 
                         var anchor = _prefix + spec_id;
 
-                        var li = $('<li class="active" data-id="'+spec_id+'"></li>');
+                        var li = $('<li class="active" data-id="'+spec_id+'" data-name="'+spec_name+'"></li>');
                         li.append('<a href="#' + anchor + '" class="no-padding-right" data-toggle="tab">' + spec_name + '' +
                                     '<button class="close pull-right tabs-del"> × </button> </a>');
                         tabs_spec_name.append(li);

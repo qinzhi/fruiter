@@ -20,7 +20,8 @@
 .table-form th:last-child{border-bottom: none;}
 .table-form td{text-align: left;padding: 8px 0 8px 10px;}
 .table-form .note{color: #7e7e7e;}
-.table-border th{text-align: center;}
+.table-border th,.table-border td{text-align: center;text-align: center;}
+.table-border td{min-width: 60px;}
 .tree_panel{display: none;position: absolute;z-index: 1051;}
 .ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;}
 /*-- dialog --*/
@@ -114,7 +115,8 @@ ul.tree_menu a.active i {
 
 .well-select-spec{margin: 10px 0 0;border-radius: none;height: 250px;overflow-y: auto;}
 .well-pvw-spec{margin: 10px 0 0;border-radius: none;padding: 9px;}
-.tabs-del{margin: -3px 6px 0;}
+.tabs-spec-name li .tabs-del{margin: -4px 6px 0;}
+.tabs-spec-name .active .tabs-del{margin: -3px 6px 0;}
 .ul-spec-list{color: #262626;list-style: none;padding:0;margin:0 5px 0;}
 .ul-spec-list li{line-height: 25px;padding-left: 10px;}
 .ul-spec-list li.active{background-color: #EEEEEE;}

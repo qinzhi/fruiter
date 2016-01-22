@@ -16,8 +16,8 @@ if(!function_exists('create_editor')){
         //$_config['filebrowserBrowseUrl'] = '/Public/Ckfinder/ckfinder.html';
         //$_config['filebrowserImageBrowseUrl'] = '/Public/Ckfinder/ckfinder.html?Type=Images';
 
-        $_config['filebrowserBrowseUrl'] = '/public/ckfinder';
-        $_config['filebrowserImageBrowseUrl'] = '/public/ckfinder?Type=Images';
+        $_config['filebrowserBrowseUrl'] = '/Public/ckfinder';
+        $_config['filebrowserImageBrowseUrl'] = '/Public/ckfinder?Type=Images';
 
         //$_config['disallowedContent'] = 'img[width,height]';
 

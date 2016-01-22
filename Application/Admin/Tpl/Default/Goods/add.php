@@ -125,6 +125,22 @@
 
         $(document).ready(function(){
             zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
+
+            $('#goods_save').click(function(){
+                var input = $('input[pattern="required"]');
+                for(var i in input){
+                    if($(input[i]).val() == ''){
+                        $(input[i]).parent().addClass('has-error');
+                        return;
+                    }
+                }
+            });
+
+            $(this).on('blur','input[pattern="required"]',function(){
+                if(this.value != '' && $(this).parent().has('has-error')){
+
+                }
+            });
         });
     </script>
 </block>
