@@ -30,7 +30,12 @@ class GoodsController extends AdminController {
 
     public function __call($function,$args){
         if($function === 'spec'){
-            $this->display(ucfirst($function) . DS . I('request.tpl'));
+            $tpl = I('request.tpl');
+            if($tpl == 'select'){
+                $specs = D('GoodsSpec')->get_specs('id,name');
+                $this->assign('specs',$specs);
+            }
+            $this->display(ucfirst($function) . DS . $tpl);
         }else{
             echo"你所调用的函数： ".$function."(参数: ";
             print_r(I('request.'));

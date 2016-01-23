@@ -16,7 +16,6 @@
                 <i class="collapse-icon fa fa-bars"></i>
             </div>
             <!-- /Sidebar Collapse -->
-            <!-- Account Area and Settings --->
             <div class="navbar-header pull-right">
                 <div class="navbar-account">
                     <ul class="account-area">

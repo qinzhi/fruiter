@@ -22,7 +22,7 @@ define('APP_NAME','应用名称');
 
 define('APP_ROOT_PATH',str_replace('\\','/',dirname(__FILE__)));
 
-ini_set("session.save_handler", "user");
+//ini_set("session.save_handler", "user");
 
 // 定义应用目录
 define('APP_PATH','./Application/');

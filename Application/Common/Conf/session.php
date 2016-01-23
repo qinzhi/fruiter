@@ -7,7 +7,7 @@
  */
 return array(
     'SESSION_OPTIONS' => array(
-        'type' => 'db',
+        'type' => 'Db',
         'expire' => 1440,
     ),
     'SESSION_TABLE' => DB_PREFIX . 'session',

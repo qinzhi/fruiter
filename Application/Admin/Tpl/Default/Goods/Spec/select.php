@@ -4,9 +4,9 @@
             <h7>请选择规格</h7>
             <div class="well well-sm bg-white well-select-spec">
                 <ul class="ul-spec-list">
-                    <li><label>颜色</label></li>
-                    <li><label>内存</label></li>
-                    <li><label>网络类型</label></li>
+                    <volist name="specs" id="spec">
+                        <li data-id="{$spec.id}"><label>{$spec.name}</label></li>
+                    </volist>
                 </ul>
             </div>
         </div>
@@ -14,6 +14,7 @@
             <h7>规格预览区</h7>
             <div class="well well-xm bg-white well-pvw-spec">
                 <p class="text-success">请在左侧列表选择规格！</p>
+                <div class="well-spec-list"></div>
             </div>
         </div>
     </div>
@@ -30,6 +31,20 @@
             if(!$(this).hasClass('active')){
                 $(this).parent().find('li.active').removeClass('active').find('i.spec-status').remove();
                 $(this).addClass('active').append('<i class="fa fa-check spec-status"></i>');
+                var spec_list = $('.well-spec-list');
+                spec_list.html('<p class="text-muted">数据获取中...</p>');
+                $.post('{:U("GoodsSpec/get")}',{id:$(this).data('id')},function(data){
+                    if(data && data.value){
+                        spec_list.data('name',data.name);
+                        spec_list.data('value',data.value);
+                        spec_list.data('id',data.id);
+                        var spec = '';
+                        for(var i in data.value){
+                            spec += '<a class="btn btn-default" href="javascript:void(0);">'+ data.value[i] + '</a>&nbsp;';
+                        }
+                        spec_list.html(spec);
+                    }
+                });
             }
         });
         $('.btn-add_spec').click(function(){
@@ -61,8 +76,11 @@
                     });
                     $.fruiter.post("{:U('GoodsSpec/add')}",params,function(result){
                         if(result.code == 1){
-
+                            var data = result.data;
+                            $('.ul-spec-list').append('<li data-id="'+data.id+'"><label>'+data.name+'</label></li>');
+                            Notify(result.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
                         }else{
+                            Notify(result.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
                             status = false;
                         }
                     });
