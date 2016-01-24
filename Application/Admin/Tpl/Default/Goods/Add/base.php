@@ -7,7 +7,7 @@
             <th>商品名称：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="name" name="name" class="input-sm Lwidth400" type="text" pattern="required">
+                    <input id="name" name="name" class="input-sm Lwidth400" type="text" pattern="required" maxlength="50">
                     <span class="note control-label margin-left-10">*</span>
                 </div>
             </td>
@@ -16,7 +16,7 @@
             <th>关键字：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="keyword" name="keyword"  type="text" class="input-sm Lwidth300"/>
+                    <input id="keyword" name="keyword"  type="text" class="input-sm Lwidth300" maxlength="50"/>
                     <span class="note control-label margin-left-10">每个关键词最长为15个字符，必须以","(逗号)分隔符</span>
                 </div>
             </td>
@@ -25,8 +25,8 @@
             <th>所属分类：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="product_category" name="product_category" class="input-sm Lwidth400" type="text">
-                    <input id="product_category_id" name="product_category_id" class="hidden" type="text">
+                    <input id="category" name="category" class="input-sm Lwidth400" type="text">
+                    <input id="category_id" name="category_id" class="hidden" type="text">
                 </div>
             </td>
         </tr>
@@ -36,13 +36,13 @@
                 <span class="control-group">
                     <div class="radio line-radio">
                         <label class="no-padding">
-                            <input name="form-field-radio" type="radio" checked="checked">
+                            <input name="status" type="radio" checked="checked">
                             <span class="text">下架</span>
                         </label>
                     </div>
                     <div class="radio line-radio">
                         <label>
-                            <input name="form-field-radio" type="radio">
+                            <input name="status" type="radio">
                             <span class="text">上架</span>
                         </label>
                     </div>
@@ -67,32 +67,32 @@
                         <tr class="base">
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth150" type="text" name="product_code[]" pattern="required">
+                                    <input class="input-xs Lwidth150" type="text" name="goods_no[]" pattern="required" maxlength="20">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="store_nums[]" pattern="required">
+                                    <input class="input-xs Lwidth80" type="text" name="store_nums[]" pattern="int" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="market_price[]" pattern="required">
+                                    <input class="input-xs Lwidth80" type="text" name="market_price[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="sell_price[]" pattern="required">
+                                    <input class="input-xs Lwidth80" type="text" name="sell_price[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="cost_price[]" pattern="required">
+                                    <input class="input-xs Lwidth80" type="text" name="cost_price[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="weight[]" pattern="required">
+                                    <input class="input-xs Lwidth80" type="text" name="weight[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                         </tr>
@@ -124,25 +124,25 @@
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
                     <label class="no-padding">
-                        <input type="checkbox">
+                        <input type="checkbox" name="commend_type" value="1">
                         <span class="text">最新商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" name="commend_type" value="2">
                         <span class="text">特价商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" name="commend_type" value="3">
                         <span class="text">热卖商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox">
+                        <input type="checkbox" name="commend_type" value="4">
                         <span class="text">推荐商品</span>
                     </label>
                 </div>

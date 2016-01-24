@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2016-01-20 22:28:24
+Date: 2016-01-24 20:36:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,6 +39,43 @@ INSERT INTO `fruiter_auth_role` VALUES ('3', '0', 'Admin', '2', '系统管理', 
 INSERT INTO `fruiter_auth_role` VALUES ('4', '3', 'Admin', '2', '权限管理', 'auth', '1', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('5', '1', 'Admin', '2', '添加商品', 'goods/add', '1', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('6', '1', 'Admin', '2', '商品分类', 'GoodsCategory/index', '1', '1');
+
+-- ----------------------------
+-- Table structure for `fruiter_goods`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_goods`;
+CREATE TABLE `fruiter_goods` (
+  `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '商品ID',
+  `name` varchar(50) NOT NULL COMMENT '商品名称',
+  `goods_no` varchar(20) NOT NULL COMMENT '商品货号',
+  `model_id` int(10) NOT NULL COMMENT '模型ID',
+  `sell_price` decimal(10,2) NOT NULL COMMENT '销售价格',
+  `market_price` decimal(10,2) DEFAULT NULL COMMENT '市场价格',
+  `cost_price` decimal(10,2) DEFAULT NULL COMMENT '成本价格',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '商品状态 0下架 1上架',
+  `commend_type` tinyint(1) DEFAULT NULL COMMENT '商品推荐类型 :\r\n1.最新商品\r\n2.特价商品\r\n3.热卖商品\r\n4.推荐商品',
+  `up_time` datetime DEFAULT NULL COMMENT '上架时间',
+  `down_time` datetime DEFAULT NULL COMMENT '下架时间',
+  `create_time` datetime NOT NULL COMMENT '创建时间',
+  `store_nums` int(10) NOT NULL DEFAULT '0' COMMENT '库存',
+  `search_words` varchar(50) DEFAULT NULL COMMENT '商品搜索词库,逗号分隔',
+  `weight` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '重量',
+  `unit` varchar(6) DEFAULT NULL COMMENT '计量单位',
+  `visit` int(10) NOT NULL DEFAULT '0' COMMENT '浏览次数',
+  `favorite` int(10) NOT NULL DEFAULT '0' COMMENT '收藏次数',
+  `comments` int(10) NOT NULL DEFAULT '0' COMMENT '评论次数',
+  `sale` int(10) DEFAULT NULL COMMENT '销量',
+  `sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+  `is_del` tinyint(1) DEFAULT NULL COMMENT '删除 0正常 1已删除',
+  PRIMARY KEY (`id`),
+  KEY `is_del` (`is_del`),
+  KEY `status` (`status`),
+  KEY `commend_type` (`commend_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fruiter_goods
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `fruiter_goods_category`
@@ -115,18 +152,5 @@ CREATE TABLE `fruiter_session` (
 -- ----------------------------
 -- Records of fruiter_session
 -- ----------------------------
-INSERT INTO `fruiter_session` VALUES ('32', 'autggr7sk13keqi8i90ko1t854', '1453300140', '');
-INSERT INTO `fruiter_session` VALUES ('1', '726hgpcfhpk66blv98bi5p5rn7', '1453300587', '');
-INSERT INTO `fruiter_session` VALUES ('31', 'autggr7sk13keqi8i90ko1t854', '1453300138', '');
-INSERT INTO `fruiter_session` VALUES ('30', 'autggr7sk13keqi8i90ko1t854', '1453300134', '');
-INSERT INTO `fruiter_session` VALUES ('29', 'autggr7sk13keqi8i90ko1t854', '1453300131', '');
-INSERT INTO `fruiter_session` VALUES ('6', '726hgpcfhpk66blv98bi5p5rn7', '1453300896', '');
-INSERT INTO `fruiter_session` VALUES ('7', '726hgpcfhpk66blv98bi5p5rn7', '1453300897', '');
-INSERT INTO `fruiter_session` VALUES ('8', '726hgpcfhpk66blv98bi5p5rn7', '1453300899', '');
-INSERT INTO `fruiter_session` VALUES ('9', '726hgpcfhpk66blv98bi5p5rn7', '1453300904', '');
-INSERT INTO `fruiter_session` VALUES ('10', '726hgpcfhpk66blv98bi5p5rn7', '1453301015', '');
-INSERT INTO `fruiter_session` VALUES ('11', '726hgpcfhpk66blv98bi5p5rn7', '1453301316', '');
-INSERT INTO `fruiter_session` VALUES ('5', '726hgpcfhpk66blv98bi5p5rn7', '1453300604', '');
-INSERT INTO `fruiter_session` VALUES ('4', '726hgpcfhpk66blv98bi5p5rn7', '1453300592', '');
-INSERT INTO `fruiter_session` VALUES ('3', '726hgpcfhpk66blv98bi5p5rn7', '1453300591', '');
-INSERT INTO `fruiter_session` VALUES ('2', '726hgpcfhpk66blv98bi5p5rn7', '1453300589', '');
+INSERT INTO `fruiter_session` VALUES ('1', 'c953a6m771on673hhps7guouc2', '1453553609', '');
+INSERT INTO `fruiter_session` VALUES ('2', 'c953a6m771on673hhps7guouc2', '1453553801', '');

@@ -51,7 +51,7 @@
             </div><!--Widget-->
         </div>
     </div>
-    <div id="menuContent" class="tree_panel">
+    <div id="tree_panel" class="tree_panel">
         <ul id="tree_category" class="ztree ztree_entity"></ul>
     </div>
 </block>
@@ -98,12 +98,12 @@
             if (name.length > 0 ) name = name.join();
             if (id.length > 0 ) id = id.join();
 
-            $("#product_category").attr("value", name);
-            $("#product_category_id").attr("value", id);
+            $("#category").attr("value", name);
+            $("#category_id").attr("value", id);
 
         }
-        $('#product_category').click(function(){
-            $("#menuContent").css({
+        $('#category').click(function(){
+            $("#tree_panel").css({
                 left:$(this).offset().left + "px",
                 top:$(this).offset().top + $(this).outerHeight() - $('.navbar-inner').height() + "px",
                 width: $(this).outerWidth() + "px"
@@ -113,12 +113,12 @@
         }) ;
 
         function hideMenu() {
-            $("#menuContent").slideUp("fast");
+            $("#tree_panel").slideUp("fast");
             $("body").unbind("mousedown", onBodyDown);
         }
 
         function onBodyDown(event) {
-            if (!(event.target.id == "menuBtn" || event.target.id == "product_category" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+            if (!(event.target.id == "menuBtn" || event.target.id == "category" || event.target.id == "tree_panel" || $(event.target).parents("#tree_panel").length>0)) {
                 hideMenu();
             }
         }
@@ -138,7 +138,7 @@
 
             $(this).on('blur','input[pattern="required"]',function(){
                 if(this.value != '' && $(this).parent().has('has-error')){
-
+                    $(this).parent().removeClass('has-error');
                 }
             });
         });

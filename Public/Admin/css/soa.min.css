@@ -23,7 +23,7 @@
 .table-border th,.table-border td{text-align: center;text-align: center;}
 .table-border td{min-width: 60px;}
 .tree_panel{display: none;position: absolute;z-index: 1051;}
-.ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;}
+.ztree_entity{padding-top:10px;min-height: 200px;background-color: #eee;max-height: 340px;overflow-y: auto;}
 /*-- dialog --*/
 .own_dialog{background-color: rgba(0, 0, 0, 0.5);
     top: calc(50% - 115px);top: -moz-calc(50% - 115px);top: -webkit-calc(50% - 115px);
