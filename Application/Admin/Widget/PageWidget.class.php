@@ -1,5 +1,5 @@
 <?php
-namespace Home\Widget;
+namespace Admin\Widget;
 use Think\Controller;
 class PageWidget extends Controller {
 
@@ -8,24 +8,37 @@ class PageWidget extends Controller {
         $this -> display('Widget:Page/headerTitle');
     }
 
-    public function search($name) {
-        $this -> assign('name', $name);
-        $this -> display('Widget:PageHeader/search');
+    public function loading(){
+        $this -> display('Widget:Page/loading');
     }
 
-    public function adv_search($name) {
-        $this -> assign('name', $name);
-        $this -> display('Widget:PageHeader/adv_search');
+    public function navBar() {
+        $this -> display('Widget:Page/navBar');
     }
 
-    public function local_search($name) {
-        $this -> assign('name', $name);
-        $this -> display('Widget:PageHeader/local_search');
+    public function sideBar($slideBar) {
+        $this -> assign('slideBar', $slideBar);
+        $this -> display('Widget:Page/sideBar');
     }
 
-    public function popup($name) {
-        $this -> assign('name', $name);
-        $this -> display('Widget:PageHeader/popup');
+    public function breadcrumbs($breadcrumbs) {
+        $this -> assign('breadcrumbs', $breadcrumbs);
+        $this -> display('Widget:Page/breadcrumbs');
+    }
+
+    public function title($breadcrumbs) {
+        if(!empty($breadcrumbs)){
+            $breadcrumb = array_pop($breadcrumbs);
+            $title = $breadcrumb['name'];
+        }else{
+            $title = '首页';
+        }
+        $this -> assign('title', $title);
+        $this -> display('Widget:Page/title');
+    }
+
+    public function search() {
+        $this -> display('Widget:Page/search');
     }
 }
 ?>

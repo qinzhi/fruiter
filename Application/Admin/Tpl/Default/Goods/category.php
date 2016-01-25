@@ -1,7 +1,4 @@
 <extend name="Layout/base" />
-<block name="header-title">
-    <h1>商品分类</h1>
-</block>
 <block name="css">
     <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>
@@ -62,7 +59,6 @@
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <div class="well">
-                                <input id="id" type="hidden"/>
                                 <form action="{:U('GoodsCategory/edit')}" id="form-edit" class="form-horizontal bv-form form-category" data-action="edit" onsubmit="return false;" autocomplete="off">
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-4 control-label">分类名称
@@ -118,7 +114,7 @@
         </div>
     </div>
     <div id="menuContent" class="tree_panel">
-        <ul id="tree_category" class="ztree_entity"></ul>
+        <ul id="tree_category" class="ztree ztree_entity"></ul>
     </div>
 </block>
 <block name="js">

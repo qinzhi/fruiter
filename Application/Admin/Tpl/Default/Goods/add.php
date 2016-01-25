@@ -1,7 +1,4 @@
 <extend name="Layout/base" />
-<block name="header-title">
-    <h1>添加商品</h1>
-</block>
 <block name="css">
     <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>
@@ -15,7 +12,7 @@
                 <div class="widget-body plugins_goods-">
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-xs-12">
-                            <div class="tabbable">
+                            <form class="tabbable" id="goodsForm" method="post" autocomplete="off">
                                 <ul class="nav nav-tabs tabs-flat">
                                     <li class="active">
                                         <a href="#tab-basic" data-toggle="tab">
@@ -25,6 +22,11 @@
                                     <li>
                                         <a href="#tab-detail" data-toggle="tab">
                                             商品描述
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab-attr" data-toggle="tab">
+                                            商品属性
                                         </a>
                                     </li>
                                     <li>
@@ -40,11 +42,14 @@
                                     <div class="tab-pane" id="tab-detail">
                                         <include file="Default/Goods/Add/detail"/>
                                     </div>
+                                    <div class="tab-pane" id="tab-attr">
+                                        <include file="Default/Goods/Add/attr"/>
+                                    </div>
                                     <div class="tab-pane" id="tab-seo">
                                         <include file="Default/Goods/Add/seo"/>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div><!--Widget Body-->
@@ -127,18 +132,21 @@
             zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
 
             $('#goods_save').click(function(){
-                var input = $('input[pattern="required"]');
-                for(var i in input){
-                    if($(input[i]).val() == ''){
-                        $(input[i]).parent().addClass('has-error');
-                        return;
-                    }
+                var form = document.getElementById('goodsForm');
+                if($.validateOnSubmit(form) == true){
+
                 }
             });
 
-            $(this).on('blur','input[pattern="required"]',function(){
-                if(this.value != '' && $(this).parent().has('has-error')){
-                    $(this).parent().removeClass('has-error');
+            $(this).on('blur','input',function(){
+                if($.validateOnChange(this) === true){
+                    if($(this).parent().hasClass('has-error')){
+                        $(this).parent().removeClass('has-error');
+                    }
+                }else{
+                    if(!$(this).parent().hasClass('has-error')){
+                        $(this).parent().addClass('has-error');
+                    }
                 }
             });
         });

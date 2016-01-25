@@ -6,7 +6,7 @@
             <div class="navbar-header pull-left">
                 <a href="#" class="navbar-brand">
                     <small>
-                        <img src="__IMG__/logo.png" alt="" />
+                        <img src="__IMG__/logo.png" alt="LOGO" />
                     </small>
                 </a>
             </div>

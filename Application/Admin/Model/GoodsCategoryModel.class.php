@@ -64,8 +64,9 @@ class GoodsCategoryModel extends CommonModel{
         return $is_json?json_encode($tree):$tree;
     }
 
-    public function get_category_by_pid($pid){
-        return $this->where(array('pid'=>$pid))->order($this::$order)->find();
+    public function get_category_by_pid($pid,$sort = ''){
+        $sort = $sort ?: $this::$order;
+        return $this->where(array('pid'=>$pid))->order($sort)->find();
     }
 
     public function get_categories_by_pid($pid){

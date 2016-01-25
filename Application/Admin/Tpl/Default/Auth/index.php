@@ -1,7 +1,4 @@
 <extend name="Layout/base" />
-<block name="header-title">
-    <h1>权限管理</h1>
-</block>
 <block name="css">
     <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>
@@ -64,7 +61,6 @@
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <div class="well">
-                                <input id="id" type="hidden"/>
                                 <form action="{:U('Auth/edit')}" id="form-edit" class="form-horizontal bv-form form-auth" data-action="edit" onsubmit="return false;" autocomplete="off">
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-4 control-label">模块名称

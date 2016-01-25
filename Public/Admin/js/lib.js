@@ -43,7 +43,6 @@ $.extend({
         }
     },
     dialog : function(config){
-
         var id = config.id ? this.prefix + config.id : config.id;
         if($('#' + id).length > 0){
             return;
@@ -194,7 +193,51 @@ $.extend({
             $(this).parents('.own_dialog').find('.dialog_close').trigger('click');
         });
     },
-    get_dialog_max_index: function(){
-
+    regex: function(pattern){
+        switch(pattern)
+        {
+            case 'required': pattern = /\S+/i;break;
+            case 'email': pattern = /^\w+([-+.]\w+)*@\w+([-.]\w+)+$/i;break;
+            case 'qq':  pattern = /^[1-9][0-9]{4,}$/i;break;
+            case 'id': pattern = /^\d{15}(\d{2}[0-9x])?$/i;break;
+            case 'ip': pattern = /^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$/i;break;
+            case 'zip': pattern = /^\d{6}$/i;break;
+            case 'mobi': pattern = /^1[3|4|5|7|8][0-9]\d{8}$/;break;
+            case 'phone': pattern = /^((\d{3,4})|\d{3,4}-)?\d{3,8}(-\d+)*$/i;break;
+            case 'url': pattern = /^[a-zA-z]+:\/\/(\w+(-\w+)*)(\.(\w+(-\w+)*))+(\/?\S*)?$/i;break;
+            case 'date': pattern = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29)$/i;break;
+            case 'datetime': pattern = /^(?:(?!0000)[0-9]{4}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)-02-29) (?:(?:[0-1][0-9])|(?:2[0-3])):(?:[0-5][0-9]):(?:[0-5][0-9])$/i;break;
+            case 'int':	pattern = /^\d+$/i;break;
+            case 'float': pattern = /^\d+\.?\d*$/i;break;
+            default : pattern = null;break;
+        }
+        return pattern;
+    },
+    validateOnChange : function(obj){
+        var pattern = obj.getAttribute('pattern');
+        if(pattern != ''){
+            pattern = this.regex(pattern);
+            if(pattern && !pattern.test(obj.value)){
+                return false;
+            }
+        }
+        return true;
+    },
+    validateOnSubmit : function(form){
+        for(var i = 0;i<form.elements.length;i++){
+            var e = form.elements[i];
+            var pattern = e.getAttribute('pattern');
+            if(pattern != ''){
+                pattern = this.regex(pattern);
+                if(pattern && !pattern.test(e.value)){
+                    if(!$(e).parent().hasClass('has-error')){
+                        $(e).parent().addClass('has-error');
+                    }
+                    e.focus();
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 });

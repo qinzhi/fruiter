@@ -103,9 +103,9 @@
                             });
                             tr.find('.btn-move').bind('click',function(){
                                 var action = $(this).data('action');
-                                var tr = $(this).parents('tr');
+                                var tr = $(this).closest('tr');
                                 var index = tr.index();
-                                var trs = $(tr).parents('tbody').find('tr');
+                                var trs = $(tr).closest('tbody').find('tr');
                                 if(index == 0 && action == 'up' ){
                                     Notify('无法上移', 'bottom-right', '5000', 'warning', 'fa-warning', true);
                                 }else if(index == (trs.length-1) && action == 'down' ){

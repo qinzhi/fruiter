@@ -2,18 +2,38 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50617
+Source Server Version : 50520
 Source Host           : localhost:3306
 Source Database       : fruiter
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-01-24 20:36:11
+Date: 2016-01-25 18:51:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `fruiter_attr`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_attr`;
+CREATE TABLE `fruiter_attr` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `model_id` int(10) NOT NULL COMMENT '模型ID',
+  `type` enum('1','2','3','4') NOT NULL COMMENT '输入控件的类型,1:输入框,2:下拉,3:单选,4:复选',
+  `name` varchar(20) NOT NULL,
+  `value` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `model_id` (`model_id`) USING BTREE,
+  CONSTRAINT `fruiter_attr_ibfk_1` FOREIGN KEY (`model_id`) REFERENCES `fruiter_model` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='属性表';
+
+-- ----------------------------
+-- Records of fruiter_attr
+-- ----------------------------
+
 -- ----------------------------
 -- Table structure for `fruiter_auth_role`
 -- ----------------------------
@@ -28,7 +48,7 @@ CREATE TABLE `fruiter_auth_role` (
   `sort` mediumint(5) NOT NULL COMMENT '排序',
   `level` tinyint(1) NOT NULL DEFAULT '0' COMMENT '级别: 0.根节点 1.二级节点 2.叶节点',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fruiter_auth_role
@@ -38,7 +58,9 @@ INSERT INTO `fruiter_auth_role` VALUES ('2', '1', 'Admin', '2', '商品列表', 
 INSERT INTO `fruiter_auth_role` VALUES ('3', '0', 'Admin', '2', '系统管理', 'system', '1', '0');
 INSERT INTO `fruiter_auth_role` VALUES ('4', '3', 'Admin', '2', '权限管理', 'auth', '1', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('5', '1', 'Admin', '2', '添加商品', 'goods/add', '1', '1');
-INSERT INTO `fruiter_auth_role` VALUES ('6', '1', 'Admin', '2', '商品分类', 'GoodsCategory/index', '1', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('6', '1', 'Admin', '2', '商品分类', 'GoodsCategory/index', '2', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('7', '1', 'Admin', '2', '规格列表', 'GoodsSpec/index', '3', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('8', '1', 'Admin', '2', '模型列表', 'GoodsAttr/index', '4', '1');
 
 -- ----------------------------
 -- Table structure for `fruiter_goods`
@@ -138,6 +160,20 @@ CREATE TABLE `fruiter_goods_spec` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for `fruiter_model`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_model`;
+CREATE TABLE `fruiter_model` (
+  `id` int(10) NOT NULL DEFAULT '0',
+  `name` varchar(20) DEFAULT NULL COMMENT '模型名称',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品模型表';
+
+-- ----------------------------
+-- Records of fruiter_model
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for `fruiter_session`
 -- ----------------------------
 DROP TABLE IF EXISTS `fruiter_session`;
@@ -152,5 +188,25 @@ CREATE TABLE `fruiter_session` (
 -- ----------------------------
 -- Records of fruiter_session
 -- ----------------------------
-INSERT INTO `fruiter_session` VALUES ('1', 'c953a6m771on673hhps7guouc2', '1453553609', '');
-INSERT INTO `fruiter_session` VALUES ('2', 'c953a6m771on673hhps7guouc2', '1453553801', '');
+INSERT INTO `fruiter_session` VALUES ('16', 's04gss4r3t8ohag16dok0ikjn0', '1453717444', '');
+INSERT INTO `fruiter_session` VALUES ('15', 's04gss4r3t8ohag16dok0ikjn0', '1453717226', '');
+INSERT INTO `fruiter_session` VALUES ('14', 's04gss4r3t8ohag16dok0ikjn0', '1453717191', '');
+INSERT INTO `fruiter_session` VALUES ('10', 's04gss4r3t8ohag16dok0ikjn0', '1453717110', '');
+INSERT INTO `fruiter_session` VALUES ('11', 's04gss4r3t8ohag16dok0ikjn0', '1453717131', '');
+INSERT INTO `fruiter_session` VALUES ('12', 's04gss4r3t8ohag16dok0ikjn0', '1453717152', '');
+INSERT INTO `fruiter_session` VALUES ('13', 's04gss4r3t8ohag16dok0ikjn0', '1453717170', '');
+INSERT INTO `fruiter_session` VALUES ('9', 's04gss4r3t8ohag16dok0ikjn0', '1453717079', '');
+INSERT INTO `fruiter_session` VALUES ('8', 's04gss4r3t8ohag16dok0ikjn0', '1453717036', '');
+INSERT INTO `fruiter_session` VALUES ('2', 's04gss4r3t8ohag16dok0ikjn0', '1453716608', '');
+INSERT INTO `fruiter_session` VALUES ('3', 's04gss4r3t8ohag16dok0ikjn0', '1453716752', '');
+INSERT INTO `fruiter_session` VALUES ('5', 's04gss4r3t8ohag16dok0ikjn0', '1453716964', '');
+INSERT INTO `fruiter_session` VALUES ('6', 's04gss4r3t8ohag16dok0ikjn0', '1453716984', '');
+INSERT INTO `fruiter_session` VALUES ('7', 's04gss4r3t8ohag16dok0ikjn0', '1453717021', '');
+INSERT INTO `fruiter_session` VALUES ('1', 's04gss4r3t8ohag16dok0ikjn0', '1453716572', '');
+INSERT INTO `fruiter_session` VALUES ('14', 'mu9bifqqngu9oqa65nrp2c3ha0', '1453716466', '');
+INSERT INTO `fruiter_session` VALUES ('13', 'mu9bifqqngu9oqa65nrp2c3ha0', '1453716465', '');
+INSERT INTO `fruiter_session` VALUES ('12', 'mu9bifqqngu9oqa65nrp2c3ha0', '1453716408', '');
+INSERT INTO `fruiter_session` VALUES ('11', 'mu9bifqqngu9oqa65nrp2c3ha0', '1453716407', '');
+INSERT INTO `fruiter_session` VALUES ('18', 's04gss4r3t8ohag16dok0ikjn0', '1453717845', '');
+INSERT INTO `fruiter_session` VALUES ('17', 's04gss4r3t8ohag16dok0ikjn0', '1453717494', '');
+INSERT INTO `fruiter_session` VALUES ('4', 's04gss4r3t8ohag16dok0ikjn0', '1453716933', '');

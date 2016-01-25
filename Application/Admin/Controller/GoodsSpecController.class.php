@@ -10,6 +10,10 @@ class GoodsSpecController extends AdminController {
         $this->spec = D('GoodsSpec');
     }
 
+    public function index(){
+        $this->display('Goods/spec');
+    }
+
     public function add(){
         $name = trim(I('request.name'));
         if(empty($name)){

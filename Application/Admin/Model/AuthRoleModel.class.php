@@ -90,8 +90,9 @@ class AuthRoleModel extends CommonModel{
         }
     }
 
-    public function get_auth_by_pid($pid){
-        return $this->where(array('pid'=>$pid))->order($this::$order)->find();
+    public function get_auth_by_pid($pid,$sort = ''){
+        $sort = $sort ?: $this::$order;
+        return $this->where(array('pid'=>$pid))->order($sort)->find();
     }
 
     public function get_auths_by_pid($pid){

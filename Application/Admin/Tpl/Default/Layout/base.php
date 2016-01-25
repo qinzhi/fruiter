@@ -20,16 +20,7 @@ Purchase: http://wrapbootstrap.com
         <link rel="shortcut icon" href="__IMG__/favicon.png" type="image/x-icon">
     </block>
 
-
-    <!--Basic Styles-->
-    <link href="__CSS__/bootstrap.min.css" rel="stylesheet" />
-    <link id="bootstrap-rtl-link" href="" rel="stylesheet" />
-    <link href="__CSS__/font-awesome.min.css" rel="stylesheet" />
-    <link href="__CSS__/weather-icons.min.css" rel="stylesheet" />
-    <link href="__CSS__/typicons.min.css" rel="stylesheet" />
-    <link href="__CSS__/animate.min.css" rel="stylesheet" />
-    <link id="beyond-link" href="__CSS__/beyond.min.css" rel="stylesheet" />
-    <!--Fonts-->
+    <include file="Layout/basic_css"/>
 
     <block name="plugin_css">
         <link href="__CSS__/dataTables.bootstrap.css" rel="stylesheet" />
@@ -39,9 +30,7 @@ Purchase: http://wrapbootstrap.com
         <link href="__CSS__/soa.min.css" rel="stylesheet" />
     </block>
 
-    <block name="css">
-
-    </block>
+    <block name="css"></block>
 
     <link id="skin-link" href="" rel="stylesheet" type="text/css" />
     <script src="__STATIC__/js/jquery.min.js"></script>
@@ -55,11 +44,11 @@ Purchase: http://wrapbootstrap.com
 <body>
 
     <block name="loading">
-        <include file="Layout/loading"/>
+        {:W('Page/loading')}
     </block>
 
     <block name="navbar">
-        <include file="Layout/navBar"/>
+        {:W('Page/navBar')}
     </block>
 
     <div class="main-container container-fluid">
@@ -67,16 +56,12 @@ Purchase: http://wrapbootstrap.com
         <div class="page-container">
 
             <div class="page-sidebar" id="sidebar">
-                <!-- Page Sidebar Header-->
-                <div class="sidebar-header-wrapper">
-                    <input type="text" class="searchinput" />
-                    <i class="searchicon fa fa-search"></i>
-                    <div class="searchhelper">关键字搜索</div>
-                </div>
-                <!-- /Page Sidebar Header -->
+                <block name="search">
+                    {:W('Page/search')}
+                </block>
 
                 <block name="slideBar">
-                    <include file="Layout:sideBar"/>
+                    {:W('Page/sideBar',array($slideBar))}
                 </block>
             </div>
 
@@ -84,16 +69,14 @@ Purchase: http://wrapbootstrap.com
             <div class="page-content">
 
                 <block name="breadcrumbs">
-                    <include file="Layout:breadcrumbs"/>
+                    {:W('Page/breadcrumbs',array($breadcrumbs))}
                 </block>
 
                 <!-- Page Header -->
                 <div class="page-header position-relative">
-                    <div class="header-title">
-                        <block name="header-title">
-                            <h1>首页</h1>
-                        </block>
-                    </div>
+                    <block name="header-title">
+                        {:W('Page/title',array($breadcrumbs))}
+                    </block>
                     <!--Header Buttons-->
                     <div class="header-buttons">
                         <a class="sidebar-toggler" href="#">
@@ -118,22 +101,11 @@ Purchase: http://wrapbootstrap.com
         </div>
     </div>
 
-    <block name="common_js">
-        <include file="Layout:common.js"/>
+    <block name="plugin_js">
+        <include file="Layout/plugin_js"/>
     </block>
 
     <block name="js"></block>
-
-    <!--<div class="own_dialog">
-        <div class="dialog_title">
-            <h6>设置商品规格</h6>
-            <a class="dialog_close"><i class="fa fa-times"></i></a>
-        </div>
-        <div class="dialog_content"></div>
-        <div class="dialog_footer">
-            <a class="btn btn-success btn-sm shiny">保存</a>
-        </div>
-    </div>-->
 
 </body>
 </html>

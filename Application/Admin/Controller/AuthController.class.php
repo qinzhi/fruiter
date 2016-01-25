@@ -35,7 +35,7 @@ class AuthController extends AdminController {
     public function add(){
         if(IS_POST){
             $pid = I('request.p_id/d',0);
-            $pauth = $this->AuthRole->get_auth_by_pid($pid);
+            $pauth = $this->AuthRole->get_auth_by_pid($pid,'sort desc');
             if($pid == 0) $level = 0;
             else{
                 $auth = $this->AuthRole->get_auth_by_id($pid);
