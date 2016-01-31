@@ -111,15 +111,6 @@
             </td>
         </tr>
         <tr>
-            <th>商品模型：</th>
-            <td>
-                <select class="input-sm no-radius">
-                    <option>选择模型...</option>
-                </select>
-                <span class="note margin-left-10">可以加入商品扩展属性，比如：型号，年代，款式...</span>
-            </td>
-        </tr>
-        <tr>
             <th>商品类型：</th>
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
@@ -152,6 +143,7 @@
 </table>
 <script>
     $(function(){
+        var goods_base = '';
         $('#addSpec').click(function(){
             if($(this).data('status') == false){
                 Notify('重新设置规格需删除当前规格列表', 'bottom-right', '5000', 'warning', 'fa-warning', true);
@@ -172,12 +164,15 @@
                 },
                 ok : function(target){
                     var spec = [];
+                    var table = $('.table-border');
+                    var tbody = table.find('tbody');
                     var tabs_spec = $(target).find('.tabs-spec-name li');
                     var tabs_spec_value = $(target).find('.tabs-spec-list > div');
                     if(tabs_spec.length){
                         tabs_spec.each(function(index){
                             var id = $(this).data('id');
                             var name = $(this).data('name');
+                            var type = $(this).data('type');
                             spec[index] = [];
                             var tr = $(target).find('div[data-id='+id+']').find('table > tbody > tr');
                             if(tr.length > 0){
@@ -185,49 +180,88 @@
                                     spec[index][i] = $(this).data('value');
                                 });
                                 spec[index]['name'] = name;
+                                spec[index]['type'] = type;
                             }else{
                                 spec.pop();
                             }
                         });
+
                         var spec_depth = spec.length;
                         if(spec_depth > 0){
-                            var table = $('.table-border');
+
+                            if(goods_base == ''){
+                                goods_base = tbody.find('tr.base');
+                                tbody.find('tr.base').remove();
+                            }
 
                             var th = table.find('thead > tr');
                             $.each(spec,function(){
-                                th.prepend('<th class="spec">' + this.name + '</th>');
+                                var tmp = $('<th class="spec">' + this.name + '</th>');
+                                tmp.data('name',this.name).data('type',this.type);
+                                th.prepend(tmp);
+                                delete this.type;
                                 delete this.name;
                             });
-                            th.append('<th class="spec">操作</th>');
 
-                            var tb = table.find('tbody');
-                            var tr_first = tb.find('tr:first-child');
-                            tr_first.prepend('<td class="spec" colspan="' + spec_depth + '"></td>');
-                            tr_first.append('<td class="spec"></td>');
+                            th.append('<th class="spec">默认</th>');
+                            th.append('<th class="spec">操作</th>');
 
                             var spec_list = Zuhe(spec);
                             for(var i in spec_list){
+
                                 var tr = $('<tr class="spec"></tr>');
                                 var list = spec_list[i].split(',');
                                 for(var l in list){
                                     tr.append('<td data-value="' + list[l] + '">' + list[l] + '</td>');
                                 }
-                                var base_tr = tr_first.find('td.base').clone().removeAttr('class');
+                                var base_tr = goods_base.find('td').clone().removeAttr('class');
+                                base_tr.find('.has-error').removeClass('has-error');
                                 tr.append(base_tr);
+
+                                var td = $('<td></td>');
+                                td.append('<div class="checkbox no-margin"></div>');
+                                td.find('div').append('<label class="no-padding-left"></label>');
+                                td.find('div > label').append('<input type="checkbox" name="default[]" value="' + i + '" class="inverted" />');
+                                td.find('div > label').append('<span class="text margin-left-5"></span>');
+
+                                if(i == 0) td.find('input[type="checkbox"]').attr('checked',true);
+
+                                tr.append(td);
+
                                 tr.append('<td><a href="javascript:void(0);" class="btn btn-danger btn-xs shiny icon-only white btn-del"><i class="fa fa-times"></i></a></td>');
-                                tb.append(tr);
+                                tbody.append(tr);
                             }
 
                             $('#addSpec').data('status',false);
 
-                            tb.find('.btn-del').click(function(){
+                            tbody.find('input[name="default[]"]').click(function(){
+                                if(this.checked === false){
+                                    if(tbody.find('input[name="default[]"]:checked').length <= 0){
+                                        this.checked = true;
+                                    }
+                                }else{
+                                    var checkbox = tbody.find('input[name="default[]"]:checked');
+                                    if(checkbox.length > 0){
+                                        checkbox.attr('checked',false);
+                                    }
+                                    this.checked = true;
+                                }
+                            });
+
+                            tbody.find('.btn-del').click(function(){
                                 var spec_td = $(this).closest('tbody').find('tr.spec');
                                 if(spec_td.length == 1){
                                     th.find('th.spec').remove();
-                                    tr_first.find('td.spec').remove();
+                                    tbody.html(goods_base);
                                     $('#addSpec').data('status',true);
+                                }else{
+                                    var tr = $(this).closest('tr');
+                                    var checkbox = tr.find('input[type="checkbox"]').get(0);
+                                    if(checkbox.checked == true){
+                                        tr.remove();
+                                        tbody.find('tr:first-child').find('input[type="checkbox"]').attr('checked',true);
+                                    }
                                 }
-                                $(this).closest('tr').remove();
                             });
                         }
                     }

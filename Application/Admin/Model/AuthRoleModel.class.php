@@ -75,7 +75,15 @@ class AuthRoleModel extends CommonModel{
 
     public function get_breadcrumbs($id = ''){
         if(empty($this->breadcrumbs)){
-            $path = $_SERVER['PATH_INFO'];
+            $urlCase    =   C('URL_CASE_INSENSITIVE');
+            $controller_name = CONTROLLER_NAME;
+            $action_name = ACTION_NAME;
+            if($urlCase){
+                $controller_name = str_replace('_',' ',$controller_name);
+                $controller_name = ucwords($controller_name);
+                $controller_name = str_replace(' ','',$controller_name);;
+            }
+            $path = str_replace('\\','/',$controller_name . DS . $action_name);
             $breadcrumbs = $this->where(array('site'=>$path))->find();
         }else{
             $breadcrumbs = $this->where(array('id'=>$id))->find();

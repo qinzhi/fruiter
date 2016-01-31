@@ -38,11 +38,14 @@
                         spec_list.data('name',data.name);
                         spec_list.data('value',data.value);
                         spec_list.data('id',data.id);
+                        spec_list.data('type',data.type);
                         var spec = '';
                         for(var i in data.value){
                             spec += '<a class="btn btn-default" href="javascript:void(0);">'+ data.value[i] + '</a>&nbsp;';
                         }
                         spec_list.html(spec);
+                    }else{
+                        spec_list.html('没数据...');
                     }
                 });
             }

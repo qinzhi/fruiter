@@ -32,8 +32,12 @@ class GoodsController extends AdminController {
         if($function === 'spec'){
             $tpl = I('request.tpl');
             if($tpl == 'select'){
-                $specs = D('GoodsSpec')->get_specs('id,name');
+                $specs = D('Spec')->get_specs('id,name');
                 $this->assign('specs',$specs);
+            }elseif($tpl == 'edit'){
+                $id = I('request.id/d');
+                $spec = D('Spec')->get_spec_by_id($id);
+                $this->assign('spec',$spec);
             }
             $this->display(ucfirst($function) . DS . $tpl);
         }else{

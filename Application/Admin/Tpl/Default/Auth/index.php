@@ -337,13 +337,12 @@
                     $('.plugins_auth- .dataTable').find('tr[data-path^='+path+']').each(function(index){
                         if(index) $(this).hide();
                     });
-                    $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
                 }else if($(this).hasClass('fa-plus-square-o')){
                     $('.plugins_auth- .dataTable').find('tr[data-path^='+path+']').each(function(index){
                         if(index) $(this).show();
                     });
-                    $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
                 }
+                $(this).toggleClass('fa-plus-square-o').toggleClass('fa-minus-square-o');
             });
         });
     </script>
