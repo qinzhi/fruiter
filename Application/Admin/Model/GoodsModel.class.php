@@ -22,7 +22,7 @@ class GoodsModel extends CommonModel{
             'search_words' => $params['search_words']
         );
         //$_spec_list = I('post._spec_list');
-        
+
         $_default = I('post._default/d',0);
 
         $_goods_no = I('post._goods_no');
