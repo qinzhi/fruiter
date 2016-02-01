@@ -7,8 +7,7 @@
                     <a class="btn btn-success pull-left margin-left-5" id="selectAll" data-status="false">全选</a>
                     <a id="batDel" class="btn btn-danger pull-left margin-left-5" href="javascript:void(0);">批量删除</a>
                     <a class="btn btn-success" id="addSpec" href="javascript:void(0);">添加</a>
-                </div><!--Widget Header-->
-
+                </div>
                 <div class="widget-body plugins_spec- no-padding">
                     <table class="table table-hover">
                         <colgroup>
@@ -19,18 +18,10 @@
                         </colgroup>
                         <thead class="bordered-success">
                             <tr>
-                                <th class="padding-left-16">
-                                    选择
-                                </th>
-                                <th>
-                                    规格名称
-                                </th>
-                                <th>
-                                    规格数据
-                                </th>
-                                <th>
-                                    操作
-                                </th>
+                                <th class="padding-left-16">选择</th>
+                                <th>规格名称</th>
+                                <th>规格数据</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody class="spec_list">
@@ -44,12 +35,8 @@
                                             </label>
                                         </div>
                                     </td>
-                                    <td>
-                                        {$vo.name}
-                                    </td>
-                                    <td>
-                                        {$vo.value|json_decode|implode=',',###}
-                                    </td>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.value|json_decode|implode=',',###}</td>
                                     <td>
                                         <a href="javascript:void(0);" data-node="{$vo.id}" class="btn btn-default btn-sm purple btn-edit"><i class="fa fa-edit"></i> 编辑</a>
                                         <a href="javascript:void(0);" class="btn btn-default btn-sm danger btn-del"><i class="fa fa-times"></i> 删除</a>
@@ -58,8 +45,8 @@
                             </volist>
                         </tbody>
                     </table>
-                </div><!--Widget Body-->
-            </div><!--Widget-->
+                </div>
+            </div>
         </div>
     </div>
 </block>
@@ -74,12 +61,8 @@
                     </label>
                 </div>
             </td>
-            <td>
-                {{name}}
-            </td>
-            <td>
-                {{value | valueFormat}}
-            </td>
+            <td>{{name}}</td>
+            <td>{{value | valueFormat}}</td>
             <td>
                 <a href="{:U('GoodsAttr/edit',array('id'=>$vo['id']))}" class="btn btn-default btn-sm purple"><i class="fa fa-edit"></i> 编辑</a>
                 <a href="javascript:void(0);" class="btn btn-default btn-sm danger btn-del"><i class="fa fa-times"></i> 删除</a>

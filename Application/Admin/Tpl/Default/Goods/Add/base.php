@@ -16,7 +16,7 @@
             <th>关键字：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="keyword" name="keyword"  type="text" class="input-sm Lwidth300" maxlength="50"/>
+                    <input id="search_words" name="search_words"  type="text" class="input-sm Lwidth300" maxlength="50"/>
                     <span class="note control-label margin-left-10">每个关键词最长为15个字符，必须以","(逗号)分隔符</span>
                 </div>
             </td>
@@ -25,7 +25,7 @@
             <th>所属分类：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="category" name="category" class="input-sm Lwidth400" type="text">
+                    <input id="category" class="input-sm Lwidth400" type="text">
                     <input id="category_id" name="category_id" class="hidden" type="text">
                 </div>
             </td>
@@ -36,13 +36,13 @@
                 <span class="control-group">
                     <div class="radio line-radio">
                         <label class="no-padding">
-                            <input name="status" type="radio" checked="checked">
+                            <input name="status" type="radio" checked="checked" value="0">
                             <span class="text">下架</span>
                         </label>
                     </div>
                     <div class="radio line-radio">
                         <label>
-                            <input name="status" type="radio">
+                            <input name="status" type="radio" value="1">
                             <span class="text">上架</span>
                         </label>
                     </div>
@@ -67,32 +67,32 @@
                         <tr class="base">
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth150" type="text" name="goods_no[]" pattern="required" maxlength="20">
+                                    <input class="input-xs Lwidth150" type="text" name="_goods_no[]" pattern="required" maxlength="20">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="store_nums[]" pattern="int" maxlength="10">
+                                    <input class="input-xs Lwidth80" type="text" name="_store_nums[]" pattern="int" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="market_price[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80" type="text" name="_market_price[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="sell_price[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80" type="text" name="_sell_price[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="cost_price[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80" type="text" name="_cost_price[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="weight[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80" type="text" name="_weight[]" pattern="float" maxlength="10">
                                 </div>
                             </td>
                         </tr>
@@ -115,25 +115,25 @@
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
                     <label class="no-padding">
-                        <input type="checkbox" name="commend_type" value="1">
+                        <input type="checkbox" name="commend_type[]" value="1">
                         <span class="text">最新商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type" value="2">
+                        <input type="checkbox" name="commend_type[]" value="2">
                         <span class="text">特价商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type" value="3">
+                        <input type="checkbox" name="commend_type[]" value="3">
                         <span class="text">热卖商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type" value="4">
+                        <input type="checkbox" name="commend_type[]" value="4">
                         <span class="text">推荐商品</span>
                     </label>
                 </div>
@@ -165,6 +165,7 @@
                 ok : function(target){
                     var spec = [];
                     var table = $('.table-border');
+                    var thead = table.find('thead');
                     var tbody = table.find('tbody');
                     var tabs_spec = $(target).find('.tabs-spec-name li');
                     var tabs_spec_value = $(target).find('.tabs-spec-list > div');
@@ -181,6 +182,7 @@
                                 });
                                 spec[index]['name'] = name;
                                 spec[index]['type'] = type;
+                                spec[index]['id'] = id;
                             }else{
                                 spec.pop();
                             }
@@ -195,25 +197,40 @@
                             }
 
                             var th = table.find('thead > tr');
-                            $.each(spec,function(){
+                            var _spec = [];
+                            $.each(spec,function(i){
                                 var tmp = $('<th class="spec">' + this.name + '</th>');
-                                tmp.data('name',this.name).data('type',this.type);
+                                tmp.data('id',this.id)
+                                    .data('name',this.name)
+                                    .data('type',this.type);
+                                _spec[i] = {};
+                                _spec[i].id = this.id;
+                                _spec[i].name = this.name;
+                                _spec[i].type = this.type;
                                 th.prepend(tmp);
                                 delete this.type;
                                 delete this.name;
+                                delete this.id;
                             });
 
                             th.append('<th class="spec">默认</th>');
                             th.append('<th class="spec">操作</th>');
 
                             var spec_list = Zuhe(spec);
+
                             for(var i in spec_list){
 
                                 var tr = $('<tr class="spec"></tr>');
                                 var list = spec_list[i].split(',');
                                 for(var l in list){
-                                    tr.append('<td data-value="' + list[l] + '">' + list[l] + '</td>');
+                                    var td = $('<td data-value="' + list[l] + '">' + list[l] + '</td>');
+                                    tr.append(td);
+                                    var index = td.index();
+                                    var _input = _spec[index];
+                                    _input.value = list[l];
+                                    td.append("<input type='hidden' value='" + JSON.stringify(_input) + "' name='_spec_list[" + i + "][]'/>");
                                 }
+
                                 var base_tr = goods_base.find('td').clone().removeAttr('class');
                                 base_tr.find('.has-error').removeClass('has-error');
                                 tr.append(base_tr);
@@ -221,10 +238,12 @@
                                 var td = $('<td></td>');
                                 td.append('<div class="checkbox no-margin"></div>');
                                 td.find('div').append('<label class="no-padding-left"></label>');
-                                td.find('div > label').append('<input type="checkbox" name="default[]" value="' + i + '" class="inverted" />');
-                                td.find('div > label').append('<span class="text margin-left-5"></span>');
 
-                                if(i == 0) td.find('input[type="checkbox"]').attr('checked',true);
+                                var _checkbox = $('<input type="checkbox" name="_default[]" value="' + i + '" class="inverted" />');
+                                if(i == 0) _checkbox.attr('checked',true);
+                                td.find('div > label').append(_checkbox);
+
+                                td.find('div > label').append('<span class="text margin-left-4"></span>');
 
                                 tr.append(td);
 

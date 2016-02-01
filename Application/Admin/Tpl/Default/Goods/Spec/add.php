@@ -23,15 +23,11 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label no-padding-right" for="inputPassword3"></label>
                     <div class="col-sm-10">
-                        <table class="table table-bordered table-center">
+                        <table class="table table-bordered table-hover table-center">
                             <thead>
                             <tr>
-                                <th>
-                                    规格值
-                                </th>
-                                <th>
-                                    操作
-                                </th>
+                                <th>规格值</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody></tbody>
@@ -42,24 +38,30 @@
         </div>
     </div>
 </div>
+<script type="text/html" id="add_spec">
+    <tr>
+        <td><input class="input-xs spec_value" type="text" name="spec_value[]"></td>
+        <td>
+            <a data-action="up" href="javascript:void(0);" class="btn btn-default btn-xs shiny icon-only success btn-move"><i class="fa fa-arrow-up"></i></a>
+            <a data-action="down" href="javascript:void(0);" class="btn btn-default btn-xs shiny icon-only success btn-move"><i class="fa fa-arrow-down"></i></a>
+            <a href="javascript:void(0);" class="btn btn-danger btn-xs shiny icon-only white btn-del"><i class="fa fa-times"></i></a>
+        </td>
+    </tr>
+</script>
 <script>
     $(function(){
         $('#spec_add').click(function(){
-            var table = $(this).parents('form').find('table');
-            var tr = $('<tr><td><input class="input-xs spec_value" type="text" name="spec_value[]"></td><td>' +
-            '<a data-action="up" href="javascript:void(0);" class="btn btn-default btn-xs shiny icon-only success btn-move"><i class="fa fa-arrow-up"></i></a>&nbsp;' +
-            '<a data-action="down" href="javascript:void(0);" class="btn btn-default btn-xs shiny icon-only success btn-move"><i class="fa fa-arrow-down"></i></a>&nbsp;' +
-            '<a href="javascript:void(0);" class="btn btn-danger btn-xs shiny icon-only white btn-del"><i class="fa fa-times"></i></a>' +
-            '</td></tr>');
-            table.find('tbody').append(tr);
-            tr.find('.btn-del').bind('click',function(){
+            var tbody = $(this).parents('form').find('table tbody');
+            tbody.append(template('add_spec'));
+            tbody.children(':last-child').find('.btn-del').bind('click',function(){
+                var tr = $(this).closest('tr');
                 bootbox.confirm("确定要删除么?", function (result) {
                     if(result){
                         tr.remove();
                     }
                 });
             });
-            tr.find('.btn-move').bind('click',function(){
+            tbody.children(':last-child').find('.btn-move').bind('click',function(){
                 var action = $(this).data('action');
                 var tr = $(this).parents('tr');
                 var index = tr.index();

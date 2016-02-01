@@ -4,8 +4,11 @@
             <h7>请选择规格</h7>
             <div class="well well-sm bg-white well-select-spec">
                 <ul class="ul-spec-list">
-                    <volist name="specs" id="spec">
-                        <li data-id="{$spec.id}"><label>{$spec.name}</label></li>
+                    <volist name="specs" id="vo">
+                        <li data-id="{$vo.id}">
+                            <label>{$vo.name}</label>
+                            <i class="fa fa-check spec-status"></i>
+                        </li>
                     </volist>
                 </ul>
             </div>
@@ -29,8 +32,7 @@
     $(function(){
         $('.ul-spec-list li').click(function(){
             if(!$(this).hasClass('active')){
-                $(this).parent().find('li.active').removeClass('active').find('i.spec-status').remove();
-                $(this).addClass('active').append('<i class="fa fa-check spec-status"></i>');
+                $(this).addClass('active').siblings('.active').removeClass('active');
                 var spec_list = $('.well-spec-list');
                 spec_list.html('<p class="text-muted">数据获取中...</p>');
                 $.post('{:U("GoodsSpec/get")}',{id:$(this).data('id')},function(data){

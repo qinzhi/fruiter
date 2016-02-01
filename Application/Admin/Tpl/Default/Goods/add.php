@@ -134,7 +134,7 @@
             $('#goods_save').click(function(){
                 var form = document.getElementById('goodsForm');
                 if($.validateOnSubmit(form) == true){
-
+                    form.submit();
                 }
             });
 

@@ -17,11 +17,20 @@ class GoodsController extends AdminController {
     }
 
     public function add(){
-        $categories = $this->category->get_categories();
-        $tree = new Tree($categories);
-        $categories = $tree->leaf();
-        $this->assign('categories',$this->category->format_tree($categories,true,false));
-        $this->display();
+        if(IS_POST){
+
+            D('Goods')->addGoods(I('post.'));
+
+
+            fb($goods);
+            fb(I('post.'));
+        }else{
+            $categories = $this->category->get_categories();
+            $tree = new Tree($categories);
+            $categories = $tree->leaf();
+            $this->assign('categories',$this->category->format_tree($categories,true,false));
+            $this->display();
+        }
     }
 
     /*public function setSpec(){
@@ -32,7 +41,12 @@ class GoodsController extends AdminController {
         if($function === 'spec'){
             $tpl = I('request.tpl');
             if($tpl == 'select'){
-                $specs = D('Spec')->get_specs('id,name');
+                $has_id = I('request.has_id');
+                $where = array();
+                if(!empty($has_id)){
+                    $where['id'] = array('not in',implode(',',$has_id));
+                }
+                $specs = D('Spec')->get_specs('id,name',$where);
                 $this->assign('specs',$specs);
             }elseif($tpl == 'edit'){
                 $id = I('request.id/d');

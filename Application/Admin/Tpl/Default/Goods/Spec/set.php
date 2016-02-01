@@ -56,11 +56,12 @@
                 min_width: 600,
                 min_height: 350,
                 content : function(){
-                    var content;
-                    $.post("{:U('Goods/spec')}",{tpl:'select'},function(data){
-                        content = data;
+                    var has_id = [];
+                    $('.tabs-spec-name > li').each(function(i){
+                        has_id.push($(this).data('id'));
                     });
-                    return content;
+                    var obj = $.post("{:U('Goods/spec')}",{tpl:'select',has_id:has_id});
+                    return obj.responseText;
                 },
                 ok : function(target){
                     var spec_list = $(target).find('.well-spec-list');
@@ -70,15 +71,8 @@
                     spec.id = spec_list.data('id');
                     spec.type = spec_list.data('type');
                     if(spec.id && spec.value){
+
                         var tabs_spec_name = $('.tabs-spec-name');
-                        var has_li = tabs_spec_name.find('li');
-                        if(has_li.length > 0)
-                            for(var i in has_li){
-                                if($(has_li[i]).data('id') == spec.id){
-                                    Notify('该规格已经添加，不能重复添加', 'bottom-right', '5000', 'warning', 'fa-warning', true);
-                                    return false;
-                                }
-                            }
 
                         tabs_spec_name.find('.active').removeClass('active');
 
