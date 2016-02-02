@@ -50,7 +50,7 @@ class GoodsController extends AdminController {
                 $spec = D('Spec')->get_spec_by_id($id);
                 $this->assign('spec',$spec);
             }
-            $this->display(ucfirst($function) . DS . $tpl);
+            $this->display(CONTROLLER_NAME . DS . ucfirst($function) . DS . $tpl);
         }else{
             echo"你所调用的函数： ".$function."(参数: ";
             print_r(I('request.'));

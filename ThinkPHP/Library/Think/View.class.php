@@ -158,7 +158,7 @@ class View {
         if('' == $template) {
             // 如果模板文件名为空 按照默认规则定位
             $template = CONTROLLER_NAME . $depr . ACTION_NAME;
-        }else/*if(false === strpos($template, $depr))*/{
+        }elseif(false === strpos($template, $depr)){
             $template = CONTROLLER_NAME . $depr . $template;
         }
         $file   =   THEME_PATH.$template.C('TMPL_TEMPLATE_SUFFIX');

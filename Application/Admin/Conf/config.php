@@ -1,7 +1,7 @@
 <?php
 
 if (!defined('DS')) {
-    define('DS', DIRECTORY_SEPARATOR);
+    define('DS', '/');
 }
 
 return array(
