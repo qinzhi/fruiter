@@ -21,9 +21,6 @@ class GoodsController extends AdminController {
 
             D('Goods')->addGoods(I('post.'));
 
-
-            fb($goods);
-            fb(I('post.'));
         }else{
             $categories = $this->category->get_categories();
             $tree = new Tree($categories);
