@@ -18,9 +18,7 @@ class GoodsController extends AdminController {
 
     public function add(){
         if(IS_POST){
-
             D('Goods')->addGoods(I('post.'));
-
         }else{
             $categories = $this->category->get_categories();
             $tree = new Tree($categories);

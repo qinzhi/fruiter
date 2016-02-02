@@ -19,23 +19,26 @@ class GoodsModel extends CommonModel{
         $goods = array(
             'name' => $params['name'],
             'intro' => $params['intro'],
-            'search_words' => $params['search_words']
+            'search_words' => $params['search_words'],
+            'status' => (int)$params['status']
         );
         //$_spec_list = I('post._spec_list');
 
-        $_default = I('post._default/d',0);
+        $_default = isset($params['_default']) ? (int)$params['_default'] : 0;
 
-        $_goods_no = I('post._goods_no');
-        $_store_nums = I('post._store_nums');
-        $_market_price = I('post._market_price');
-        $_sell_price = I('post._sell_price');
-        $_cost_price = I('post._cost_price');
-        $_weight = I('post._weight');
+        $_goods_no = $params['_goods_no'];
+        $_store_nums = $params['_store_nums'];
+        $_market_price = $params['_market_price'];
+        $_sell_price = $params['_sell_price'];
+        $_cost_price = $params['_cost_price'];
+        $_weight = $params['_weight'];
 
+        //计算总库存
         $_store_total_nums = 0;
         foreach($_store_nums as $_store_num){
             $_store_total_nums += $_store_num;
         }
+
         $goods['goods_no'] = $_goods_no[$_default];
         $goods['store_nums'] = $_store_total_nums;
         $goods['market_price'] = $_market_price[$_default];
@@ -46,22 +49,43 @@ class GoodsModel extends CommonModel{
         $goods_id = D('Goods')->add($goods);
         if($goods_id > 0){
 
+            /** --------   添加商品详情   --------- **/
+            $detail = array(
+                'goods_id' => $goods_id,
+                'detail' => $params['detail']
+            );
+            M('GoodsToCommend')->add($detail);
+
             /** --------   添加商品类型   --------- **/
-            $commend_type = I('post.commend_type');
+            $commend_type = $params['commend_type'];
             if(!empty($commend_type)){
-                $commend = array();
                 foreach($commend_type as $val){
                     $commend[] = array(
-                        'commend_id' => $commend_type,
+                        'commend_id' => $val,
                         'goods_id' => $goods_id
                     );
                 }
-                D('GoodsCommend')->addAll($commend);
+                M('GoodsToCommend')->addAll($commend);
             }
 
             /** --------   添加商品分类   --------- **/
+            $category_id = $params['category_id'];
+            if(!empty($category_id)){
+                $category_id = explode(',',$category_id);
+                foreach($category_id as $val){
+                    $category[] = array(
+                        'category_id' => $val,
+                        'goods_id' => $goods_id
+                    );
+                }
+                M('GoodsToCategory')->addAll($category);
+            }
+
+            /** --------   添加商品扩展属性   --------- **/
 
         }
+
+
     }
 
 

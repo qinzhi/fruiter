@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-02-01 18:42:10
+Date: 2016-02-02 18:28:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,7 +81,6 @@ CREATE TABLE `fruiter_goods` (
   `market_price` decimal(10,2) DEFAULT NULL COMMENT '市场价格',
   `cost_price` decimal(10,2) DEFAULT NULL COMMENT '成本价格',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '商品状态 0下架 1上架',
-  `commend_type` tinyint(1) DEFAULT NULL COMMENT '商品推荐类型 :\r\n1.最新商品\r\n2.特价商品\r\n3.热卖商品\r\n4.推荐商品',
   `up_time` datetime DEFAULT NULL COMMENT '上架时间',
   `down_time` datetime DEFAULT NULL COMMENT '下架时间',
   `create_time` datetime NOT NULL COMMENT '创建时间',
@@ -97,9 +96,8 @@ CREATE TABLE `fruiter_goods` (
   `is_del` tinyint(1) DEFAULT NULL COMMENT '删除 0正常 1已删除',
   PRIMARY KEY (`id`),
   KEY `is_del` (`is_del`),
-  KEY `status` (`status`),
-  KEY `commend_type` (`commend_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `status` (`status`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fruiter_goods
@@ -145,21 +143,20 @@ CREATE TABLE `fruiter_goods_category_seo` (
 INSERT INTO `fruiter_goods_category_seo` VALUES ('1', '1', '水果', '水果', '水果');
 
 -- ----------------------------
--- Table structure for `fruiter_goods_commend`
+-- Table structure for `fruiter_goods_detail`
 -- ----------------------------
-DROP TABLE IF EXISTS `fruiter_goods_commend`;
-CREATE TABLE `fruiter_goods_commend` (
-  `id` int(11) NOT NULL,
-  `goods_id` int(10) NOT NULL,
-  `commend_id` tinyint(1) NOT NULL COMMENT '推荐类型ID 1:最新商品 2:特价商品 3:热卖排行 4:推荐商品',
+DROP TABLE IF EXISTS `fruiter_goods_detail`;
+CREATE TABLE `fruiter_goods_detail` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(10) NOT NULL COMMENT '商品ID',
+  `detail` longtext COMMENT '商品详情',
   PRIMARY KEY (`id`),
-  KEY `goods_id` (`goods_id`) USING BTREE,
-  KEY `commend_id` (`commend_id`) USING BTREE,
-  CONSTRAINT `goods_id` FOREIGN KEY (`goods_id`) REFERENCES `fruiter_goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推荐商品类型关联表';
+  UNIQUE KEY `goods_id` (`goods_id`) USING BTREE,
+  CONSTRAINT `fruiter_goods_detail_ibfk_1` FOREIGN KEY (`goods_id`) REFERENCES `fruiter_goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品详情表';
 
 -- ----------------------------
--- Records of fruiter_goods_commend
+-- Records of fruiter_goods_detail
 -- ----------------------------
 
 -- ----------------------------
@@ -178,6 +175,43 @@ CREATE TABLE `fruiter_goods_seo` (
 
 -- ----------------------------
 -- Records of fruiter_goods_seo
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fruiter_goods_to_category`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_goods_to_category`;
+CREATE TABLE `fruiter_goods_to_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(10) NOT NULL COMMENT '分类ID',
+  `goods_id` int(10) NOT NULL COMMENT '商品ID',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`) USING BTREE,
+  KEY `goods_id` (`goods_id`) USING BTREE,
+  CONSTRAINT `fruiter_goods_to_category_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `fruiter_goods_category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fruiter_goods_to_category_ibfk_2` FOREIGN KEY (`goods_id`) REFERENCES `fruiter_goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品分类关联表';
+
+-- ----------------------------
+-- Records of fruiter_goods_to_category
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for `fruiter_goods_to_commend`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_goods_to_commend`;
+CREATE TABLE `fruiter_goods_to_commend` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `goods_id` int(10) NOT NULL,
+  `commend_id` tinyint(1) NOT NULL COMMENT '推荐类型ID 1:最新商品 2:特价商品 3:热卖排行 4:推荐商品',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`) USING BTREE,
+  KEY `commend_id` (`commend_id`) USING BTREE,
+  CONSTRAINT `goods_id` FOREIGN KEY (`goods_id`) REFERENCES `fruiter_goods` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='推荐商品类型关联表';
+
+-- ----------------------------
+-- Records of fruiter_goods_to_commend
 -- ----------------------------
 
 -- ----------------------------
@@ -211,9 +245,12 @@ CREATE TABLE `fruiter_session` (
 -- ----------------------------
 -- Records of fruiter_session
 -- ----------------------------
-INSERT INTO `fruiter_session` VALUES ('1', '7n3gqg38kgj2l0gsr9mk6ee3n7', '1454321845', '');
-INSERT INTO `fruiter_session` VALUES ('3', '7n3gqg38kgj2l0gsr9mk6ee3n7', '1454321969', '');
-INSERT INTO `fruiter_session` VALUES ('2', '7n3gqg38kgj2l0gsr9mk6ee3n7', '1454321899', '');
+INSERT INTO `fruiter_session` VALUES ('1', 'q0ajfq7jmksass7u4fm33km380', '1454407788', '');
+INSERT INTO `fruiter_session` VALUES ('8', 'urdpgt5h229sjpnp2fglmf57u2', '1454406999', '');
+INSERT INTO `fruiter_session` VALUES ('7', 'urdpgt5h229sjpnp2fglmf57u2', '1454406609', '');
+INSERT INTO `fruiter_session` VALUES ('6', 'urdpgt5h229sjpnp2fglmf57u2', '1454406578', '');
+INSERT INTO `fruiter_session` VALUES ('5', 'urdpgt5h229sjpnp2fglmf57u2', '1454406558', '');
+INSERT INTO `fruiter_session` VALUES ('4', 'urdpgt5h229sjpnp2fglmf57u2', '1454406448', '');
 
 -- ----------------------------
 -- Table structure for `fruiter_spec`
