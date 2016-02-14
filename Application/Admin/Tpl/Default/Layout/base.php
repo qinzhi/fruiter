@@ -10,9 +10,11 @@ Purchase: http://wrapbootstrap.com
 <!-- Head -->
 <head>
     <meta charset="utf-8" />
-    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <block name="title"><title>网站后台</title></block>
-
+    <!--[if lt IE 9]>
+    <script src="https://blogs.msdn.microsoft.com/ie/wp-content/themes/microsoft/js/html5.js"></script>
+    <![endif]-->
     <block name="meta">
         <meta name="description" content="blank page" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -73,12 +75,10 @@ Purchase: http://wrapbootstrap.com
                     {:W('Page/breadcrumbs',array($breadcrumbs))}
                 </block>
 
-                <!-- Page Header -->
-                <div class="page-header position-relative">
+                <!--<div class="page-header position-relative">
                     <block name="header-title">
                         {:W('Page/title',array($breadcrumbs))}
                     </block>
-                    <!--Header Buttons-->
                     <div class="header-buttons">
                         <a class="sidebar-toggler" href="#">
                             <i class="fa fa-arrows-h"></i>
@@ -90,9 +90,8 @@ Purchase: http://wrapbootstrap.com
                             <i class="glyphicon glyphicon-fullscreen"></i>
                         </a>
                     </div>
-                    <!--Header Buttons End-->
-                </div>
-                <!-- /Page Header -->
+                </div>-->
+
                 <!-- Page Body -->
                 <div class="page-body no-padding">
                     <block name="content"></block>

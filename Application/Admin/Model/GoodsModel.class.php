@@ -7,8 +7,7 @@
  */
 namespace Admin\Model;
 
-use Think\Model;
-
+use Think\Model,\Common\Library\Org\Util\Json;
 class GoodsModel extends CommonModel{
 
     public function __construct(){
@@ -20,9 +19,9 @@ class GoodsModel extends CommonModel{
             'name' => $params['name'],
             'intro' => $params['intro'],
             'search_words' => $params['search_words'],
-            'status' => (int)$params['status']
+            'status' => (int)$params['status'],
+            'create_time' => time()
         );
-        //$_spec_list = I('post._spec_list');
 
         $_default = isset($params['_default']) ? (int)$params['_default'] : 0;
 
@@ -34,19 +33,19 @@ class GoodsModel extends CommonModel{
         $_weight = $params['_weight'];
 
         //计算总库存
-        $_store_total_nums = 0;
-        foreach($_store_nums as $_store_num){
-            $_store_total_nums += $_store_num;
+        $store_total_nums = 0;
+        foreach($_store_nums as $val){
+            $store_total_nums += $val;
         }
 
         $goods['goods_no'] = $_goods_no[$_default];
-        $goods['store_nums'] = $_store_total_nums;
+        $goods['store_nums'] = $store_total_nums;
         $goods['market_price'] = $_market_price[$_default];
         $goods['sell_price'] = $_sell_price[$_default];
         $goods['cost_price'] = $_cost_price[$_default];
         $goods['weight'] = $_weight[$_default];
 
-        $goods_id = D('Goods')->add($goods);
+        $goods_id = $this->add($goods);
         if($goods_id > 0){
 
             /** --------   添加商品详情   --------- **/
@@ -54,7 +53,15 @@ class GoodsModel extends CommonModel{
                 'goods_id' => $goods_id,
                 'detail' => $params['detail']
             );
-            M('GoodsToCommend')->add($detail);
+            M('GoodsDetail')->add($detail);
+
+            /** --------   添加商品SEO   --------- **/
+            $seo = array(
+                'goods_id' => $goods_id,
+                'keywords' => $params['keywords'],
+                'description' => $params['description']
+            );
+            M('GoodsSeo')->add($seo);
 
             /** --------   添加商品类型   --------- **/
             $commend_type = $params['commend_type'];
@@ -82,11 +89,35 @@ class GoodsModel extends CommonModel{
             }
 
             /** --------   添加商品扩展属性   --------- **/
+            $model_id = $params['model_id'];
+            $_attr = $params['_attr'];
+            if($model_id > 0 && !empty($_attr)){
+                foreach($_attr as $key => $val){
+                    $attr = array(
+                        'goods_id' => $goods_id,
+                        'model_id' => $model_id,
+                        'attr_id' => $key,
+                        'attr_value' => is_array($val) ? implode(',',$val) : $val
+                    );
+                    M('GoodsAttr')->add($attr);
+                }
+            }
 
+            /** --------   添加規格商品   --------- **/
+            $_spec_list = $_POST['_spec_list'];
+            foreach($_goods_no as $key => $value){
+                $products = array(
+                    'goods_id' => $goods_id,
+                    'products_no' => $_goods_no[$key],
+                    'spec_array' => !empty($_spec_list[$key]) ? "[".join(',',$_spec_list[$key])."]" : '',
+                    'store_nums' => $_store_nums[$key],
+                    'market_price' => $_market_price[$key],
+                    'sell_price' => $_sell_price[$key],
+                    'cost_price' => $_cost_price[$key],
+                    'weight' => $_weight[$key]
+                );
+                M('Products')->add($products);
+            }
         }
-
-
     }
-
-
 }

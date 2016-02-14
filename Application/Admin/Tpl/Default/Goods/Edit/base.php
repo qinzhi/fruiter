@@ -7,7 +7,7 @@
             <th>商品名称：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="name" name="name" class="input-sm Lwidth400" type="text" pattern="required" maxlength="50">
+                    <input id="name" name="name" class="input-sm Lwidth400" value="{$goods.name}" type="text" pattern="required" maxlength="50">
                     <span class="note control-label margin-left-10">*</span>
                 </div>
             </td>
@@ -16,7 +16,7 @@
             <th>关键字：</th>
             <td>
                 <div class="form-group has-feedback no-margin">
-                    <input id="search_words" name="search_words"  type="text" class="input-sm Lwidth300" maxlength="50"/>
+                    <input id="search_words" name="search_words" value="{$goods.search_words}" type="text" class="input-sm Lwidth300" maxlength="50"/>
                     <span class="note control-label margin-left-10">每个关键词最长为15个字符，必须以","(逗号)分隔符</span>
                 </div>
             </td>
@@ -36,13 +36,13 @@
                 <span class="control-group">
                     <div class="radio line-radio">
                         <label class="no-padding">
-                            <input name="status" type="radio" checked="checked" value="0">
+                            <input name="status" type="radio" value="0" {$goods['status'] == 0 ? 'checked' : ''}>
                             <span class="text">下架</span>
                         </label>
                     </div>
                     <div class="radio line-radio">
                         <label>
-                            <input name="status" type="radio" value="1">
+                            <input name="status" type="radio" value="1" {$goods['status'] == 1 ? 'checked' : ''}>
                             <span class="text">上架</span>
                         </label>
                     </div>
@@ -115,25 +115,25 @@
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
                     <label class="no-padding">
-                        <input type="checkbox" name="commend_type[]" value="1">
+                        <input type="checkbox" name="commend_type[]" value="1" {(in_array(1,$commend_id) == true) ? 'checked' : ''}>
                         <span class="text">最新商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type[]" value="2">
+                        <input type="checkbox" name="commend_type[]" value="2" {(in_array(2,$commend_id) == true) ? 'checked' : ''}>
                         <span class="text">特价商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type[]" value="3">
+                        <input type="checkbox" name="commend_type[]" value="3" {(in_array(3,$commend_id) == true) ? 'checked' : ''}>
                         <span class="text">热卖商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type[]" value="4">
+                        <input type="checkbox" name="commend_type[]" value="4" {(in_array(4,$commend_id) == true) ? 'checked' : ''}>
                         <span class="text">推荐商品</span>
                     </label>
                 </div>

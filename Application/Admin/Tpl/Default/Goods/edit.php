@@ -39,16 +39,16 @@
                                 </ul>
                                 <div class="tab-content tabs-flat">
                                     <div class="tab-pane active" id="tab-basic">
-                                        <include file="Default/Goods/Add/base"/>
+                                        <include file="Default/Goods/Edit/base"/>
                                     </div>
                                     <div class="tab-pane" id="tab-detail">
-                                        <include file="Default/Goods/Add/detail"/>
+                                        <include file="Default/Goods/Edit/detail"/>
                                     </div>
                                     <div class="tab-pane" id="tab-attr">
-                                        <include file="Default/Goods/Add/attr"/>
+                                        <include file="Default/Goods/Edit/attr"/>
                                     </div>
                                     <div class="tab-pane" id="tab-seo">
-                                        <include file="Default/Goods/Add/seo"/>
+                                        <include file="Default/Goods/Edit/seo"/>
                                     </div>
                                 </div>
                             </form>

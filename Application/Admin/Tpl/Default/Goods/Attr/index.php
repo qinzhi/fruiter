@@ -4,9 +4,13 @@
         <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
             <div class="widget flat no-margin">
                 <div class="widget-header widget-fruiter">
-                    <a class="btn btn-success pull-left margin-left-5" id="selectAll" data-status="false">全选</a>
-                    <a id="batDel" class="btn btn-danger pull-left margin-left-5" href="javascript:void(0);">批量删除</a>
-                    <a class="btn btn-success" href="{:U('GoodsAttr/add')}">添加</a>
+                    <div class="pull-left">
+                        <a class="btn btn-success" id="selectAll" data-status="false">全选</a>
+                        <a id="batDel" class="btn btn-danger" href="javascript:void(0);">批量删除</a>
+                    </div>
+                    <div class="pull-right">
+                        <a class="btn btn-success" href="{:U('GoodsAttr/add')}">添加模型</a>
+                    </div>
                 </div><!--Widget Header-->
 
                 <div class="widget-body plugins_attr- no-padding">

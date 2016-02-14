@@ -16,7 +16,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div class="well">
-                                <table class="table table-bordered table-condensed table-middle flip-content dataTable">
+                                <table class="table table-bordered table-condensed table-middle table-auth_">
                                     <thead class="flip-content bordered-palegreen">
                                     <tr>
                                         <th width="40%">模块名称</th>
@@ -40,7 +40,7 @@
                                                     if(empty($value['child'])){
                                                         $icon = '<i class="fa row-details"></i>';
                                                     }
-                                                    $html .= '<td>' . $class . $icon . '&nbsp;' .$value['name'] . '</td>
+                                                    $html .= '<td>' . $class . $icon . '&nbsp;<span class="authName">' .$value['name'] . '</span></td>
                                                         <td>' . $value['site'] . '</td>
                                                         <td>
                                                             <a class="btn btn-default btn-xs shiny icon-only success btn-move" href="javascript:void(0);" data-action="up"><i class="fa fa-arrow-up"></i></a>
@@ -111,8 +111,8 @@
             </div>
         </div>
     </div>
-    <div id="menuContent" class="tree_panel">
-        <ul id="tree_auth" class="ztree_entity"></ul>
+    <div id="tree_panel" class="tree_panel">
+        <ul id="tree_auth" class="ztree ztree_entity"></ul>
     </div>
 </block>
 <block name="js">
@@ -149,10 +149,14 @@
            });
             $('#save').click(function(){
                 if(auth_id > 0){
-                    var query = $('.plugins_auth- form').serialize();
+                    var form = $('.plugins_auth- form');
+                    var query = form.serialize();
                     query += '&id=' + auth_id;
                     $.fruiter.post('{:U("Auth/edit")}',{params:encodeURIComponent(query)},function(data){
                         if(data.code == 1){
+                            var tr = $('.table-auth_').find('tr[data-id="'+auth_id+'"]');
+                            tr.find('td:eq(0)').find('.authName').text(form.find('input[name=name]').val());
+                            tr.find('td:eq(1)').text(form.find('input[name=site]').val());
                             Notify(data.msg, 'bottom-right', '5000', 'success', 'fa-check', true);
                         }else{
                             Notify(data.msg, 'bottom-right', '5000', 'danger', 'fa-bolt', true);
@@ -229,12 +233,12 @@
         }
 
         function hideMenu() {
-            $("#menuContent").slideUp("fast");
+            $("#tree_panel").slideUp("fast");
             $("body").unbind("mousedown", onBodyDown);
         }
 
         function onBodyDown(event) {
-            if (!(event.target.id == "p_name" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+            if (!(event.target.id == "p_name" || event.target.id == "tree_panel" || $(event.target).parents("#tree_panel").length>0)) {
                 hideMenu();
             }
         }
@@ -260,7 +264,7 @@
                     }
                 }
 
-                $("#menuContent").css({
+                $("#tree_panel").css({
                     left:$(this).offset().left + "px",
                     top:$(this).offset().top + $(this).outerHeight() - $('.navbar-inner').height() + "px",
                     width: $(this).outerWidth() + "px"

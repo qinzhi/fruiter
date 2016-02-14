@@ -4,9 +4,13 @@
         <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
             <div class="widget flat no-margin">
                 <div class="widget-header widget-fruiter">
-                    <a class="btn btn-success pull-left margin-left-5" id="selectAll" data-status="false">全选</a>
-                    <a id="batDel" class="btn btn-danger pull-left margin-left-5" href="javascript:void(0);">批量删除</a>
-                    <a class="btn btn-success" id="addSpec" href="javascript:void(0);">添加</a>
+                    <div class="pull-left">
+                        <a class="btn btn-success" id="selectAll" data-status="false">全选</a>
+                        <a id="batDel" class="btn btn-danger" href="javascript:void(0);">批量删除</a>
+                    </div>
+                    <div class="pull-right">
+                        <a class="btn btn-success" id="addSpec" href="javascript:void(0);">添加规格</a>
+                    </div>
                 </div>
                 <div class="widget-body plugins_spec- no-padding">
                     <table class="table table-hover">

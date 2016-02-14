@@ -5,32 +5,61 @@ class GoodsController extends AdminController {
 
     public function __construct(){
         parent::__construct();
-        $this->category = D('GoodsCategory');
     }
 
     public function index(){
-        $this->display();
-    }
-
-    public function lists(){
+        $goods = D('Goods')->select();
+        $this->assign('goods',$goods);
         $this->display();
     }
 
     public function add(){
         if(IS_POST){
             D('Goods')->addGoods(I('post.'));
+            $this->redirect('Goods/index');
         }else{
-            $categories = $this->category->get_categories();
+            $categories = D('GoodsCategory')->get_categories();
             $tree = new Tree($categories);
             $categories = $tree->leaf();
-            $this->assign('categories',$this->category->format_tree($categories,true,false));
+            $this->assign('categories',D('GoodsCategory')->format_tree($categories,true,false));
             $this->display();
         }
     }
 
-    /*public function setSpec(){
-        $this->display('Spec/set');
-    }*/
+    public function edit(){
+        $id = I('get.id');
+        $goods = D('Goods')->find($id);fb($goods);
+        $this->assign('goods',$goods);
+
+        $categories = D('GoodsCategory')->get_categories();
+        $tree = new Tree($categories);
+        $categories = $tree->leaf();
+        $this->assign('categories',D('GoodsCategory')->format_tree($categories,true,false));
+
+        $where['goods_id'] = $id;
+        $commend = M('GoodsToCommend')->where($where)->select();
+        $commend_id = array();
+        foreach($commend as $value){
+            array_push($commend_id,$value['commend_id']);
+        }
+        fb($commend_id);
+        $this->assign('commend_id',$commend_id);
+        $this->display();
+    }
+
+    public function update(){
+        if(IS_AJAX){
+            $result = D('Goods')->save(I('post.'));
+            if($result){
+                $result = array('code'=>1,'msg'=>'更新成功');
+            }else{
+                $result = array('code'=>0,'msg'=>'更新失败');
+            }
+        }else{
+            $result = array('code'=>0,'msg'=>'异常提交');
+        }
+        $this->ajaxReturn($result);
+    }
 
     public function __call($function,$args){
         if($function === 'spec'){

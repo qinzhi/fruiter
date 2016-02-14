@@ -19,11 +19,11 @@ class GoodsCategoryController extends AdminController {
 
     public function getCategory(){
         $id = I('request.id/d');
-        $auth = $this->category->getCategory($id);
+        $category = $this->category->getCategory($id);
         if(IS_AJAX){
-            $this->ajaxReturn($auth);
+            $this->ajaxReturn($category);
         }else{
-            return $auth;
+            return $category;
         }
     }
 

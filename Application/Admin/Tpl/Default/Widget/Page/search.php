@@ -1,6 +1,6 @@
 <!-- Page Sidebar Header-->
 <div class="sidebar-header-wrapper">
-    <input type="text" class="searchinput" id="global_input"/>
+    <input type="text" class="searchinput" id="global_input" autocomplete="off"/>
     <i class="searchicon fa fa-search"></i>
     <div class="searchhelper">
         <ul class="global_search_ul">

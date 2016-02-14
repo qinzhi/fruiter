@@ -9,7 +9,7 @@
                 <div class="widget-header widget-fruiter">
                     <a class="btn btn-success" id="add" href="javascript:void(0);">添加</a>
                     <a id="save" class="btn btn-success" href="javascript:void(0);">保存</a>
-                    <span> | </span>
+                    <span class="division"> | </span>
                     <a id="delete" class="btn btn-danger" href="javascript:void(0);">删除</a>
                 </div><!--Widget Header-->
                 <div class="widget-body plugins_category-">

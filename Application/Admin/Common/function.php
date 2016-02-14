@@ -13,11 +13,11 @@ if(!function_exists('create_editor')){
 
         // Replace a textarea element with an id (or name) of "editor1".
 
-        //$_config['filebrowserBrowseUrl'] = '/Public/Ckfinder/ckfinder.html';
-        //$_config['filebrowserImageBrowseUrl'] = '/Public/Ckfinder/ckfinder.html?Type=Images';
+        $_config['filebrowserBrowseUrl'] = '/Public/Ckfinder/ckfinder.html';
+        $_config['filebrowserImageBrowseUrl'] = '/Public/Ckfinder/ckfinder.html?Type=Images';
 
-        $_config['filebrowserBrowseUrl'] = '/Public/ckfinder';
-        $_config['filebrowserImageBrowseUrl'] = '/Public/ckfinder?Type=Images';
+        //$_config['filebrowserBrowseUrl'] = '/Public/Ckfinder';
+        //$_config['filebrowserImageBrowseUrl'] = '/Public/Ckfinder?Type=Images';
 
         //$_config['disallowedContent'] = 'img[width,height]';
 
