@@ -67,32 +67,32 @@
                         <tr class="base">
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth150" type="text" name="_goods_no[]" pattern="required" maxlength="20">
+                                    <input class="input-xs Lwidth150 goods_no" type="text" name="_goods_no[]" value="{$goods.goods_no}" pattern="required" maxlength="20">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="_store_nums[]" pattern="int" maxlength="10">
+                                    <input class="input-xs Lwidth80 store_nums" type="text" name="_store_nums[]" value="{$goods.store_nums}" pattern="int" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="_market_price[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80 market_price" type="text" name="_market_price[]" value="{$goods.market_price}" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="_sell_price[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80 sell_price" type="text" name="_sell_price[]" value="{$goods.sell_price}" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="_cost_price[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80 cost_price" type="text" name="_cost_price[]" value="{$goods.cost_price}" pattern="float" maxlength="10">
                                 </div>
                             </td>
                             <td class="base">
                                 <div class="form-group has-feedback no-margin">
-                                    <input class="input-xs Lwidth80" type="text" name="_weight[]" pattern="float" maxlength="10">
+                                    <input class="input-xs Lwidth80 weight" type="text" name="_weight[]" value="{$goods.weight}" pattern="float" maxlength="10">
                                 </div>
                             </td>
                         </tr>
@@ -103,7 +103,7 @@
         <tr>
             <th>商品规格：</th>
             <td>
-                <a class="btn btn-success btn-sm pull-left no-radius" href="javascript:void(0);" id="addSpec" data-status="true">
+                <a class="btn btn-success btn-sm pull-left no-radius" href="javascript:void(0);" id="addSpec" data-status="{$no_spec}">
                     <i class="fa fa-plus"></i>
                     添加规格
                 </a>
@@ -115,25 +115,25 @@
             <td>
                 <div class="checkbox checkbox-inline no-margin no-padding">
                     <label class="no-padding">
-                        <input type="checkbox" name="commend_type[]" value="1" {(in_array(1,$commend_id) == true) ? 'checked' : ''}>
+                        <input type="checkbox" name="commend_type[]" value="1" <?php if(in_array(1,$commend_id))echo 'checked';?>>
                         <span class="text">最新商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type[]" value="2" {(in_array(2,$commend_id) == true) ? 'checked' : ''}>
+                        <input type="checkbox" name="commend_type[]" value="2" <?php if(in_array(2,$commend_id))echo 'checked';?>>
                         <span class="text">特价商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type[]" value="3" {(in_array(3,$commend_id) == true) ? 'checked' : ''}>
+                        <input type="checkbox" name="commend_type[]" value="3" <?php if(in_array(3,$commend_id))echo 'checked';?>>
                         <span class="text">热卖商品</span>
                     </label>
                 </div>
                 <div class="checkbox checkbox-inline no-margin">
                     <label>
-                        <input type="checkbox" name="commend_type[]" value="4" {(in_array(4,$commend_id) == true) ? 'checked' : ''}>
+                        <input type="checkbox" name="commend_type[]" value="4" <?php if(in_array(4,$commend_id))echo 'checked';?>>
                         <span class="text">推荐商品</span>
                     </label>
                 </div>
@@ -143,7 +143,58 @@
 </table>
 <script>
     $(function(){
-        var goods_base = '';
+        var goods_base = $('.table-border').find('tbody tr.base');
+        (function init(products){
+            var head = products[0];
+            if(head.spec_array != ''){
+                for(var i in products)
+                    products[i].spec_array = JSON.parse(products[i].spec_array);
+                var table = $('.table-border');
+                var thead = table.find('thead');
+                var tbody = table.find('tbody');
+                thead.find('tr').append('<th class="spec">默认</th>');
+                thead.find('tr').append('<th class="spec">操作</th>');
+                tbody.find('tr.base').remove();
+
+                for(var i in head.spec_array){
+                    var tmp = $('<th class="spec">' + head.spec_array[i].name + '</th>');
+                    tmp.data('id',head.spec_array[i].id)
+                        .data('name',head.spec_array[i].name)
+                        .data('type',head.spec_array[i].type);
+                    thead.find('tr').prepend(tmp);
+                }
+
+                $.each(products,function(index){
+                    var spec = this.spec_array;
+                    var base_tr = goods_base.find('td').clone().removeAttr('class');
+
+                    var td = $('<td></td>');
+                    td.append('<div class="checkbox no-margin"></div>');
+                    td.find('div').append('<label class="no-padding-left"></label>');
+                    var _checkbox = $('<input type="checkbox" name="_default[]" value="' + i + '" class="inverted" />');
+                    td.find('div > label').append(_checkbox);
+                    td.find('div > label').append('<span class="text margin-left-4"></span>');
+
+                    base_tr.after(td);
+                    base_tr.after('<td><a href="javascript:void(0);" class="btn btn-danger btn-xs shiny icon-only white btn-del"><i class="fa fa-times"></i></a></td>');
+                    var tr = $('<tr class="spec" data-id="' + this.id + '"></tr>');
+                    tr.append(base_tr);
+
+                    for(var i=0;i<spec.length;i++){
+                        tr.prepend('<td></td>');
+                    }
+                    for(var i in spec){
+                        tr.find('td:eq('+i+')')
+                            .html("<input type='hidden' value='" + JSON.stringify(spec[i]) + "' name='_spec_list[" + index + "][]'/>" + spec[i].value);
+                    }
+                    if(this.is_default == 1){
+                        tr.find('input[type=checkbox]').attr('checked','checked');
+                    }
+
+                    tbody.append(tr);
+                });
+            }
+        })({$products});
         $('#addSpec').click(function(){
             if($(this).data('status') == false){
                 Notify('重新设置规格需删除当前规格列表', 'bottom-right', '5000', 'warning', 'fa-warning', true);
@@ -168,7 +219,6 @@
                     var thead = table.find('thead');
                     var tbody = table.find('tbody');
                     var tabs_spec = $(target).find('.tabs-spec-name li');
-                    var tabs_spec_value = $(target).find('.tabs-spec-list > div');
                     if(tabs_spec.length){
                         tabs_spec.each(function(index){
                             var id = $(this).data('id');
@@ -228,7 +278,6 @@
                                     var index = td.index();
                                     var _input = _spec[index];
                                     _input.value = list[l];
-                                    console.log(JSON.stringify(_input));
                                     td.append("<input type='hidden' value='" + JSON.stringify(_input) + "' name='_spec_list[" + i + "][]'/>");
                                 }
 
@@ -253,37 +302,45 @@
                             }
 
                             $('#addSpec').data('status',false);
-
-                            tbody.find('input[name="default[]"]').click(function(){
-                                if(this.checked === false){
-                                    if(tbody.find('input[name="default[]"]:checked').length <= 0){
-                                        this.checked = true;
-                                    }
-                                }else{
-                                    var checkbox = tbody.find('input[name="default[]"]:checked');
-                                    if(checkbox.length > 0){
-                                        checkbox.attr('checked',false);
-                                    }
-                                    this.checked = true;
-                                }
-                            });
-
-                            tbody.find('.btn-del').click(function(){
-                                var spec_td = $(this).closest('tbody').find('tr.spec');
-                                if(spec_td.length == 1){
-                                    th.find('th.spec').remove();
-                                    tbody.html(goods_base);
-                                    $('#addSpec').data('status',true);
-                                }else{
-                                    var tr = $(this).closest('tr');
-                                    var checkbox = tr.find('input[type="checkbox"]').get(0);
-                                    if(checkbox.checked == true){
-                                        tr.remove();
-                                        tbody.find('tr:first-child').find('input[type="checkbox"]').attr('checked',true);
-                                    }
-                                }
-                            });
                         }
+                    }
+                }
+            });
+        });
+        $(document).on('click','.table-border input[name="_default[]"]',function(){
+            var tbody = $('.table-border').find('tbody');
+            if(this.checked === false){
+                if(tbody.find('input[name="_default[]"]:checked').length <= 0){
+                    this.checked = true;
+                }
+            }else{
+                var checkbox = tbody.find('input[name="_default[]"]:checked');
+                if(checkbox.length > 0){
+                    checkbox.attr('checked',false);
+                }
+                this.checked = true;
+            }
+        });
+        $(document).on('click','.table-border .btn-del',function(){
+            var obj = this;
+            bootbox.confirm("确定要删除么?", function (result) {
+                if(result){
+                    var spec_td = $(obj).closest('tbody').find('tr.spec');
+                    var table = $('.table-border');
+                    var thead = table.find('thead');
+                    var tbody = table.find('tbody');
+                    var tr = $(obj).closest('tr');
+                    var id = tr.data('id');
+                    if(id != ''){
+                        $('#goodsForm').append('<input type="hidden" name="delProduct[]" value="' + id + '">');
+                    }
+                    if(spec_td.length == 1){
+                        thead.find('th.spec').remove();
+                        tbody.html(goods_base);
+                        $('#addSpec').data('status',true);
+                    }else{
+                        tr.remove();
+                        tbody.find('tr:first-child').find('input[type="checkbox"]').attr('checked',true);
                     }
                 }
             });

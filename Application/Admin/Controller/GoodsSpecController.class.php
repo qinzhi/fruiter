@@ -3,15 +3,15 @@ namespace Admin\Controller;
 use \Common\Library\Org\Util\Json;
 class GoodsSpecController extends AdminController {
 
-    public $spec;
+    public $specModel;
 
     public function __construct(){
         parent::__construct();
-        $this->spec = D('Spec');
+        $this->specModel = D('Spec');
     }
 
     public function index(){
-        $specs = $this->spec->get_specs();
+        $specs = $this->specModel->get_specs();
         $this->assign('specs',$specs);
         $this->display('Goods/spec');
     }
@@ -28,12 +28,12 @@ class GoodsSpecController extends AdminController {
             'value' => $value,
             'remark' => trim(I('request.remark')),
             'create_time' => time(),
-            'post_time' => time()
+            'update_time' => time()
         );
 
-        $insert_id = $this->spec->add($spec);
+        $insert_id = $this->specModel->add($spec);
         if($insert_id > 0){
-            $spec = $this->spec->get_spec_by_id($insert_id,'id,name,value');
+            $spec = $this->specModel->get_spec_by_id($insert_id,'id,name,value');
             $result = array('code'=>1,'msg'=>'添加成功','data'=> $spec);
         }else{
             $result = array('code'=>0,'msg'=>'添加失败');
@@ -55,13 +55,12 @@ class GoodsSpecController extends AdminController {
             'name' => $name,
             'value' => $value,
             'remark' => trim(I('request.remark')),
-            'post_time' => time()
+            'update_time' => time()
         );
-
-        $insert_id = $this->spec->save($spec);
+        $insert_id = $this->specModel->save($spec);
 
         if($insert_id > 0){
-            $spec = $this->spec->get_spec_by_id($insert_id,'id,name,value,type');
+            $spec = $this->specModel->get_spec_by_id($insert_id,'id,name,value,type');
             $result = array('code'=>1,'msg'=>'保存成功','data'=> $spec);
         }else{
             $result = array('code'=>0,'msg'=>'保存失败');
@@ -93,7 +92,7 @@ class GoodsSpecController extends AdminController {
 
     public function get(){
         $id = I('request.id/d');
-        $spec = $this->spec->get_spec_by_id($id,'id,name,value,type');
+        $spec = $this->specModel->get_spec_by_id($id,'id,name,value,type');
         if(!empty($spec)){
             $spec['value'] = Json::decode($spec['value']);
         }

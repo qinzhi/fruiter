@@ -7,13 +7,17 @@
  */
 namespace Admin\Model;
 
-use Think\Model,\Common\Library\Org\Util\Json;
+use Think\Model;
 class GoodsModel extends CommonModel{
 
     public function __construct(){
         parent::__construct();
     }
 
+    /**
+     * 添加单个商品
+     * @param $params
+     */
     public function addGoods($params){
         $goods = array(
             'name' => $params['name'],
@@ -53,7 +57,7 @@ class GoodsModel extends CommonModel{
                 'goods_id' => $goods_id,
                 'detail' => $params['detail']
             );
-            M('GoodsDetail')->add($detail);
+            M('GoodsToDetail')->add($detail);
 
             /** --------   添加商品SEO   --------- **/
             $seo = array(
@@ -61,7 +65,7 @@ class GoodsModel extends CommonModel{
                 'keywords' => $params['keywords'],
                 'description' => $params['description']
             );
-            M('GoodsSeo')->add($seo);
+            M('GoodsToSeo')->add($seo);
 
             /** --------   添加商品类型   --------- **/
             $commend_type = $params['commend_type'];
@@ -99,12 +103,12 @@ class GoodsModel extends CommonModel{
                         'attr_id' => $key,
                         'attr_value' => is_array($val) ? implode(',',$val) : $val
                     );
-                    M('GoodsAttr')->add($attr);
+                    M('GoodsToAttr')->add($attr);
                 }
             }
 
             /** --------   添加規格商品   --------- **/
-            $_spec_list = $_POST['_spec_list'];
+            $_spec_list = I('post._spec_list','','');
             foreach($_goods_no as $key => $value){
                 $products = array(
                     'goods_id' => $goods_id,
@@ -119,5 +123,62 @@ class GoodsModel extends CommonModel{
                 M('Products')->add($products);
             }
         }
+    }
+
+    public function editGoods($params){
+        fb($params);
+    }
+
+    /**
+     * 获取单个商品
+     * @param $id
+     * @return mixed
+     */
+    public function getGoodsById($id){
+        return $this->table($this->tablePrefix . 'goods as t')
+                        ->join('left join ' . $this->tablePrefix . 'goods_to_detail as t1 on t1.goods_id = t.id')
+                            ->join('left join ' . $this->tablePrefix . 'goods_to_seo as t2 on t2.goods_id = t.id')
+                                ->where('t.id='.$id)->find();
+    }
+
+    /**
+     * 获取单个商品推荐类型
+     * @param $goods_id
+     * @return mixed
+     */
+    public function getGoodsCommendById($goods_id){
+        return M('GoodsToCommend')->where('goods_id='.$goods_id)->select();
+    }
+
+    /**
+     * 获取单个商品属性
+     * @param $goods_id
+     * @return mixed
+     */
+    public function getGoodsAttrById($goods_id){
+        $attr = M('GoodsToAttr')->where('goods_id='.$goods_id)->select();
+        $arr = array();
+        foreach($attr as $value){
+            $arr[$value['model_id']][$value['attr_id']] = array(
+                'model_id' => $value['model_id'],
+                'attr_id' => $value['attr_id'],
+                'attr_value' => $value['attr_value'],
+                'sort' => $value['sort'],
+            );
+        }
+        return $arr;
+    }
+
+    /**
+     * 获取产品
+     * @param $goods_id
+     * @return mixed
+     */
+    public function getProductsById($goods_id){
+        $map = array(
+            'goods_id' => $goods_id,
+            'is_del' => 0
+        );
+        return M('Products')->where($map)->select();
     }
 }

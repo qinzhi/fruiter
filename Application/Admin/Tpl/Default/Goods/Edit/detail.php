@@ -6,7 +6,7 @@
     <tbody>
     <tr>
         <th>商品描述：</th>
-        <td class="no-padding-top no-padding-bottom"><?php create_editor('detail');?></td>
+        <td class="no-padding-top no-padding-bottom"><?php create_editor('detail',$goods['detail']);?></td>
     </tr>
     </tbody>
 </table>

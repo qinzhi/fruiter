@@ -5,17 +5,19 @@ class GoodsController extends AdminController {
 
     public function __construct(){
         parent::__construct();
+        $this->goodsModel = D('Goods');
     }
 
     public function index(){
-        $goods = D('Goods')->select();
+        $goods = $this->goodsModel->select();
         $this->assign('goods',$goods);
         $this->display();
     }
 
+    //添加商品
     public function add(){
         if(IS_POST){
-            D('Goods')->addGoods(I('post.'));
+            $this->goodsModel->addGoods(I('post.'));
             $this->redirect('Goods/index');
         }else{
             $categories = D('GoodsCategory')->get_categories();
@@ -26,30 +28,48 @@ class GoodsController extends AdminController {
         }
     }
 
+    //编辑商品
     public function edit(){
         $id = I('get.id');
-        $goods = D('Goods')->find($id);fb($goods);
-        $this->assign('goods',$goods);
+        if(IS_POST){
+            $this->goodsModel->editGoods(I('post.'));
+            //$this->redirect('Goods/index');
+        }else{
+            $goods = $this->goodsModel->getGoodsById($id);
+            $this->assign('goods',$goods);
 
-        $categories = D('GoodsCategory')->get_categories();
-        $tree = new Tree($categories);
-        $categories = $tree->leaf();
-        $this->assign('categories',D('GoodsCategory')->format_tree($categories,true,false));
+            //商品分类
+            $categories = D('GoodsCategory')->get_categories();
+            $tree = new Tree($categories);
+            $categories = $tree->leaf();
+            $this->assign('categories',D('GoodsCategory')->format_tree($categories,true,false));
 
-        $where['goods_id'] = $id;
-        $commend = M('GoodsToCommend')->where($where)->select();
-        $commend_id = array();
-        foreach($commend as $value){
-            array_push($commend_id,$value['commend_id']);
+            //商品推荐类型
+            $commend = $this->goodsModel->getGoodsCommendById($id);
+            $commend_id = array();
+            foreach($commend as $value){
+                array_push($commend_id,$value['commend_id']);
+            }
+            $this->assign('commend_id',$commend_id);
+
+            //商品属性
+            $attr = $this->goodsModel->getGoodsAttrById($id);
+            $this->assign('model_id',key($attr));//商品模型id
+            $this->assign('attr',current($attr));
+
+            //产品
+            $products = $this->goodsModel->getProductsById($id);
+            $cur = current($products);
+            $this->assign('no_spec',empty($cur['spec_array'])?:false);
+            $this->assign('products',json_encode($products));
+            $this->display();
         }
-        fb($commend_id);
-        $this->assign('commend_id',$commend_id);
-        $this->display();
     }
 
+    //更新商品
     public function update(){
         if(IS_AJAX){
-            $result = D('Goods')->save(I('post.'));
+            $result = $this->goodsModel->save(I('post.'));
             if($result){
                 $result = array('code'=>1,'msg'=>'更新成功');
             }else{
@@ -79,9 +99,9 @@ class GoodsController extends AdminController {
             }
             $this->display(CONTROLLER_NAME . DS . ucfirst($function) . DS . $tpl);
         }else{
-            echo"你所调用的函数： ".$function."(参数: ";
-            print_r(I('request.'));
-            echo")不存在！<br>\n";
+            echo"你所调用的函数: ".$function."(参数: ";
+            dump(array_merge(I('post.'),I('get.')));
+            echo")<br>不存在！<br>";
         }
     }
 }

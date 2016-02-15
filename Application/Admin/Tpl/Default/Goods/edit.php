@@ -27,7 +27,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#tab-attr" data-toggle="tab" onclick="init_attr(this);" data-status="false">
+                                        <a href="#tab-attr" data-toggle="tab">
                                             商品属性
                                         </a>
                                     </li>

@@ -168,7 +168,6 @@
                     var thead = table.find('thead');
                     var tbody = table.find('tbody');
                     var tabs_spec = $(target).find('.tabs-spec-name li');
-                    var tabs_spec_value = $(target).find('.tabs-spec-list > div');
                     if(tabs_spec.length){
                         tabs_spec.each(function(index){
                             var id = $(this).data('id');
@@ -228,7 +227,6 @@
                                     var index = td.index();
                                     var _input = _spec[index];
                                     _input.value = list[l];
-                                    console.log(JSON.stringify(_input));
                                     td.append("<input type='hidden' value='" + JSON.stringify(_input) + "' name='_spec_list[" + i + "][]'/>");
                                 }
 
