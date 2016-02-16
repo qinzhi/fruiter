@@ -86,8 +86,7 @@
             }
         };
 
-        var zNodes = {$categories},
-            zTree = null;
+        var zTree = null;
 
         function beforeClick(treeId, treeNode) {
             zTree.checkNode(treeNode, !treeNode.checked, null, true);
@@ -131,7 +130,11 @@
         }
 
         $(document).ready(function(){
-            zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
+
+            $.post('{:U("GoodsCategory/getCategoriesTree")}',function(tree){
+                var zNodes = JSON.parse(tree);
+                zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
+            });
 
             $('#goods_save').click(function(){
                 var form = document.getElementById('goodsForm');

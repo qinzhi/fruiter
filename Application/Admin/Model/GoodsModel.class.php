@@ -142,6 +142,15 @@ class GoodsModel extends CommonModel{
     }
 
     /**
+     * 获取单个商品分类
+     * @param $goods_id
+     * @return mixed
+     */
+    public function getGoodsCategoriesById($goods_id){
+        return M('GoodsToCategory')->where('goods_id='.$goods_id)->select();
+    }
+
+    /**
      * 获取单个商品推荐类型
      * @param $goods_id
      * @return mixed

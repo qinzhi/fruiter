@@ -27,6 +27,18 @@ class GoodsCategoryController extends AdminController {
         }
     }
 
+    public function getCategoriesTree(){
+        $categories = D('GoodsCategory')->get_categories();
+        $tree = new Tree($categories);
+        $categories = $tree->leaf();
+        $tree = D('GoodsCategory')->format_tree($categories,true,false);
+        if(IS_AJAX){
+            echo $tree;
+        }else{
+            return $tree;
+        }
+    }
+
     public function add(){
         if(IS_POST){
             $pid = I('request.p_id/d',0);

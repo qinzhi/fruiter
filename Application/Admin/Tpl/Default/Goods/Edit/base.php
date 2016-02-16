@@ -26,7 +26,7 @@
             <td>
                 <div class="form-group has-feedback no-margin">
                     <input id="category" class="input-sm Lwidth400" type="text">
-                    <input id="category_id" name="category_id" class="hidden" type="text">
+                    <input id="category_id" name="category_id" value='{$categories_id}' type="hidden">
                 </div>
             </td>
         </tr>

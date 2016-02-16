@@ -20,10 +20,6 @@ class GoodsController extends AdminController {
             $this->goodsModel->addGoods(I('post.'));
             $this->redirect('Goods/index');
         }else{
-            $categories = D('GoodsCategory')->get_categories();
-            $tree = new Tree($categories);
-            $categories = $tree->leaf();
-            $this->assign('categories',D('GoodsCategory')->format_tree($categories,true,false));
             $this->display();
         }
     }
@@ -39,10 +35,12 @@ class GoodsController extends AdminController {
             $this->assign('goods',$goods);
 
             //商品分类
-            $categories = D('GoodsCategory')->get_categories();
-            $tree = new Tree($categories);
-            $categories = $tree->leaf();
-            $this->assign('categories',D('GoodsCategory')->format_tree($categories,true,false));
+            $categories = $this->goodsModel->getGoodsCategoriesById($id);
+            $categories_id = array();
+            foreach($categories as $value){
+                array_push($categories_id,$value['category_id']);
+            }
+            $this->assign('categories_id',json_encode($categories_id));
 
             //商品推荐类型
             $commend = $this->goodsModel->getGoodsCommendById($id);

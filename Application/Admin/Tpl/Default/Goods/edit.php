@@ -86,8 +86,7 @@
             }
         };
 
-        var zNodes = {$categories},
-            zTree = null;
+        var zTree = null;
 
         function beforeClick(treeId, treeNode) {
             zTree.checkNode(treeNode, !treeNode.checked, null, true);
@@ -131,7 +130,19 @@
         }
 
         $(document).ready(function(){
-            zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
+
+            $.post('{:U("GoodsCategory/getCategoriesTree")}',function(tree){
+                var zNodes = JSON.parse(tree);
+                var categories_id = $('#category_id').val(),categories = [];
+                for(var i in zNodes){
+                    if(categories_id.indexOf(zNodes[i].id) != -1){
+                        zNodes[i].checked = true;
+                        categories.push(zNodes[i].name);
+                    }
+                }
+                $('#category').val(categories.join(','));
+                zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
+            });
 
             $('#goods_save').click(function(){
                 var form = document.getElementById('goodsForm');
