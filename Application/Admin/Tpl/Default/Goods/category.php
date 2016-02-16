@@ -113,7 +113,7 @@
             </div>
         </div>
     </div>
-    <div id="menuContent" class="tree_panel">
+    <div id="tree_panel" class="tree_panel">
         <ul id="tree_category" class="ztree ztree_entity"></ul>
     </div>
 </block>
@@ -131,7 +131,7 @@
                     form.find('.position-root').hide();
                     return $("#addModal").html();
                 },
-                title: "添加权限",
+                title: "添加分类",
                 className: "modal-sky",
                 buttons: {
                     "cancel": {
@@ -238,12 +238,12 @@
     }
 
     function hideMenu() {
-        $("#menuContent").slideUp("fast");
+        $("#tree_panel").slideUp("fast");
         $("body").unbind("mousedown", onBodyDown);
     }
 
     function onBodyDown(event) {
-        if (!(event.target.id == "p_name" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+        if (!(event.target.id == "p_name" || event.target.id == "tree_panel" || $(event.target).parents("#tree_panel").length>0)) {
             hideMenu();
         }
     }
@@ -269,7 +269,7 @@
                 }
             }
 
-            $("#menuContent").css({
+            $("#tree_panel").css({
                 left:$(this).offset().left + "px",
                 top:$(this).offset().top + $(this).outerHeight() - $('.navbar-inner').height() + "px",
                 width: $(this).outerWidth() + "px"

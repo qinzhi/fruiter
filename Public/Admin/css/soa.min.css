@@ -3,6 +3,7 @@
 .tr-focus{background-color: #f9f9f9;}
 .clear{clear: both;}
 .btn{border-radius: 0;}
+.ifold{cursor: default;}
 .table-center td,.table-center th{text-align: center !important;}
 .global_search_ul{list-style: outside none none;margin: 0;padding: 0;}
 .global_search_ul li{line-height: 30px;padding-left: 5px;}

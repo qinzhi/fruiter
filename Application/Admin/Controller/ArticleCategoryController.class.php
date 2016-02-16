@@ -1,20 +1,25 @@
 <?php
 namespace Admin\Controller;
 use \Common\Library\Org\Util\Tree;
-class GoodsCategoryController extends AdminController {
+/**
+ * 文章分类管理控制器
+ * Class AuthController
+ * Author Qinzhi
+ */
+class ArticleCategoryController extends AdminController {
 
     public function __construct(){
         parent::__construct();
-        $this->category = D('GoodsCategory');
+        $this->category = D('ArticleCategory');
     }
 
     public function index(){
-        $categories = $this->category->get_categories();
+        $categories = $this->category->get_categories();fb($categories);
         $tree = new Tree($categories);
-        $goodsCategories = $tree->leaf();
-        $this->assign('goodsCategories',$goodsCategories);
+        $articleCategories = $tree->leaf();
+        $this->assign('articleCategories',$articleCategories);
         $this->assign('tree',$this->category->format_tree($categories));
-        $this->display('Goods/category');
+        $this->display('Article/category');
     }
 
     public function getCategory(){
@@ -55,18 +60,13 @@ class GoodsCategoryController extends AdminController {
                 'name' => trim(I('request.name')),
                 'sort' => $sort,
             );
-            $seo = array(
-                'title' => trim(I('request.title')),
-                'keywords' => trim(I('request.keywords')),
-                'descript' => trim(I('request.descript')),
-            );
-            $result = $this->category->addCategory($data,$seo);
+            $result = $this->category->addCategory($data);
             if($result === false){
-                $this->error('分类添加失败',U('GoodsCategory/index'));
+                $this->error('分类添加失败',U('ArticleCategory/index'));
                 return;
             }
         }
-        $this->redirect(U('/GoodsCategory/index'));
+        $this->redirect(U('/ArticleCategory/index'));
     }
 
     public function edit(){
@@ -82,12 +82,7 @@ class GoodsCategoryController extends AdminController {
                 'level' => $level,
                 'name' => trim($params['name']),
             );
-            $seo = array(
-                'title' => trim($params['title']),
-                'keywords' => trim($params['keywords']),
-                'descript' => trim($params['descript']),
-            );
-            $result = $this->category->updateCategory($data,$seo,$id);
+            $result = $this->category->updateCategory($data,$id);
             if($result){
                 $result = array('code'=>1,'msg'=>'保存成功');
             }else{

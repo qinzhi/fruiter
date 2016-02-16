@@ -10,10 +10,89 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-02-16 14:45:47
+Date: 2016-02-16 18:02:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `fruiter_article`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_article`;
+CREATE TABLE `fruiter_article` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `title` varchar(126) NOT NULL COMMENT '标题',
+  `subtitle` varchar(126) DEFAULT NULL COMMENT '副标题',
+  `category_id` int(10) DEFAULT NULL COMMENT '文章分类',
+  `create_time` int(10) NOT NULL COMMENT '添加时间',
+  `update_time` int(10) NOT NULL COMMENT '最后一次修改时间',
+  `sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除 0正常 1已删除',
+  PRIMARY KEY (`id`),
+  KEY `category_id` (`category_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章表';
+
+-- ----------------------------
+-- Records of fruiter_article
+-- ----------------------------
+INSERT INTO `fruiter_article` VALUES ('1', '安徽男子网上', '', '1', '1455615111', '1455616450', '1', '0');
+
+-- ----------------------------
+-- Table structure for `fruiter_article_category`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_article_category`;
+CREATE TABLE `fruiter_article_category` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `pid` int(10) NOT NULL DEFAULT '0' COMMENT '父分类ID',
+  `name` varchar(50) NOT NULL COMMENT '分类名称',
+  `level` tinyint(1) NOT NULL DEFAULT '0',
+  `sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 1删除 0 没删除',
+  PRIMARY KEY (`id`),
+  KEY `parent_id` (`pid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章分类表';
+
+-- ----------------------------
+-- Records of fruiter_article_category
+-- ----------------------------
+INSERT INTO `fruiter_article_category` VALUES ('1', '0', '购物指南', '0', '0', '0');
+
+-- ----------------------------
+-- Table structure for `fruiter_article_to_detail`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_article_to_detail`;
+CREATE TABLE `fruiter_article_to_detail` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `article_id` int(10) NOT NULL,
+  `detail` text,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `article_id` (`article_id`) USING BTREE,
+  CONSTRAINT `fruiter_article_to_detail_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `fruiter_article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of fruiter_article_to_detail
+-- ----------------------------
+INSERT INTO `fruiter_article_to_detail` VALUES ('1', '1', '<p>\r\n	aa</p>\r\n');
+
+-- ----------------------------
+-- Table structure for `fruiter_article_to_seo`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_article_to_seo`;
+CREATE TABLE `fruiter_article_to_seo` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `article_id` int(10) NOT NULL COMMENT '文章ID',
+  `keywords` varchar(255) DEFAULT NULL COMMENT '关键词',
+  `description` varchar(255) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `article_id` (`article_id`) USING BTREE,
+  CONSTRAINT `fruiter_article_to_seo_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `fruiter_article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='文章SEO表';
+
+-- ----------------------------
+-- Records of fruiter_article_to_seo
+-- ----------------------------
+INSERT INTO `fruiter_article_to_seo` VALUES ('1', '1', '', '');
 
 -- ----------------------------
 -- Table structure for `fruiter_attr`
@@ -53,21 +132,26 @@ CREATE TABLE `fruiter_auth_role` (
   `sort` mediumint(5) NOT NULL COMMENT '排序',
   `level` tinyint(1) NOT NULL DEFAULT '0' COMMENT '级别: 0.根节点 1.二级节点 2.叶节点',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fruiter_auth_role
 -- ----------------------------
-INSERT INTO `fruiter_auth_role` VALUES ('1', '0', 'Admin', '2', '商品管理', 'goods', '0', '0');
-INSERT INTO `fruiter_auth_role` VALUES ('2', '1', 'Admin', '2', '商品列表', 'goods/index', '0', '1');
-INSERT INTO `fruiter_auth_role` VALUES ('3', '0', 'Admin', '2', '系统管理', 'system', '1', '0');
-INSERT INTO `fruiter_auth_role` VALUES ('4', '3', 'Admin', '2', '权限管理', 'auth/index', '1', '1');
-INSERT INTO `fruiter_auth_role` VALUES ('5', '1', 'Admin', '2', '添加商品', 'goods/add', '1', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('1', '0', 'Admin', '2', '商品管理', 'Goods', '0', '0');
+INSERT INTO `fruiter_auth_role` VALUES ('2', '1', 'Admin', '2', '商品列表', 'Goods/index', '0', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('3', '0', 'Admin', '2', '系统管理', 'System', '2', '0');
+INSERT INTO `fruiter_auth_role` VALUES ('4', '3', 'Admin', '2', '权限管理', 'Auth/index', '1', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('5', '1', 'Admin', '2', '添加商品', 'Goods/add', '1', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('6', '1', 'Admin', '2', '商品分类', 'GoodsCategory/index', '2', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('7', '1', 'Admin', '2', '规格列表', 'GoodsSpec/index', '3', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('8', '1', 'Admin', '2', '模型列表', 'GoodsAttr/index', '4', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('9', '1', 'Admin', '1', '添加模型', 'GoodsAttr/add', '5', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('10', '1', 'Admin', '1', '编辑商品', 'Goods/edit', '6', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('11', '0', 'Admin', '2', '文章管理', 'Article', '1', '0');
+INSERT INTO `fruiter_auth_role` VALUES ('12', '11', 'Admin', '2', '文章列表', 'Article/index', '0', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('13', '11', 'Admin', '2', '文章分类', 'ArticleCategory/index', '2', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('14', '11', 'Admin', '2', '添加文章', 'Article/add', '1', '1');
+INSERT INTO `fruiter_auth_role` VALUES ('15', '11', 'Admin', '1', '编辑文章', 'Article/edit', '3', '1');
 
 -- ----------------------------
 -- Table structure for `fruiter_goods`
@@ -114,8 +198,8 @@ CREATE TABLE `fruiter_goods_category` (
   `id` int(10) NOT NULL AUTO_INCREMENT COMMENT '分类ID',
   `pid` int(10) NOT NULL COMMENT '父分类ID',
   `name` varchar(50) NOT NULL COMMENT '分类名称',
-  `level` tinyint(1) NOT NULL,
-  `sort` smallint(5) NOT NULL COMMENT '排序',
+  `level` tinyint(1) NOT NULL DEFAULT '0',
+  `sort` smallint(5) NOT NULL DEFAULT '0' COMMENT '排序',
   `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 1删除 0 没删除',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`pid`) USING BTREE
@@ -305,73 +389,69 @@ CREATE TABLE `fruiter_session` (
   `session_data` mediumblob,
   PRIMARY KEY (`id`,`session_id`),
   KEY `session_id` (`session_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1806 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2061 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fruiter_session
 -- ----------------------------
-INSERT INTO `fruiter_session` VALUES ('1805', '1am3sef2utlkpdhd0smvd93oq5', '1455606533', '');
-INSERT INTO `fruiter_session` VALUES ('1788', '1am3sef2utlkpdhd0smvd93oq5', '1455606380', '');
-INSERT INTO `fruiter_session` VALUES ('1787', '1am3sef2utlkpdhd0smvd93oq5', '1455606380', '');
-INSERT INTO `fruiter_session` VALUES ('1786', '1am3sef2utlkpdhd0smvd93oq5', '1455606380', '');
-INSERT INTO `fruiter_session` VALUES ('1785', '1am3sef2utlkpdhd0smvd93oq5', '1455606350', '');
-INSERT INTO `fruiter_session` VALUES ('1784', '1am3sef2utlkpdhd0smvd93oq5', '1455606348', '');
-INSERT INTO `fruiter_session` VALUES ('1744', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605241', '');
-INSERT INTO `fruiter_session` VALUES ('1799', '1am3sef2utlkpdhd0smvd93oq5', '1455606530', '');
-INSERT INTO `fruiter_session` VALUES ('1800', '1am3sef2utlkpdhd0smvd93oq5', '1455606531', '');
-INSERT INTO `fruiter_session` VALUES ('1801', '1am3sef2utlkpdhd0smvd93oq5', '1455606532', '');
-INSERT INTO `fruiter_session` VALUES ('1802', '1am3sef2utlkpdhd0smvd93oq5', '1455606532', '');
-INSERT INTO `fruiter_session` VALUES ('1803', '1am3sef2utlkpdhd0smvd93oq5', '1455606533', '');
-INSERT INTO `fruiter_session` VALUES ('1804', '1am3sef2utlkpdhd0smvd93oq5', '1455606533', '');
-INSERT INTO `fruiter_session` VALUES ('1780', '1am3sef2utlkpdhd0smvd93oq5', '1455606034', '');
-INSERT INTO `fruiter_session` VALUES ('1757', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605272', '');
-INSERT INTO `fruiter_session` VALUES ('1772', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605889', '');
-INSERT INTO `fruiter_session` VALUES ('1766', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605436', '');
-INSERT INTO `fruiter_session` VALUES ('1768', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605546', '');
-INSERT INTO `fruiter_session` VALUES ('1767', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605504', '');
-INSERT INTO `fruiter_session` VALUES ('1771', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605746', '');
-INSERT INTO `fruiter_session` VALUES ('1770', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605741', '');
-INSERT INTO `fruiter_session` VALUES ('1769', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605556', '');
-INSERT INTO `fruiter_session` VALUES ('1758', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605273', '');
-INSERT INTO `fruiter_session` VALUES ('1756', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605266', '');
-INSERT INTO `fruiter_session` VALUES ('1783', '1am3sef2utlkpdhd0smvd93oq5', '1455606345', '');
-INSERT INTO `fruiter_session` VALUES ('1789', '1am3sef2utlkpdhd0smvd93oq5', '1455606381', '');
-INSERT INTO `fruiter_session` VALUES ('1790', '1am3sef2utlkpdhd0smvd93oq5', '1455606382', '');
-INSERT INTO `fruiter_session` VALUES ('1791', '1am3sef2utlkpdhd0smvd93oq5', '1455606383', '');
-INSERT INTO `fruiter_session` VALUES ('1792', '1am3sef2utlkpdhd0smvd93oq5', '1455606383', '');
-INSERT INTO `fruiter_session` VALUES ('1793', '1am3sef2utlkpdhd0smvd93oq5', '1455606402', '');
-INSERT INTO `fruiter_session` VALUES ('1794', '1am3sef2utlkpdhd0smvd93oq5', '1455606402', '');
-INSERT INTO `fruiter_session` VALUES ('1795', '1am3sef2utlkpdhd0smvd93oq5', '1455606402', '');
-INSERT INTO `fruiter_session` VALUES ('1796', '1am3sef2utlkpdhd0smvd93oq5', '1455606403', '');
-INSERT INTO `fruiter_session` VALUES ('1797', '1am3sef2utlkpdhd0smvd93oq5', '1455606404', '');
-INSERT INTO `fruiter_session` VALUES ('1798', '1am3sef2utlkpdhd0smvd93oq5', '1455606523', '');
-INSERT INTO `fruiter_session` VALUES ('1782', '1am3sef2utlkpdhd0smvd93oq5', '1455606111', '');
-INSERT INTO `fruiter_session` VALUES ('1781', '1am3sef2utlkpdhd0smvd93oq5', '1455606058', '');
-INSERT INTO `fruiter_session` VALUES ('1775', '1am3sef2utlkpdhd0smvd93oq5', '1455605959', '');
-INSERT INTO `fruiter_session` VALUES ('1774', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605904', '');
-INSERT INTO `fruiter_session` VALUES ('1773', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605901', '');
-INSERT INTO `fruiter_session` VALUES ('1765', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605359', '');
-INSERT INTO `fruiter_session` VALUES ('1764', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605286', '');
-INSERT INTO `fruiter_session` VALUES ('1763', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605278', '');
-INSERT INTO `fruiter_session` VALUES ('1762', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605277', '');
-INSERT INTO `fruiter_session` VALUES ('1761', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605276', '');
-INSERT INTO `fruiter_session` VALUES ('1760', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605274', '');
-INSERT INTO `fruiter_session` VALUES ('1759', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605273', '');
-INSERT INTO `fruiter_session` VALUES ('1755', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605264', '');
-INSERT INTO `fruiter_session` VALUES ('1754', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605248', '');
-INSERT INTO `fruiter_session` VALUES ('1753', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605247', '');
-INSERT INTO `fruiter_session` VALUES ('1752', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605246', '');
-INSERT INTO `fruiter_session` VALUES ('1751', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605245', '');
-INSERT INTO `fruiter_session` VALUES ('1750', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605245', '');
-INSERT INTO `fruiter_session` VALUES ('1749', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605245', '');
-INSERT INTO `fruiter_session` VALUES ('1748', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605244', '');
-INSERT INTO `fruiter_session` VALUES ('1747', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605243', '');
-INSERT INTO `fruiter_session` VALUES ('1746', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605242', '');
-INSERT INTO `fruiter_session` VALUES ('1745', 'hq8uqcamk5db9e9oslc3sk3kh1', '1455605242', '');
-INSERT INTO `fruiter_session` VALUES ('1779', '1am3sef2utlkpdhd0smvd93oq5', '1455606007', '');
-INSERT INTO `fruiter_session` VALUES ('1778', '1am3sef2utlkpdhd0smvd93oq5', '1455605977', '');
-INSERT INTO `fruiter_session` VALUES ('1777', '1am3sef2utlkpdhd0smvd93oq5', '1455605977', '');
-INSERT INTO `fruiter_session` VALUES ('1776', '1am3sef2utlkpdhd0smvd93oq5', '1455605962', '');
+INSERT INTO `fruiter_session` VALUES ('2050', 'igdvo0aie83fvugg2semht4vu0', '1455618002', '');
+INSERT INTO `fruiter_session` VALUES ('2057', 'igdvo0aie83fvugg2semht4vu0', '1455618079', '');
+INSERT INTO `fruiter_session` VALUES ('2058', 'igdvo0aie83fvugg2semht4vu0', '1455618080', '');
+INSERT INTO `fruiter_session` VALUES ('2059', 'igdvo0aie83fvugg2semht4vu0', '1455618080', '');
+INSERT INTO `fruiter_session` VALUES ('2060', 'igdvo0aie83fvugg2semht4vu0', '1455618084', '');
+INSERT INTO `fruiter_session` VALUES ('2049', 'igdvo0aie83fvugg2semht4vu0', '1455617910', '');
+INSERT INTO `fruiter_session` VALUES ('2045', 'igdvo0aie83fvugg2semht4vu0', '1455617892', '');
+INSERT INTO `fruiter_session` VALUES ('2043', 'igdvo0aie83fvugg2semht4vu0', '1455617890', '');
+INSERT INTO `fruiter_session` VALUES ('2044', 'igdvo0aie83fvugg2semht4vu0', '1455617890', '');
+INSERT INTO `fruiter_session` VALUES ('2042', 'igdvo0aie83fvugg2semht4vu0', '1455617866', '');
+INSERT INTO `fruiter_session` VALUES ('2040', 'igdvo0aie83fvugg2semht4vu0', '1455617862', '');
+INSERT INTO `fruiter_session` VALUES ('2041', 'igdvo0aie83fvugg2semht4vu0', '1455617865', '');
+INSERT INTO `fruiter_session` VALUES ('2022', 'igdvo0aie83fvugg2semht4vu0', '1455617537', '');
+INSERT INTO `fruiter_session` VALUES ('2021', 'igdvo0aie83fvugg2semht4vu0', '1455617536', '');
+INSERT INTO `fruiter_session` VALUES ('2020', 'igdvo0aie83fvugg2semht4vu0', '1455617511', '');
+INSERT INTO `fruiter_session` VALUES ('2019', 'igdvo0aie83fvugg2semht4vu0', '1455617510', '');
+INSERT INTO `fruiter_session` VALUES ('2056', 'igdvo0aie83fvugg2semht4vu0', '1455618075', '');
+INSERT INTO `fruiter_session` VALUES ('2046', 'igdvo0aie83fvugg2semht4vu0', '1455617894', '');
+INSERT INTO `fruiter_session` VALUES ('2047', 'igdvo0aie83fvugg2semht4vu0', '1455617895', '');
+INSERT INTO `fruiter_session` VALUES ('2048', 'igdvo0aie83fvugg2semht4vu0', '1455617909', '');
+INSERT INTO `fruiter_session` VALUES ('2039', 'igdvo0aie83fvugg2semht4vu0', '1455617862', '');
+INSERT INTO `fruiter_session` VALUES ('2055', 'igdvo0aie83fvugg2semht4vu0', '1455618075', '');
+INSERT INTO `fruiter_session` VALUES ('2054', 'igdvo0aie83fvugg2semht4vu0', '1455618056', '');
+INSERT INTO `fruiter_session` VALUES ('2053', 'igdvo0aie83fvugg2semht4vu0', '1455618041', '');
+INSERT INTO `fruiter_session` VALUES ('2003', 'b2j3fj86i04ca9f2d20sm2al33', '1455616692', '');
+INSERT INTO `fruiter_session` VALUES ('2004', 'b2j3fj86i04ca9f2d20sm2al33', '1455616743', '');
+INSERT INTO `fruiter_session` VALUES ('2038', 'igdvo0aie83fvugg2semht4vu0', '1455617857', '');
+INSERT INTO `fruiter_session` VALUES ('2018', 'igdvo0aie83fvugg2semht4vu0', '1455617434', '');
+INSERT INTO `fruiter_session` VALUES ('2011', 'igdvo0aie83fvugg2semht4vu0', '1455617117', '');
+INSERT INTO `fruiter_session` VALUES ('2012', 'igdvo0aie83fvugg2semht4vu0', '1455617129', '');
+INSERT INTO `fruiter_session` VALUES ('2013', 'igdvo0aie83fvugg2semht4vu0', '1455617166', '');
+INSERT INTO `fruiter_session` VALUES ('2014', 'igdvo0aie83fvugg2semht4vu0', '1455617234', '');
+INSERT INTO `fruiter_session` VALUES ('2015', 'igdvo0aie83fvugg2semht4vu0', '1455617244', '');
+INSERT INTO `fruiter_session` VALUES ('2016', 'igdvo0aie83fvugg2semht4vu0', '1455617401', '');
+INSERT INTO `fruiter_session` VALUES ('2017', 'igdvo0aie83fvugg2semht4vu0', '1455617433', '');
+INSERT INTO `fruiter_session` VALUES ('2010', 'igdvo0aie83fvugg2semht4vu0', '1455617034', '');
+INSERT INTO `fruiter_session` VALUES ('2009', 'b2j3fj86i04ca9f2d20sm2al33', '1455616911', '');
+INSERT INTO `fruiter_session` VALUES ('2008', 'b2j3fj86i04ca9f2d20sm2al33', '1455616903', '');
+INSERT INTO `fruiter_session` VALUES ('2007', 'b2j3fj86i04ca9f2d20sm2al33', '1455616790', '');
+INSERT INTO `fruiter_session` VALUES ('2006', 'b2j3fj86i04ca9f2d20sm2al33', '1455616782', '');
+INSERT INTO `fruiter_session` VALUES ('2052', 'igdvo0aie83fvugg2semht4vu0', '1455618040', '');
+INSERT INTO `fruiter_session` VALUES ('2051', 'igdvo0aie83fvugg2semht4vu0', '1455618003', '');
+INSERT INTO `fruiter_session` VALUES ('2027', 'igdvo0aie83fvugg2semht4vu0', '1455617808', '');
+INSERT INTO `fruiter_session` VALUES ('2028', 'igdvo0aie83fvugg2semht4vu0', '1455617809', '');
+INSERT INTO `fruiter_session` VALUES ('2029', 'igdvo0aie83fvugg2semht4vu0', '1455617822', '');
+INSERT INTO `fruiter_session` VALUES ('2030', 'igdvo0aie83fvugg2semht4vu0', '1455617822', '');
+INSERT INTO `fruiter_session` VALUES ('2031', 'igdvo0aie83fvugg2semht4vu0', '1455617824', '');
+INSERT INTO `fruiter_session` VALUES ('2032', 'igdvo0aie83fvugg2semht4vu0', '1455617825', '');
+INSERT INTO `fruiter_session` VALUES ('2033', 'igdvo0aie83fvugg2semht4vu0', '1455617831', '');
+INSERT INTO `fruiter_session` VALUES ('2034', 'igdvo0aie83fvugg2semht4vu0', '1455617831', '');
+INSERT INTO `fruiter_session` VALUES ('2035', 'igdvo0aie83fvugg2semht4vu0', '1455617834', '');
+INSERT INTO `fruiter_session` VALUES ('2036', 'igdvo0aie83fvugg2semht4vu0', '1455617835', '');
+INSERT INTO `fruiter_session` VALUES ('2037', 'igdvo0aie83fvugg2semht4vu0', '1455617856', '');
+INSERT INTO `fruiter_session` VALUES ('2026', 'igdvo0aie83fvugg2semht4vu0', '1455617806', '');
+INSERT INTO `fruiter_session` VALUES ('2025', 'igdvo0aie83fvugg2semht4vu0', '1455617806', '');
+INSERT INTO `fruiter_session` VALUES ('2024', 'igdvo0aie83fvugg2semht4vu0', '1455617625', '');
+INSERT INTO `fruiter_session` VALUES ('2023', 'igdvo0aie83fvugg2semht4vu0', '1455617624', '');
+INSERT INTO `fruiter_session` VALUES ('2005', 'b2j3fj86i04ca9f2d20sm2al33', '1455616780', '');
 
 -- ----------------------------
 -- Table structure for `fruiter_spec`
