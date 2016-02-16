@@ -26,7 +26,7 @@
             <td>
                 <div class="form-group has-feedback no-margin">
                     <input id="category" class="input-sm Lwidth400" type="text">
-                    <input id="category_id" name="category_id" value='{$categories_id}' type="hidden">
+                    <input id="category_id" name="category_id" data-value='{$categories_id}' type="hidden">
                 </div>
             </td>
         </tr>
@@ -171,13 +171,14 @@
                     var td = $('<td></td>');
                     td.append('<div class="checkbox no-margin"></div>');
                     td.find('div').append('<label class="no-padding-left"></label>');
-                    var _checkbox = $('<input type="checkbox" name="_default[]" value="' + i + '" class="inverted" />');
+                    var _checkbox = $('<input type="checkbox" name="_default[]" value="' + index + '" class="inverted" />');
                     td.find('div > label').append(_checkbox);
                     td.find('div > label').append('<span class="text margin-left-4"></span>');
 
                     base_tr.after(td);
                     base_tr.after('<td><a href="javascript:void(0);" class="btn btn-danger btn-xs shiny icon-only white btn-del"><i class="fa fa-times"></i></a></td>');
                     var tr = $('<tr class="spec" data-id="' + this.id + '"></tr>');
+                    tr.append('<input type="hidden" name="_product_id[]" value="' + this.id + '"/>');
                     tr.append(base_tr);
 
                     for(var i=0;i<spec.length;i++){

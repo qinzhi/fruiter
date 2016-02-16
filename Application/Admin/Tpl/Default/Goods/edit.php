@@ -1,7 +1,4 @@
 <extend name="Layout/base" />
-<block name="css">
-    <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
-</block>
 <block name="content">
     <div class="row no-margin">
         <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
@@ -58,9 +55,6 @@
             </div><!--Widget-->
         </div>
     </div>
-    <div id="tree_panel" class="tree_panel">
-        <ul id="tree_category" class="ztree ztree_entity"></ul>
-    </div>
 </block>
 <block name="js">
     <script src="__JS__/jquery.ztree.all-3.5.min.js"></script>
@@ -111,7 +105,7 @@
         $('#category').click(function(){
             $("#tree_panel").css({
                 left:$(this).offset().left + "px",
-                top:$(this).offset().top + $(this).outerHeight() - $('.navbar-inner').height() + "px",
+                top:$(this).offset().top + $(this).outerHeight()/* - $('.navbar-inner').height() */+ "px",
                 width: $(this).outerWidth() + "px"
             }).slideDown("fast");
 
@@ -124,16 +118,19 @@
         }
 
         function onBodyDown(event) {
-            if (!(event.target.id == "menuBtn" || event.target.id == "category" || event.target.id == "tree_panel" || $(event.target).parents("#tree_panel").length>0)) {
+            if (!(event.target.id == "category" || event.target.id == "tree_panel" || $(event.target).parents("#tree_panel").length>0)) {
                 hideMenu();
             }
         }
 
         $(document).ready(function(){
 
+            create_category_panel();
+
             $.post('{:U("GoodsCategory/getCategoriesTree")}',function(tree){
                 var zNodes = JSON.parse(tree);
-                var categories_id = $('#category_id').val(),categories = [];
+                var categories_id = $('#category_id').data('value'),categories = [];
+                $('#category_id').val(categories_id.join(','));
                 for(var i in zNodes){
                     if(categories_id.indexOf(zNodes[i].id) != -1){
                         zNodes[i].checked = true;
@@ -164,4 +161,7 @@
             });
         });
     </script>
+</block>
+<block name="css">
+    <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>

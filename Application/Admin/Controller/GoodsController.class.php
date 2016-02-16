@@ -8,8 +8,9 @@ class GoodsController extends AdminController {
         $this->goodsModel = D('Goods');
     }
 
+    //商品列表
     public function index(){
-        $goods = $this->goodsModel->select();
+        $goods = $this->goodsModel->getGoods();
         $this->assign('goods',$goods);
         $this->display();
     }
@@ -26,10 +27,10 @@ class GoodsController extends AdminController {
 
     //编辑商品
     public function edit(){
-        $id = I('get.id');
+        $id = I('get.id/d');
         if(IS_POST){
-            $this->goodsModel->editGoods(I('post.'));
-            //$this->redirect('Goods/index');
+            $this->goodsModel->editGoodsById(I('post.'),$id);
+            $this->redirect('Goods/index');
         }else{
             $goods = $this->goodsModel->getGoodsById($id);
             $this->assign('goods',$goods);
@@ -67,11 +68,18 @@ class GoodsController extends AdminController {
     //更新商品
     public function update(){
         if(IS_AJAX){
-            $result = $this->goodsModel->save(I('post.'));
-            if($result){
-                $result = array('code'=>1,'msg'=>'更新成功');
+            $action = I('get.action');
+            if($action == 'price'){ //更新价格
+                $result = $this->updatePrice();
+            }elseif($action == 'sku') {//更新库存
+                $result = $this->updateSku();
             }else{
-                $result = array('code'=>0,'msg'=>'更新失败');
+                $result = $this->goodsModel->save(I('post.'));
+                if($result){
+                    $result = array('code'=>1,'msg'=>'更新成功');
+                }else{
+                    $result = array('code'=>0,'msg'=>'更新失败');
+                }
             }
         }else{
             $result = array('code'=>0,'msg'=>'异常提交');
@@ -79,21 +87,104 @@ class GoodsController extends AdminController {
         $this->ajaxReturn($result);
     }
 
-    public function __call($function,$args){
-        if($function === 'spec'){
+    //更新库存
+    private function updateSku(){
+        $goods_id = I('get.goods_id/d');
+        $_product_id = I('get._product_id');
+        $_store_nums = I('get._store_nums');
+        $goods = array(
+            'id' => $goods_id,
+            'store_nums' => array_sum($_store_nums),
+            'update_time' => time()
+        );
+        $result = $this->goodsModel->save($goods);
+        if($result){
+            foreach($_product_id as $key=>$product_id){
+                $product = array(
+                    'id' => $product_id,
+                    'store_nums' => $_store_nums[$key]
+                );
+
+                M('Products')->save($product);
+            }
+            $result = array('code'=>1,'msg'=>'更新成功');
+        }else{
+            $result = array('code'=>0,'msg'=>'更新失败');
+        }
+        return $result;
+    }
+
+    //更新价格
+    private function updatePrice(){
+        $goods_id = I('get.goods_id/d');
+        $_default = I('get._default/d');
+        $_product_id = I('get._product_id');
+        $_market_price = I('get._market_price');
+        $_sell_price = I('get._sell_price');
+        $_cost_price = I('get._cost_price');
+        $goods = array(
+            'id' => $goods_id,
+            'market_price' => $_market_price[$_default],
+            'sell_price' => $_sell_price[$_default],
+            'cost_price' => $_cost_price[$_default],
+            'update_time' => time()
+        );
+        $result = $this->goodsModel->save($goods);
+        if($result){
+            foreach($_product_id as $key=>$product_id){
+                $product = array(
+                    'id' => $product_id,
+                    'market_price' => $_market_price[$key],
+                    'sell_price' => $_sell_price[$key],
+                    'cost_price' => $_cost_price[$key],
+                );
+
+                M('Products')->save($product);
+            }
+            $result = array('code'=>1,'msg'=>'更新成功');
+        }else{
+            $result = array('code'=>0,'msg'=>'更新失败');
+        }
+        return $result;
+    }
+
+    public function del(){
+        $id = I('request.id/d');
+        $result = $this->goodsModel->delGoodsById($id);
+        if($result){
+            $result = array('code'=>1,'msg'=>'删除成功');
+        }else{
+            $result = array('code'=>0,'msg'=>'删除失败');
+        }
+        $this->ajaxReturn($result);
+    }
+
+    public function __call($function,$args)
+    {
+        if ($function === 'spec') {
             $tpl = I('request.tpl');
-            if($tpl == 'select'){
+            if ($tpl == 'select') {
                 $has_id = I('request.has_id');
                 $where = array();
-                if(!empty($has_id)){
-                    $where['id'] = array('not in',implode(',',$has_id));
+                if (!empty($has_id)) {
+                    $where['id'] = array('not in', implode(',', $has_id));
                 }
-                $specs = D('Spec')->get_specs('id,name',$where);
-                $this->assign('specs',$specs);
-            }elseif($tpl == 'edit'){
+                $specs = D('Spec')->get_specs('id,name', $where);
+                $this->assign('specs', $specs);
+            } elseif ($tpl == 'edit') {
                 $id = I('request.id/d');
                 $spec = D('Spec')->get_spec_by_id($id);
-                $this->assign('spec',$spec);
+                $this->assign('spec', $spec);
+            }
+            $this->display(CONTROLLER_NAME . DS . ucfirst($function) . DS . $tpl);
+        }elseif($function === 'product'){
+            $tpl = I('request.tpl');
+            if($tpl == 'price' || $tpl == 'sku' ){
+                $id = I('request.id/d');
+                $goods = $this->goodsModel->getGoodsById($id);
+                $this->assign('goods', $goods);
+                $products = $this->goodsModel->getProductsById($id);
+                $this->assign('products', $products);
             }
             $this->display(CONTROLLER_NAME . DS . ucfirst($function) . DS . $tpl);
         }else{

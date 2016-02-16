@@ -24,6 +24,11 @@ function SetFileField( fileUrl , data )
         window.fun(fileUrl);
     }
 }
+function create_category_panel(){
+    var panel = $('<div id="tree_panel" class="tree_panel"></div>');
+    panel.append('<ul id="tree_category" class="ztree ztree_entity"></ul>');
+    $('body').append(panel);
+}
 
 $.extend({
     prefix : 'ext_',
@@ -218,6 +223,10 @@ $.extend({
         if(pattern != ''){
             pattern = this.regex(pattern);
             if(pattern && !pattern.test(obj.value)){
+                if(!$(obj).parent().hasClass('has-error')){
+                    $(obj).parent().addClass('has-error');
+                }
+                obj.focus();
                 return false;
             }
         }

@@ -67,7 +67,7 @@
                                             <span class="red">*</span>：
                                         </label>
                                         <div class="col-lg-8">
-                                            <input name="name" class="form-control" type="text">
+                                            <input name="name" class="form-control input-sm" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
@@ -75,7 +75,7 @@
                                             <span class="red">*</span>：
                                         </label>
                                         <div class="col-lg-8">
-                                            <input name="p_name" id="p_name" class="form-control" type="text" readonly>
+                                            <input name="p_name" id="p_name" class="form-control input-sm" type="text" readonly>
                                             <input name="p_id" id="p_id" type="hidden"/>
                                         </div>
                                     </div>
@@ -84,13 +84,13 @@
                                             <span class="red">*</span>：
                                         </label>
                                         <div class="col-lg-8">
-                                            <input name="site" class="form-control" type="text">
+                                            <input name="site" class="form-control input-sm" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group has-feedback">
                                         <label class="col-lg-4 control-label">类型：</label>
                                         <div class="col-lg-8">
-                                            <select name="type" class="form-control">
+                                            <select name="type" class="form-control input-sm">
                                                 <option value="1">URL</option>
                                                 <option value="2">菜单</option>
                                             </select>
