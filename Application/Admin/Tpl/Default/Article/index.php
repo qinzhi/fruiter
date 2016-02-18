@@ -2,7 +2,7 @@
 <block name="content">
     <div class="row no-margin">
         <div class="col-lg-12 col-sm-12 col-xs-12 no-padding">
-            <div class="widget flat no-margin plugins_goods-">
+            <div class="widget flat no-margin plugins_article-">
                 <div class="widget-header widget-fruiter">
                     <form class="pull-left goods_list_top" method="get">
                         <input id="category" type="text" class="input-sm Lwidth200" placeholder="选择文章分类" readonly>
@@ -40,13 +40,13 @@
                                     <td class="padding-left-16">
                                         <div class="checkbox checkbox-inline no-margin no-padding">
                                             <label class="no-padding">
-                                                <input type="checkbox" class="goods_id" name="id[]" value="{$vo.id}" autocomplete="off">
+                                                <input type="checkbox" class="article_id" name="id[]" value="{$vo.id}" autocomplete="off">
                                                 <span class="text"></span>
                                             </label>
                                         </div>
                                     </td>
                                     <td class="input-edit" data-field="name" title="点击更新标题">{$vo.title}</td>
-                                    <td class="goods-category" title="点击设置分类" data-category_id="{$vo.category_id}">{$vo.category}</td>
+                                    <td class="article-category" title="点击设置分类" data-category_id="{$vo.category_id}">{$vo.category}</td>
                                     <td>{$vo.create_time|date='Y-m-d H:i:s',###}</td>
                                     <td class="input-edit" data-field="sort" title="点击更新商品排序">{$vo.sort}</td>
                                     <td>
@@ -83,7 +83,7 @@
 <block name="js">
     <script type="application/javascript">
         $(function () {
-            var _goods = {
+            var _article = {
                 update: function (params) {
                     $.fruiter.post('{:U("Article/update")}', params, function (data) {
                         if (data.code == 1) {
@@ -108,9 +108,9 @@
                         var val = $(this).data('value');
                         if (!!cur_val && cur_val != val) {
                             var params = {};
-                            params.id = $(this).closest('tr').find('.goods_id').val();
+                            params.id = $(this).closest('tr').find('.article_id').val();
                             params[field] = cur_val;
-                            _goods.update(params);
+                            _article.update(params);
                             obj.text(cur_val);
                         } else {
                             obj.text(val);
@@ -119,10 +119,10 @@
                 }
             });
             $('.btn-del').click(function(){
-                var goods_id = $(this).closest('tr').find('.goods_id').val();
+                var article_id = $(this).closest('tr').find('.article_id').val();
                 bootbox.confirm("确定要删除么?", function (result) {
                     if(result){
-                        $.post('{:U("Goods/del")}',{id:goods_id},function(result){
+                        $.post('{:U("Article/del")}',{id:article_id},function(result){
                             if(result.code == 1){
                                 window.location.reload();
                             }else{

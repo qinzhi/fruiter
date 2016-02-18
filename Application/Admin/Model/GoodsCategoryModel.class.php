@@ -15,7 +15,7 @@ class GoodsCategoryModel extends CommonModel{
 
     public function __construct(){
         parent::__construct();
-        $this->seoTable = 'goods_category_seo';
+        $this->seoTable = 'goods_category_to_seo';
     }
 
     public function move($id,$action){
@@ -64,28 +64,43 @@ class GoodsCategoryModel extends CommonModel{
         return $is_json?json_encode($tree):$tree;
     }
 
-    public function get_category_by_pid($pid,$sort = ''){
+    /**
+     * 通过父Id获取单个分类
+     * @param $pid
+     * @param string $sort
+     * @return mixed
+     */
+    public function getCategoryByPid($pid,$sort = ''){
         $sort = $sort ?: $this::$order;
-        return $this->where(array('pid'=>$pid))->order($sort)->find();
+        return $this->table($this->getTableName() . ' as t')
+                        ->join('left join ' . $this->tablePrefix . $this->seoTable . ' as t1 on t1.category_id=t.id')
+                            ->where(array('pid'=>$pid))
+                                ->order($sort)->find();
     }
 
-    public function get_categories_by_pid($pid){
+    /**
+     * 通过父Id获取子分类
+     * @param $pid
+     * @return mixed
+     */
+    public function getCategoriesByPid($pid){
         return $this->where(array('pid'=>$pid))->order($this::$order)->select();
     }
 
-    public function get_category_by_id($id){
-        return $this->where(array('id'=>$id))->find();
+    /**
+     * 获取所有分类
+     * @return mixed
+     */
+    public function getCategories(){
+        return $this->order($this::$order)->select();
     }
 
-    public function get_categories($is_detail = false){
-        if($is_detail === false){
-            return $this->order($this::$order)->select();
-        }else
-            return $this->table($this->getTableName())
-                            ->join(DB_PREFIX . $this->seoTable . ' as t1 on t1.category_id=' . $this->getTableName() . '.id')
-                                ->order($this::$order)->select();
-    }
-
+    /**
+     * 添加分类
+     * @param $category
+     * @param $seo
+     * @return bool|mixed
+     */
     public function addCategory($category,$seo){
         $insert_id = $this->add($category);
         if($insert_id === false){
@@ -97,7 +112,14 @@ class GoodsCategoryModel extends CommonModel{
         }
     }
 
-    public function updateCategory($category,$seo,$id){
+    /**
+     * 通过分类Id更新分类
+     * @param $category
+     * @param $seo
+     * @param $id
+     * @return bool
+     */
+    public function updateCategoryById($category,$seo,$id){
         $result = $this->where(array('id'=>$id))->save($category);
         if($result === false){
             return $result;
@@ -107,17 +129,24 @@ class GoodsCategoryModel extends CommonModel{
         }
     }
 
-    public function getCategory($id,$is_detail = true){
-        if($is_detail === false){
-            return $this->find($id);
-        }else
-            return $this->table($this->getTableName())
-                            ->join(DB_PREFIX . $this->seoTable . ' as t1 on t1.category_id=' . $this->getTableName() . '.id')
-                                ->where(array($this->getTableName() . '.id'=>$id))
-                                    ->order($this::$order)->find();
+    /**
+     * 通过分类Id获取分类
+     * @param $id
+     * @return mixed
+     */
+    public function getCategoryById($id){
+        return $this->table($this->getTableName() . ' as t')
+                        ->join('left join ' . $this->tablePrefix . $this->seoTable . ' as t1 on t1.category_id=t.id')
+                            ->where(array('t.id'=>$id))
+                                ->order($this::$order)->find();
     }
 
-    public function delCategory($id){
-        return $this->execute('delete t1.*,t2.* from ' . $this->getTableName() . ' t1,' . DB_PREFIX . $this->seoTable . ' t2 where t1.id=' . $id);
+    /**
+     * 通过分类Id删除分类
+     * @param $id
+     * @return bool
+     */
+    public function delCategoryById($id){
+        return $this->where('id=',$id)->save(array('is_del'=>1));
     }
 }

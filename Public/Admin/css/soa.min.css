@@ -14,10 +14,10 @@
 .widget-fruiter .btn{min-width: 60px;}
 .widget-fruiter .goods_list_top > *{float: left;margin-right: 5px;}
 .widget-fruiter .division{padding: 5px;}
-.plugins_goods- .goods-status{margin-bottom: 0;height: 20px;}
-.plugins_goods- .goods-status span.text{margin-left: 0;}
-.plugins_goods- .goods-status input.checkbox-slider[type="checkbox"] + .text:before{content: "上架　　下架";width: 56px;}
-.plugins_goods- .goods-status input.checkbox-slider[type="checkbox"]:checked + .text:after{left: 39px;}
+.list-status{margin-bottom: 0;height: 20px;}
+.list-status span.text{margin-left: 0;}
+.plugins_goods- .list-status input.checkbox-slider[type="checkbox"] + .text:before{content: "上架　　下架";width: 56px;}
+.list-status input.checkbox-slider[type="checkbox"]:checked + .text:after{left: 39px;}
 .plugins_goods- .goods-price{color: #d73d32;}
 .plugins_goods- .goods-sku{color: #444;}
 .Lwidth50{width: 50px}

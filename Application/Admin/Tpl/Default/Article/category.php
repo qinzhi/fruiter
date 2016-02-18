@@ -77,6 +77,27 @@
                                             <input name="p_id" id="p_id" type="hidden"/>
                                         </div>
                                     </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="col-lg-4 control-label">SEO标题：</label>
+                                        <div class="col-lg-8">
+                                            <input name="title" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="col-lg-4 control-label">SEO关键词：</label>
+                                        <div class="col-lg-8">
+                                            <input name="keywords" class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group has-feedback">
+                                        <label class="col-lg-4 control-label">SEO描述：</label>
+                                        <div class="col-lg-8">
+                                            <span class="input-icon icon-right">
+                                                <textarea name="descript" class="form-control"></textarea>
+                                                <i class="fa  fa-rocket darkorange"></i>
+                                            </span>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -269,6 +290,9 @@
                         category_id = data.id;
                         form.name.value = data.name;
                         form.p_id.value = data.pid;
+                        form.title.value = data.title;
+                        form.keywords.value = data.keywords;
+                        form.descript.value = data.descript;
                         var nodes = zTree.getNodes();
                         for(var i in nodes){
                             if(data.pid == 0 || nodes[i].id == data.pid){

@@ -14,7 +14,7 @@ class ArticleCategoryController extends AdminController {
     }
 
     public function index(){
-        $categories = $this->category->get_categories();fb($categories);
+        $categories = $this->category->getCategories();
         $tree = new Tree($categories);
         $articleCategories = $tree->leaf();
         $this->assign('articleCategories',$articleCategories);
@@ -24,7 +24,7 @@ class ArticleCategoryController extends AdminController {
 
     public function getCategory(){
         $id = I('request.id/d');
-        $category = $this->category->getCategory($id);
+        $category = $this->category->getCategoryById($id);
         if(IS_AJAX){
             $this->ajaxReturn($category);
         }else{
@@ -33,7 +33,7 @@ class ArticleCategoryController extends AdminController {
     }
 
     public function getCategoriesTree(){
-        $categories = $this->category->get_categories();
+        $categories = $this->category->getCategories();
         $tree = new Tree($categories);
         $categories = $tree->leaf();
         $tree = $this->category->format_tree($categories,true,false);
@@ -47,10 +47,10 @@ class ArticleCategoryController extends AdminController {
     public function add(){
         if(IS_POST){
             $pid = I('request.p_id/d',0);
-            $pcategory = $this->category->get_category_by_pid($pid);
+            $pcategory = $this->category->getCategoryByPid($pid);
             if($pid == 0) $level = 0;
             else{
-                $category = $this->category->get_category_by_id($pid);
+                $category = $this->category->getCategoryById($pid);
                 $level = $category['level'] + 1;
             }
             $sort = !empty($pcategory) ? ($pcategory['sort'] + 1) : 0;
@@ -60,7 +60,12 @@ class ArticleCategoryController extends AdminController {
                 'name' => trim(I('request.name')),
                 'sort' => $sort,
             );
-            $result = $this->category->addCategory($data);
+            $seo = array(
+                'title' => trim(I('request.title')),
+                'keywords' => trim(I('request.keywords')),
+                'descript' => trim(I('request.descript')),
+            );
+            $result = $this->category->addCategory($data,$seo);
             if($result === false){
                 $this->error('分类添加失败',U('ArticleCategory/index'));
                 return;
@@ -73,7 +78,7 @@ class ArticleCategoryController extends AdminController {
         if(IS_AJAX){
             parse_str(urldecode(I('request.params')),$params);
             $pid = $params['p_id'];
-            $category = $this->category->get_category_by_id($pid);
+            $category = $this->category->getCategoryByPid($pid);
             if($pid == 0) $level = 0;
             else $level = $category['level'] + 1;
             $id = $params['id'];
@@ -82,7 +87,12 @@ class ArticleCategoryController extends AdminController {
                 'level' => $level,
                 'name' => trim($params['name']),
             );
-            $result = $this->category->updateCategory($data,$id);
+            $seo = array(
+                'title' => trim($params['title']),
+                'keywords' => trim($params['keywords']),
+                'descript' => trim($params['descript']),
+            );
+            $result = $this->category->updateCategoryById($data,$seo,$id);
             if($result){
                 $result = array('code'=>1,'msg'=>'保存成功');
             }else{
@@ -98,11 +108,11 @@ class ArticleCategoryController extends AdminController {
     public function del(){
         if(IS_AJAX){
             $id = I('request.id/d');
-            $category = $this->category->get_category_by_pid($id);
+            $category = $this->category->getCategoryByPid($id);
             if(!empty($category)){
                 $result = array('code'=>0,'msg'=>'不能直接删除上级模块');
             }else{
-                if($this->category->delCategory($id)){
+                if($this->category->delCategoryById($id)){
                     $result = array('code'=>1,'msg'=>'删除成功');
                 }else{
                     $result = array('code'=>0,'msg'=>'删除失败');

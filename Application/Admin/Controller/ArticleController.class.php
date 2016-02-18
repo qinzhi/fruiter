@@ -34,7 +34,7 @@ class ArticleController extends AdminController {
             $this->articleModel->editArticleById(I('post.','',''),$id);
             $this->redirect('Article/index');
         }else{
-            $article = $this->articleModel->getArticleById($id);fb($article);
+            $article = $this->articleModel->getArticleById($id);
             $this->assign('article',$article);
             $this->display();
         }

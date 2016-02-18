@@ -5,22 +5,17 @@
             <div class="widget flat no-margin">
                 <div class="widget-header widget-fruiter">
                     <div class="pull-right">
-                        <a class="btn btn-success" id="article_save" href="javascript:void(0);">确定添加</a>
+                        <a class="btn btn-success" id="position_save" href="javascript:void(0);">确定添加</a>
                     </div>
                 </div><!--Widget Header-->
                 <div class="widget-body plugins_goods-">
                     <div class="row">
                         <div class="col-lg-12 col-sm-12 col-xs-12">
-                            <form class="tabbable" id="articleForm" method="post" autocomplete="off">
+                            <form class="tabbable" id="positionForm" method="post" autocomplete="off">
                                 <ul class="nav nav-tabs tabs-flat">
                                     <li class="active">
                                         <a href="#tab-basic" data-toggle="tab">
-                                            文章信息
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#tab-detail" data-toggle="tab">
-                                            文章详情
+                                            基本信息
                                         </a>
                                     </li>
                                 </ul>
@@ -32,28 +27,66 @@
                                             </colgroup>
                                             <tbody>
                                                 <tr>
-                                                    <th>文章标题：</th>
+                                                    <th>广告位名称：</th>
                                                     <td>
                                                         <div class="form-group has-feedback no-margin">
-                                                            <input id="title" name="title" class="input-sm Lwidth400" type="text" pattern="required" maxlength="50">
+                                                            <input id="name" name="name" class="input-sm Lwidth400" type="text" pattern="required" maxlength="50">
                                                             <span class="note control-label margin-left-10">*</span>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>文章副标题：</th>
+                                                    <th>广告位简述：</th>
                                                     <td>
                                                         <div class="form-group has-feedback no-margin">
-                                                            <input id="subtitle" name="subtitle" class="input-sm Lwidth400" type="text" maxlength="50">
+                                                            <input id="intro" name="intro" class="input-sm Lwidth400" type="text" maxlength="120">
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <th>所属分类：</th>
+                                                    <th>开启状态：</th>
+                                                    <td>
+                                                        <span class="control-group">
+                                                            <div class="radio line-radio">
+                                                                <label class="no-padding">
+                                                                    <input name="status" type="radio" checked="checked" value="1">
+                                                                    <span class="text">开启</span>
+                                                                </label>
+                                                            </div>
+                                                            <div class="radio line-radio">
+                                                                <label>
+                                                                    <input name="status" type="radio" value="0">
+                                                                    <span class="text">关闭</span>
+                                                                </label>
+                                                            </div>
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>广告位宽度：</th>
                                                     <td>
                                                         <div class="form-group has-feedback no-margin">
-                                                            <input id="category" class="input-sm Lwidth400" type="text">
-                                                            <input id="category_id" name="category_id" class="hidden" type="text">
+                                                            <div class="form-group has-feedback no-margin">
+                                                                <div class="form-group no-margin">
+                                                                    <div class="input-group input-sm Lwidth400 no-padding">
+                                                                        <input class="form-control" id="width" name="width" value="0" pattern="required" type="text" maxlength="5">
+                                                                        <span class="input-group-addon">px</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>广告位高度：</th>
+                                                    <td>
+                                                        <div class="form-group has-feedback no-margin">
+                                                            <div class="form-group no-margin">
+                                                                <div class="input-group input-sm Lwidth400 no-padding">
+                                                                    <input class="form-control" id="height" name="height" value="0" pattern="required" type="text" maxlength="5">
+                                                                    <span class="input-group-addon">px</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -75,33 +108,6 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <th>SEO关键词：</th>
-                                                    <td><input id="keywords" name="keywords" class="input-sm Lwidth400" type="text"></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>SEO描述：</th>
-                                                    <td>
-                                                        <span class="input-icon icon-right Lwidth400">
-                                                            <textarea name="description" class="form-control"></textarea>
-                                                            <i class="fa fa-rocket darkorange"></i>
-                                                        </span>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane" id="tab-detail">
-                                        <table class="table-form" width="100%">
-                                            <colgroup>
-                                                <col width="150px">
-                                                <col>
-                                            </colgroup>
-                                            <tbody>
-                                                <tr>
-                                                    <th>文章详情：</th>
-                                                    <td class="no-padding-top no-padding-bottom"><?php create_editor('detail');?></td>
-                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -115,83 +121,11 @@
     </div>
 </block>
 <block name="js">
-    <script src="__JS__/jquery.ztree.all-3.5.min.js"></script>
     <script>
-        //商品分类操作事件
-        var setting = {
-            check: {
-                enable: true,
-                chkStyle: "radio",
-                radioType : 'all'
-            },
-            view: {
-                dblClickExpand: false
-            },
-            data: {
-                simpleData: {
-                    enable: true
-                }
-            },
-            callback: {
-                beforeClick: beforeClick,
-                onCheck: onCheck
-            }
-        };
-
-        var zTree = null;
-
-        function beforeClick(treeId, treeNode) {
-            zTree.checkNode(treeNode, !treeNode.checked, null, true);
-            return false;
-        }
-
-        function onCheck(e, treeId, treeNode) {
-            var nodes = zTree.getCheckedNodes(true),
-                name = [],id=[];
-            for (var i in nodes) {
-                name.push(nodes[i].name);
-                id.push(nodes[i].id);
-            }
-
-            if (name.length > 0 ) name = name.join();
-            if (id.length > 0 ) id = id.join();
-
-            $("#category").attr("value", name);
-            $("#category_id").attr("value", id);
-
-        }
-        $('#category').click(function(){
-            $("#tree_panel").css({
-                left:$(this).offset().left + "px",
-                top:$(this).offset().top + $(this).outerHeight()/* - $('.navbar-inner').height() */+ "px",
-                width: $(this).outerWidth() + "px"
-            }).slideDown("fast");
-
-            $("body").bind("mousedown", onBodyDown);
-        }) ;
-
-        function hideMenu() {
-            $("#tree_panel").slideUp("fast");
-            $("body").unbind("mousedown", onBodyDown);
-        }
-
-        function onBodyDown(event) {
-            if (!(event.target.id == "category" || event.target.id == "tree_panel" || $(event.target).parents("#tree_panel").length>0)) {
-                hideMenu();
-            }
-        }
-
         $(document).ready(function(){
 
-            create_category_panel();
-
-            $.post('{:U("ArticleCategory/getCategoriesTree")}',function(tree){
-                var zNodes = JSON.parse(tree);
-                zTree = $.fn.zTree.init($("#tree_category"), setting, zNodes);
-            });
-
-            $('#article_save').click(function(){
-                var form = document.getElementById('articleForm');
+            $('#position_save').click(function(){
+                var form = document.getElementById('positionForm');
                 if($.validateOnSubmit(form) == true){
                     form.submit();
                 }
@@ -219,12 +153,7 @@
                 if(val > 0){
                     input.value = val - 1;
                 }
-
-
             });
         });
     </script>
-</block>
-<block name="css">
-    <link href="__CSS__/metroStyle/metroStyle.css" rel="stylesheet" >
 </block>

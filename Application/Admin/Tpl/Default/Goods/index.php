@@ -73,7 +73,7 @@
                                     <td><a href="javascript:;" class="goods-price" title="点击更新价格">{$vo.sell_price}</a></td>
                                     <td><a href="javascript:;" class="goods-sku" title="点击更新库存">{$vo.store_nums}</a></td>
                                     <td>
-                                        <label class="goods-status">
+                                        <label class="list-status goods-status">
                                             <input class="checkbox-slider toggle colored-success" type="checkbox" autocomplete="off" {$vo['status']?'checked':''}>
                                             <span class="text" title="设置商品上下架"></span>
                                         </label>
