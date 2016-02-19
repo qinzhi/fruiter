@@ -25,14 +25,15 @@
                     show_err_msg('验证码还没填呢！');
                     $('#captcha').focus();
                 }else{
-					//ajax提交表单，#login_form为表单的ID。 如：$('#login_form').ajaxSubmit(function(data) { ... });
-                    var params = $(this).parents('form').serialize();
-                    console.log(params);
-                    show_msg('登录成功咯！','');
-                    $.get(location.href + '?' + params,function(result){
-                        console.log(result);
+                    var params = $(this).closest('form').serialize();
+                    $.post(location.href,params,function(result){
+                        if(result.code == 1){
+                            show_msg('登录成功咯！  正在为您跳转...','/');
+                        }else{
+                            $('#verify').attr('src','/captcha?rand=' + Math.random());
+                            show_err_msg(result.msg);
+                        }
                     });
-					//show_msg('登录成功咯！  正在为您跳转...','/');
 				}
 			});
 		});

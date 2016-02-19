@@ -10,10 +10,29 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-02-18 18:03:46
+Date: 2016-02-19 18:07:40
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `fruiter_admin`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_admin`;
+CREATE TABLE `fruiter_admin` (
+  `id` mediumint(8) NOT NULL AUTO_INCREMENT,
+  `account` varchar(20) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `last_login_time` int(10) NOT NULL,
+  `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `account` (`account`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='管理员';
+
+-- ----------------------------
+-- Records of fruiter_admin
+-- ----------------------------
+INSERT INTO `fruiter_admin` VALUES ('1', 'admin', 'a3ab9193e5b81674b87d6b2431f3c75d', '0', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `fruiter_article`
@@ -174,6 +193,31 @@ INSERT INTO `fruiter_auth_role` VALUES ('15', '11', 'Admin', '1', '编辑文章'
 INSERT INTO `fruiter_auth_role` VALUES ('16', '0', 'Admin', '2', '广告管理', 'Banner', '2', '0');
 INSERT INTO `fruiter_auth_role` VALUES ('17', '16', 'Admin', '2', '广告位列表', 'Banner/position', '0', '1');
 INSERT INTO `fruiter_auth_role` VALUES ('18', '16', 'Admin', '2', '广告列表', 'Banner/index', '1', '1');
+
+-- ----------------------------
+-- Table structure for `fruiter_banner`
+-- ----------------------------
+DROP TABLE IF EXISTS `fruiter_banner`;
+CREATE TABLE `fruiter_banner` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `position_id` int(10) NOT NULL COMMENT '广告位ID',
+  `name` varchar(50) NOT NULL COMMENT '广告名称',
+  `intro` varchar(120) DEFAULT NULL COMMENT '广告简述',
+  `image` varchar(255) NOT NULL COMMENT '广告图片',
+  `link` varchar(255) DEFAULT NULL COMMENT '链接地址',
+  `start_time` date DEFAULT NULL COMMENT '开始时间',
+  `end_time` date DEFAULT NULL COMMENT '结束时间',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '开启状态 1.开启 0.关闭',
+  `sort` mediumint(5) NOT NULL DEFAULT '0' COMMENT '排序',
+  `create_time` int(10) NOT NULL COMMENT '添加时间',
+  `is_del` tinyint(1) NOT NULL DEFAULT '0' COMMENT '删除 0正常 1已删除',
+  PRIMARY KEY (`id`),
+  KEY `position_id` (`position_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告';
+
+-- ----------------------------
+-- Records of fruiter_banner
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for `fruiter_banner_position`
@@ -435,38 +479,13 @@ CREATE TABLE `fruiter_session` (
   `session_expire` int(11) DEFAULT NULL,
   `session_data` mediumblob,
   PRIMARY KEY (`id`,`session_id`),
-  KEY `session_id` (`session_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2230 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `session_id` (`session_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of fruiter_session
 -- ----------------------------
-INSERT INTO `fruiter_session` VALUES ('2220', 'oe86031ntja7vs653lq4ps7gc0', '1455790694', '');
-INSERT INTO `fruiter_session` VALUES ('2219', 'oe86031ntja7vs653lq4ps7gc0', '1455790595', '');
-INSERT INTO `fruiter_session` VALUES ('2213', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790463', '');
-INSERT INTO `fruiter_session` VALUES ('2212', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790354', '');
-INSERT INTO `fruiter_session` VALUES ('2211', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790332', '');
-INSERT INTO `fruiter_session` VALUES ('2229', 'oe86031ntja7vs653lq4ps7gc0', '1455791195', '');
-INSERT INTO `fruiter_session` VALUES ('2226', 'oe86031ntja7vs653lq4ps7gc0', '1455791061', '');
-INSERT INTO `fruiter_session` VALUES ('2216', 'oe86031ntja7vs653lq4ps7gc0', '1455790535', '');
-INSERT INTO `fruiter_session` VALUES ('2218', 'oe86031ntja7vs653lq4ps7gc0', '1455790562', '');
-INSERT INTO `fruiter_session` VALUES ('2215', 'oe86031ntja7vs653lq4ps7gc0', '1455790506', '');
-INSERT INTO `fruiter_session` VALUES ('2225', 'oe86031ntja7vs653lq4ps7gc0', '1455791013', '');
-INSERT INTO `fruiter_session` VALUES ('2222', 'oe86031ntja7vs653lq4ps7gc0', '1455790789', '');
-INSERT INTO `fruiter_session` VALUES ('2214', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790493', '');
-INSERT INTO `fruiter_session` VALUES ('2227', 'oe86031ntja7vs653lq4ps7gc0', '1455791105', '');
-INSERT INTO `fruiter_session` VALUES ('2228', 'oe86031ntja7vs653lq4ps7gc0', '1455791141', '');
-INSERT INTO `fruiter_session` VALUES ('2204', 'hjsto9h5kmgaan6ao3b5kouo61', '1455789908', '');
-INSERT INTO `fruiter_session` VALUES ('2205', 'hjsto9h5kmgaan6ao3b5kouo61', '1455789999', '');
-INSERT INTO `fruiter_session` VALUES ('2206', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790096', '');
-INSERT INTO `fruiter_session` VALUES ('2207', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790255', '');
-INSERT INTO `fruiter_session` VALUES ('2208', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790272', '');
-INSERT INTO `fruiter_session` VALUES ('2209', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790287', '');
-INSERT INTO `fruiter_session` VALUES ('2210', 'hjsto9h5kmgaan6ao3b5kouo61', '1455790319', '');
-INSERT INTO `fruiter_session` VALUES ('2224', 'oe86031ntja7vs653lq4ps7gc0', '1455790871', '');
-INSERT INTO `fruiter_session` VALUES ('2223', 'oe86031ntja7vs653lq4ps7gc0', '1455790854', '');
-INSERT INTO `fruiter_session` VALUES ('2221', 'oe86031ntja7vs653lq4ps7gc0', '1455790719', '');
-INSERT INTO `fruiter_session` VALUES ('2217', 'oe86031ntja7vs653lq4ps7gc0', '1455790551', '');
+INSERT INTO `fruiter_session` VALUES ('18', '5stm8a5gkmdnhbfcpg68u0k6j3', '1455877720', '');
 
 -- ----------------------------
 -- Table structure for `fruiter_spec`

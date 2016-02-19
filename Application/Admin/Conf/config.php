@@ -32,7 +32,8 @@ return array(
 
     ),
     'URL_MAP_RULES'=>array(
-        'login' => 'public/login',
-        'captcha' => 'public/captcha',
+        'login' => 'Public/login',
+        'captcha' => 'Public/captcha',
+        'logout' => 'Public/logout'
     )
 );

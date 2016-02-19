@@ -289,7 +289,7 @@
                                 </li>
                                 <!--/Theme Selector Area-->
                                 <li class="dropdown-footer">
-                                    <a href="login.html">
+                                    <a href="{:U('/logout')}">
                                         退出
                                     </a>
                                 </li>

@@ -3,6 +3,8 @@ namespace Admin\Widget;
 use Think\Controller;
 class PageWidget extends Controller {
 
+    protected $config = array('app_type' => 'public');
+
     public function headerTitle($name) {
         $this -> assign('name', $name);
         $this -> display('Widget:Page/headerTitle');

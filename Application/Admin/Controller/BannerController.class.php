@@ -11,6 +11,7 @@ class BannerController extends AdminController {
     }
 
     public function add(){
+
         $this->display();
     }
 

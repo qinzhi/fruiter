@@ -77,7 +77,7 @@ class Crypt
     {
         $op=strtolower($op);
         $key_length=10;
-        $key=md5($key?$key:"jooyea");
+        $key=md5($key?$key:C('DATA_AUTH_KEY'));
         //生成256长度的密码
         $key_1=md5(substr($key,0,4));
         $key_2=md5(substr($key,4,4));
