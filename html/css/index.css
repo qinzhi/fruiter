@@ -31,7 +31,9 @@
     border-bottom: .1rem solid #e7e7e7;
 }
 .product-content .product-list-item a{
+    display: -webkit-box;
     display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
 }
 .product-content .product-list-item:last-child{
@@ -59,7 +61,6 @@
     font-size: 1.2rem;
 }
 .product-content .product-info .product-cost{
-    width: 40%;
     float: right;
 }
 .product-content .product-info .product-cost > div{

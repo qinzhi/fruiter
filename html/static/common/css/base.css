@@ -327,7 +327,9 @@ article,aside,details,dialog,figcaption,figure,footer,header,hgroup,nav,section,
     right: 0;
 }
 .footer .flex_card{
+    display: -webkit-box;
     display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
 }
 .footer .flex_card li{
