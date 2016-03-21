@@ -114,7 +114,7 @@
 .product-purchasing.hidden{
     animation:upDown 200ms;
     -webkit-animation:upDown 200ms;
-    display: block;
+    display: none;
 }
 @keyframes downUp
 {

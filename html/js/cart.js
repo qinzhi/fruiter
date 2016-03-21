@@ -17,7 +17,7 @@ $(function(){
         //purchasing.css('display','block');
         purchasing.removeClass('active').addClass('hidden');
         setInterval(function(){
-            purchasing.css('display','none');
+            //purchasing.css('display','none');
         },200);
     });
 });
