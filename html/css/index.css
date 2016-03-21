@@ -155,6 +155,9 @@
 }
 .product-panel .product-view{
     background-color: #ffffff;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
     display: flex;
 }
 .product-panel .product-img{
@@ -164,7 +167,9 @@
     width: 100%;
 }
 .product-panel .product-info{
+    -webkit-box-flex: 1;
     -webkit-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     padding: 1rem;
 }
