@@ -44,6 +44,10 @@
   -o-transition-property: -o-transform;
   -ms-transition-property: -ms-transform;
   transition-property: transform;
+  -webkit-transform-style:preserve-3d;
+  -moz-transform-style:preserve-3d;
+  -ms-transform-style:preserve-3d;
+  transform-style:preserve-3d;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
