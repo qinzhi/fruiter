@@ -101,7 +101,7 @@
     position: fixed;
     left: 0;
     bottom: 0;
-    height: 50rem;
+    top: 15rem;
     width: 100%;
     z-index: 100;
     background-color: #000;
