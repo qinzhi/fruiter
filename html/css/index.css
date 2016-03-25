@@ -50,6 +50,7 @@
     flex: 1;
     text-align: right;
     padding-right: .5rem;
+	width: 100%;
 }
 .product-content .product-info h3{
     font-size: 1.6rem;
