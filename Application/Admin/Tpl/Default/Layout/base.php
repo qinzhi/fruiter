@@ -34,7 +34,7 @@ Purchase: http://wrapbootstrap.com
 
     <block name="css"></block>
 
-    <link id="skin-link" href="" rel="stylesheet" type="text/css" />
+    <link id="skin-link" href="__CSS__/skins/green.min.css" rel="stylesheet" type="text/css" />
     <script src="__STATIC__/js/jquery.min.js"></script>
     <script src="__STATIC__/js/template.js"></script>
     <!--Skin Script: Place this script in head to load scripts for skins and rtl support-->

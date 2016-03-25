@@ -26,6 +26,8 @@ class AuthCheckBehavior extends Behavior {
                 if(!empty($admin) && $_password == $admin['password']){
                     session('_admin_id',$admin['id']);
                 }
+            }else{
+                header('Location: /login');
             }
         }
     }

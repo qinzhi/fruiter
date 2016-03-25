@@ -267,11 +267,11 @@
                                 </li>
                                 <!--Avatar Area-->
                                 <li class="edit">
-                                    <a href="profile.html" class="pull-left">个人中心</a>
-                                    <a href="#" class="pull-right">设置</a>
+                                    <a href="#" class="pull-left" style="padding: 8px 2px;">个人中心</a>
+                                    <a href="#" class="pull-right" style="padding: 8px 2px;">设置</a>
                                 </li>
                                 <!--Theme Selector Area-->
-                                <li class="theme-area">
+                                <!--<li class="theme-area">
                                     <ul class="colorpicker" id="skin-changer">
                                         <li><a class="colorpick-btn" href="#" style="background-color:#5DB2FF;" rel="__CSS__/skins/blue.min.css"></a></li>
                                         <li><a class="colorpick-btn" href="#" style="background-color:#2dc3e8;" rel="__CSS__/skins/azure.min.css"></a></li>
@@ -286,7 +286,7 @@
                                         <li><a class="colorpick-btn" href="#" style="background-color:#474544;" rel="__CSS__/skins/black.min.css"></a></li>
                                         <li><a class="colorpick-btn" href="#" style="background-color:#001940;" rel="__CSS__/skins/deepblue.min.css"></a></li>
                                     </ul>
-                                </li>
+                                </li>-->
                                 <!--/Theme Selector Area-->
                                 <li class="dropdown-footer">
                                     <a href="{:U('/logout')}">
