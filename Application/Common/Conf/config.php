@@ -22,7 +22,8 @@ return array(
     'APP_SUB_DOMAIN_DEPLOY'   =>    1,   // 开启子域名配置
     'APP_SUB_DOMAIN_RULES'    =>    array(
         'admin.fruiter.com'  => 'Admin',      // admin.soa.com域名指向Admin模块
-        'www.soa.com'  => 'Home',      // www.domain1.com域名指向Home模块
+        'www.fruiter.com'  => 'Home',      // www.domain1.com域名指向Home模块
+        'm.fruiter.com'  => 'Weixin',      // www.domain1.com域名指向Home模块
     ),
 
     /*'VAR_PAGE'	=>'p',

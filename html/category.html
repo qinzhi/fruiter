@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+
+<title>果来商城</title>
+<link href="./static/common/css/base.css?v=1.0" rel="stylesheet" type="text/css">
+<meta name="description" content="水果">
+<meta name="keywords" content="水果">
+<link href="./css/category.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="./static/swiper/css/swiper.min.css?v=1.0" rel="stylesheet" type="text/css">
+<script src="./static/common/js/zepto.min.js?v=1.0"></script>
+</head>
+<body>
+<header class="header clearfix">
+    <div class="row-category flex">
+        <div class="menu"><i class="icon icon-fenlei"></i></div>
+        <div class="search flex-1 padding-right-10"><input class="searchInput" id="filtrate" placeholder="检索分类名称" autocomplete="off"/></div>
+        <!--<div class="action"><i class="icon icon-fangdajing"></i></div>-->
+    </div>
+</header>
+<section class="category-area">
+    <ul class="category-box"></ul>
+</section>
+<script id="categoryTpl" type="text/html">
+    {{each data as value}}
+    <li class="box box-1">
+        <a class="category-list" href="javascript:;">
+            <div class="category-img"><img src="{{value.img}}"/></div>
+            <p class="category-name">{{value.name}}</p>
+        </a>
+    </li>
+    {{/each}}
+</script>
+<script>
+    $(function(){
+        var data = [
+            {id:1,img:'./images/pitaya.png','name':'火龙果'},
+            {id:2,img:'./images/apple.png','name':'苹果'},
+            {id:3,img:'./images/inmato.png','name':'小番茄'},
+            {id:4,img:'./images/reddates.png','name':'红枣'}
+        ];
+        var category_box = $('ul.category-box');
+        if(data.length > 0){
+            render(data);
+        }
+        function render(data){
+            var tpl = template('categoryTpl',{data:data});
+            category_box.html(tpl);
+        }
+        $('#filtrate').bind('keyup',function(){
+            var val = $(this).val().trim();
+            if(val.length > 0){
+                var tmpData = [];
+                $.each(data,function(){
+                    if(this.name.indexOf(val) !== -1){
+                        tmpData.push(this);
+                    }
+                });
+                render(tmpData);
+            }else{
+                render(data);
+            }
+        });
+    });
+</script>
+<footer class="footer clearfix">
+    <ul class="flex_card">
+        <li class="flex-1">
+            <a href="./index.html">
+                <i class="icon icon-zhuye"></i>
+                <p class="text-center">首页</p>
+            </a>
+        </li>
+        <li class="flex-1 active">
+            <a href="./category.html">
+                <i class="icon icon-suoyou"></i>
+                <p class="text-center">分类</p>
+            </a>
+        </li>
+        <li class="flex-1">
+            <a href="javascript:;">
+                <i class="icon icon-gouwuche"></i>
+                <p class="text-center">货单</p>
+            </a>
+        </li>
+        <li class="flex-1">
+            <a href="javascript:;">
+                <i class="icon icon-quanyonghu"></i>
+                <p class="text-center">我的</p>
+            </a>
+        </li>
+    </ul>
+</footer>
+<script src="./static/common/js/template.js"></script>
+<script src="./static/swiper/js/swiper.min.js?v=1.0"></script>
+</body>
+</html>
