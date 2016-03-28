@@ -36,11 +36,13 @@
     margin-top: 1.6rem;
 }
 .me-center .center_inner{
-    padding: 0 2rem;
     height: 4.5rem;
     line-height: 4.5rem;
     background-color: #fff;
     border-bottom: 2px solid #f9f9f9;
+}
+.me-center .center_inner a{
+    padding: 0 2rem;
 }
 .me-center .center_inner.first,.me-center .center_inner.last{
     border-bottom: none;
@@ -50,9 +52,6 @@
 }
 .center_inner .inner-icon{
     color: #b2b2b2;
-}
-.center_inner .inner-icon .icon:before{
-    float: right;
 }
 .center_inner .order-tip{
     font-size: 1.2rem;

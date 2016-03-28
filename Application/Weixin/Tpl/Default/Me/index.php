@@ -37,9 +37,9 @@
     </section>
     <section class="me-center">
         <div class="center_inner me-order first">
-            <a href="javascript:;">
-                <div class="pull-left inner-name">全部订单</div>
-                <div class="pull-right inner-icon">
+            <a href="javascript:;" class="flex">
+                <div class="inner-name">全部订单</div>
+                <div class="text-right inner-icon flex-1">
                     <span class="order-tip">查看全部订单</span>
                     <i class="icon icon-right"></i>
                 </div>
@@ -67,33 +67,33 @@
             </div>
         </div>
         <div class="center_inner me-order">
-            <a href="javascript:;">
-                <div class="pull-left inner-name">个人资料</div>
-                <div class="pull-right inner-icon">
+            <a href="javascript:;" class="flex">
+                <div class="inner-name">个人资料</div>
+                <div class="text-right inner-icon flex-1">
                     <i class="icon icon-right"></i>
                 </div>
             </a>
         </div>
         <div class="center_inner me-order">
-            <a href="javascript:;">
-                <div class="pull-left inner-name">我的收藏</div>
-                <div class="pull-right inner-icon">
+            <a href="javascript:;" class="flex">
+                <div class="inner-name">我的收藏</div>
+                <div class="text-right inner-icon flex-1">
                     <i class="icon icon-right"></i>
                 </div>
             </a>
         </div>
         <div class="center_inner me-order">
-            <a href="javascript:;">
-                <div class="pull-left inner-name">使用帮助</div>
-                <div class="pull-right inner-icon">
+            <a href="javascript:;" class="flex">
+                <div class="inner-name">使用帮助</div>
+                <div class="text-right inner-icon flex-1">
                     <i class="icon icon-right"></i>
                 </div>
             </a>
         </div>
         <div class="center_inner me-order last">
-            <a href="javascript:;">
-                <div class="pull-left inner-name">意见反馈</div>
-                <div class="pull-right inner-icon">
+            <a href="javascript:;" class="flex">
+                <div class="inner-name">意见反馈</div>
+                <div class="text-right inner-icon flex-1">
                     <i class="icon icon-right"></i>
                 </div>
             </a>
